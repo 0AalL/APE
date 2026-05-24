@@ -1,0 +1,164 @@
+### VARIABLES
+
+@url = http://localhost:3000/api
+
+### =====================================================
+### REGISTER
+### =====================================================
+
+POST {{url}}/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "Christian",
+  "email": "christian@gmail.com",
+  "password": "123456",
+  "rol": "admin"
+}
+
+###
+
+### =====================================================
+### LOGIN
+### =====================================================
+
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "christian@gmail.com",
+  "password": "123456"
+}
+
+###
+
+### =====================================================
+### INVESTIGADORES
+### =====================================================
+
+### Obtener investigadores
+
+GET {{url}}/investigadores
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3Nzk2NTEyNzcsImV4cCI6MTc3OTczNzY3N30.NXnJZLL1tLyr16Q_Vd_eR6UaYK2FBxEh9KxlIBkMZag
+
+###
+
+### Crear investigador
+
+POST {{url}}/investigadores
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "nombre": "Juan Pérez",
+  "especialidad": "Inteligencia Artificial",
+  "email": "juan@gmail.com"
+}
+
+###
+
+### =====================================================
+### PROYECTOS
+### =====================================================
+
+### Obtener proyectos
+
+GET {{url}}/proyectos
+Authorization: Bearer TU_TOKEN
+
+###
+
+### Crear proyecto
+
+POST {{url}}/proyectos
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "titulo": "Sistema IA Educativo",
+  "descripcion": "Proyecto educativo con IA",
+  "presupuesto": 5000,
+  "fechaInicio": "2026-01-01",
+  "fechaFin": "2026-12-01",
+  "estado": "activo",
+  "investigadorId": 1
+}
+
+###
+
+### Actualizar proyecto
+
+PUT {{url}}/proyectos/1
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "titulo": "Sistema IA Actualizado",
+  "descripcion": "Proyecto actualizado",
+  "presupuesto": 10000,
+  "fechaInicio": "2026-01-01",
+  "fechaFin": "2026-12-31",
+  "estado": "activo",
+  "investigadorId": 1
+}
+
+###
+
+### Eliminar proyecto (solo admin)
+
+DELETE {{url}}/proyectos/1
+Authorization: Bearer TU_TOKEN
+
+###
+
+### =====================================================
+### PUBLICACIONES
+### =====================================================
+
+### Obtener publicaciones
+
+GET {{url}}/publicaciones
+Authorization: Bearer TU_TOKEN
+
+###
+
+### Crear publicación
+
+POST {{url}}/publicaciones
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "titulo": "Uso de IA en Educación",
+  "resumen": "Artículo científico sobre IA educativa",
+  "revista": "IEEE",
+  "doi": "10.1000/182",
+  "fechaPublicacion": "2026-05-20",
+  "autores": "Juan Pérez",
+  "proyectoId": 1
+}
+
+###
+
+### Actualizar publicación
+
+PUT {{url}}/publicaciones/1
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "titulo": "IA Moderna",
+  "resumen": "Artículo actualizado",
+  "revista": "Springer",
+  "doi": "10.1000/999",
+  "fechaPublicacion": "2026-06-01",
+  "autores": "Juan Pérez y Ana Torres",
+  "proyectoId": 1
+}
+
+###
+
+### Eliminar publicación (solo admin)
+
+DELETE {{url}}/publicaciones/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3Nzk2NTEyMjgsImV4cCI6MTc3OTczNzYyOH0.xpyW6c9ODA_EzP9KhQ6u_Ugtu5ZHuRDc9o886xivpEg
