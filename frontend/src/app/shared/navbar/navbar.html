@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
   <div class="container">
 
     <a class="navbar-brand" routerLink="/">
@@ -24,16 +23,25 @@
         Publicaciones
       </a>
 
-      <a class="nav-link" routerLink="/contacto">
+      <!-- Contacto solo si NO logeado -->
+      <a class="nav-link" routerLink="/contacto"
+         *ngIf="!auth.isLoggedIn()">
         Contacto
       </a>
 
-      <a class="nav-link" routerLink="/login">
+      <!-- Login si NO logeado -->
+      <a class="nav-link" routerLink="/login"
+         *ngIf="!auth.isLoggedIn()">
         Login
+      </a>
+
+      <!-- Panel si logeado -->
+      <a class="nav-link" routerLink="admin/proyectos"
+         *ngIf="auth.isLoggedIn()">
+        Panel de control
       </a>
 
     </div>
 
   </div>
-
 </nav>

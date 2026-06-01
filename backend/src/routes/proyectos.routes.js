@@ -24,7 +24,6 @@ import { proyectoSchema }
 const router = Router()
 
 // TODAS las rutas protegidas
-router.use(authRequired)
 
 // Obtener proyectos
 router.get('/', getProyectos)

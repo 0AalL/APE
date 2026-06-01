@@ -39,7 +39,7 @@ export class LoginComponent {
 
           alert('Login correcto')
 
-          this.router.navigate(['/'])
+          this.router.navigate(['admin/proyectos'])
         },
 
         error: () => {

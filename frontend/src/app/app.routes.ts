@@ -10,7 +10,12 @@ import { NosotrosComponent } from './pages/nosotros/nosotros'
 import { InvestigadorDetalleComponent } from './pages/investigadores-detalle/investigadores-detalle'
 import { ListaProyectosComponent } from './pages/lista-proyectos/lista-proyectos'
 import { ProyectosDetalleComponent } from './pages/proyectos-detalle/proyectos-detalle'
+
 export const routes: Routes = [
+
+  // =========================
+  // PUBLICO
+  // =========================
   {
     path: '',
     component: HomeComponent
@@ -20,21 +25,20 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'investigadores',
-    component: InvestigadoresComponent
+    path: 'nosotros',
+    component: NosotrosComponent
   },
   {
-    path: 'investigadores/:id',
-    component: InvestigadorDetalleComponent
-  },
-  {
-    path: 'proyectos',
-    component: ProyectosComponent,
-    runGuardsAndResolvers: 'always'
+    path: 'listaProyectos',
+    component: ListaProyectosComponent
   },
   {
     path: 'proyecto-detalle/:id',
     component: ProyectosDetalleComponent
+  },
+  {
+    path: 'investigador-detalle/:id',
+    component: InvestigadorDetalleComponent
   },
   {
     path: 'publicaciones',
@@ -44,12 +48,20 @@ export const routes: Routes = [
     path: 'contacto',
     component: ContactoComponent
   },
+
+  // =========================
+  // ADMIN PANEL
+  // =========================
   {
-    path: 'nosotros',
-    component: NosotrosComponent
+    path: 'admin/proyectos',
+    component: ProyectosComponent
   },
   {
-    path: 'listaProyectos',
-    component: ListaProyectosComponent
+    path: 'admin/investigadores',
+    component: InvestigadoresComponent
+  },
+  {
+    path: 'admin/publicaciones',
+    component: PublicacionesComponent
   }
 ]

@@ -1,0 +1,69 @@
+.admin-panel {
+  width: 250px;
+  height: 100vh;
+  background: #1e1e2f;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+/* colapsado */
+.admin-panel.collapsed {
+  width: 70px;
+  padding: 20px 10px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.admin-panel h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.menu a:hover,
+.logout-btn:hover {
+  background: #2c2c44;
+}
+
+/* centrado cuando está colapsado */
+.admin-panel.collapsed .menu a,
+.admin-panel.collapsed .logout-btn {
+  justify-content: center;
+}

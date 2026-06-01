@@ -1,13 +1,23 @@
 <div class="app-container">
 
-  <app-navbar *ngIf="mostrarLayout"></app-navbar>
+  <!-- 🔵 NAVBAR (solo público) -->
+  <app-navbar *ngIf="mostrarLayout && !mostrarAdmin"></app-navbar>
 
-  <main class="content">
+  <!-- 🟣 MENU ADMIN -->
+  <app-menu-admin *ngIf="mostrarAdmin"></app-menu-admin>
+
+  <!-- MAIN CONTENT -->
+  <main class="content"
+        [class.admin-mode]="mostrarAdmin"
+        [class.admin-collapsed]="adminCollapsed">
+
     <div class="container mt-4">
       <router-outlet></router-outlet>
     </div>
+
   </main>
 
-  <app-footer *ngIf="mostrarLayout"></app-footer>
+  <!-- FOOTER (solo público) -->
+  <app-footer *ngIf="mostrarLayout && !mostrarAdmin"></app-footer>
 
 </div>

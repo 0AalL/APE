@@ -1,0 +1,52 @@
+<div class="admin-panel" [class.collapsed]="collapsed">
+
+  <div class="panel-header">
+
+    <h2 *ngIf="!collapsed">
+      <i class="fa-solid fa-gears"></i>
+      Panel de Control
+    </h2>
+
+    <button class="toggle-btn" (click)="toggleMenu()">
+      <i class="fa-solid" 
+         [class.fa-bars]="collapsed" 
+         [class.fa-xmark]="!collapsed"></i>
+    </button>
+
+  </div>
+
+  <nav class="menu">
+
+    <a routerLink="/admin/proyectos">
+      <i class="fa-solid fa-diagram-project"></i>
+      <span *ngIf="!collapsed">Proyectos</span>
+    </a>
+
+    <a routerLink="/admin/investigadores">
+      <i class="fa-solid fa-user-graduate"></i>
+      <span *ngIf="!collapsed">Investigadores</span>
+    </a>
+
+    <a routerLink="/admin/publicaciones">
+      <i class="fa-solid fa-book"></i>
+      <span *ngIf="!collapsed">Publicaciones</span>
+    </a>
+
+    <a routerLink="/admin/contacto">
+      <i class="fa-solid fa-envelope"></i>
+      <span *ngIf="!collapsed">Contactos</span>
+    </a>
+
+    <a routerLink="/">
+      <i class="fa-solid fa-house"></i>
+      <span *ngIf="!collapsed">Ir al sitio</span>
+    </a>
+
+    <button class="logout-btn" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span *ngIf="!collapsed">Cerrar sesión</span>
+    </button>
+
+  </nav>
+
+</div>
