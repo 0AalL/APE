@@ -1,0 +1,89 @@
+<div class="modal-backdrop" *ngIf="visible">
+
+  <div class="modal-box">
+
+    <h3 class="mb-3">
+      {{ isEdit ? 'Editar Proyecto' : 'Nuevo Proyecto' }}
+    </h3>
+
+    <!-- 📌 TÍTULO -->
+    <input
+      class="form-control mb-2"
+      placeholder="Título"
+      [(ngModel)]="proyecto.titulo">
+
+    <!-- 👥 PARTICIPANTES -->
+    <div class="mb-2">
+
+      <label>Participantes</label>
+
+      <div class="d-flex mb-2">
+
+        <input
+          class="form-control me-2"
+          placeholder="Agregar participante"
+          [(ngModel)]="nuevoParticipante">
+
+        <button class="btn btn-primary"
+          (click)="agregarParticipante()">
+          +
+        </button>
+
+      </div>
+
+      <!-- chips -->
+      <div>
+        <span
+          class="badge bg-secondary me-1"
+          *ngFor="let p of proyecto.participantes; let i = index">
+
+          {{ p }}
+
+          <button
+            class="btn btn-sm btn-danger ms-1"
+            (click)="eliminarParticipante(i)">
+            x
+          </button>
+
+        </span>
+      </div>
+
+    </div>
+
+    <!-- 📄 DESCRIPCIÓN -->
+    <textarea
+      class="form-control mb-2"
+      placeholder="Descripción"
+      [(ngModel)]="proyecto.descripcion">
+    </textarea>
+
+    <!-- 🎯 OBJETIVOS -->
+    <textarea
+      class="form-control mb-2"
+      placeholder="Objetivos"
+      [(ngModel)]="proyecto.objetivos">
+    </textarea>
+
+    <!-- 📊 RESULTADOS -->
+    <textarea
+      class="form-control mb-3"
+      placeholder="Resultados"
+      [(ngModel)]="proyecto.resultados">
+    </textarea>
+
+    <!-- 🔘 BOTONES -->
+    <div class="d-flex justify-content-between">
+
+      <button class="btn btn-secondary" (click)="cerrar()">
+        Cancelar
+      </button>
+
+      <button class="btn btn-success" (click)="guardar()">
+        {{ isEdit ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

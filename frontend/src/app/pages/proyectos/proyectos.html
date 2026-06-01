@@ -1,65 +1,69 @@
-<h2 class="mb-4">
-  Proyectos
-</h2>
+<h2 class="mb-4">Proyectos de Investigación</h2>
 
-<div class="card p-3 mb-4">
+<!-- 🔍 FILTROS -->
+<div class="row mb-3">
 
-  <input
-    class="form-control mb-2"
-    placeholder="Título"
-    [(ngModel)]="titulo">
+  <div class="col-md-6">
+    <input
+      class="form-control"
+      placeholder="Buscar por título"
+      [(ngModel)]="filtroTitulo"
+      (input)="pagina = 1">
+  </div>
 
-  <textarea
-    class="form-control mb-2"
-    placeholder="Descripción"
-    [(ngModel)]="descripcion">
-  </textarea>
-
-  <input
-    type="number"
-    class="form-control mb-2"
-    placeholder="Presupuesto"
-    [(ngModel)]="presupuesto">
-
-  <button
-    class="btn btn-primary"
-    (click)="crear()">
-
-    Crear Proyecto
-
-  </button>
+  <div class="col-md-6">
+    <input
+      class="form-control"
+      placeholder="Buscar por estado"
+      [(ngModel)]="filtroEstado"
+      (input)="pagina = 1">
+  </div>
 
 </div>
 
-<table class="table">
+<!-- ➕ BOTÓN -->
+<div class="mb-3">
+  <button class="btn btn-success" (click)="abrirNuevo()">
+    + Nuevo Proyecto
+  </button>
+</div>
+
+<!-- 📋 TABLA -->
+<table class="table table-striped align-middle">
 
   <thead>
-
     <tr>
       <th>Título</th>
       <th>Estado</th>
-      <th>Presupuesto</th>
-      <th></th>
+      <th>Participantes</th>
+      <th>Acciones</th>
     </tr>
-
   </thead>
 
   <tbody>
 
-    <tr *ngFor="let p of proyectos">
+    <tr *ngFor="let p of paginados">
 
-      <td>{{p.titulo}}</td>
-      <td>{{p.estado}}</td>
-      <td>{{p.presupuesto}}</td>
+      <td>{{ p.titulo }}</td>
+
+      <td>{{ p.estado || 'activo' }}</td>
+
+      <td>
+        <span *ngIf="p.participantes?.length">
+          {{ p.participantes.join(', ') }}
+        </span>
+      </td>
 
       <td>
 
-        <button
-          class="btn btn-danger btn-sm"
+        <button class="btn btn-primary btn-sm me-2"
+          (click)="abrirEditar(p)">
+          Editar
+        </button>
+
+        <button class="btn btn-danger btn-sm"
           (click)="eliminar(p.id)">
-
           Eliminar
-
         </button>
 
       </td>
@@ -69,3 +73,31 @@
   </tbody>
 
 </table>
+
+<!-- 📄 PAGINACIÓN -->
+<div class="d-flex justify-content-center mt-3">
+
+  <button class="btn btn-outline-primary btn-sm me-2"
+    (click)="cambiarPagina(pagina - 1)">
+    Anterior
+  </button>
+
+  <span class="align-self-center">
+    Página {{ pagina }} de {{ totalPaginas || 1 }}
+  </span>
+
+  <button class="btn btn-outline-primary btn-sm ms-2"
+    (click)="cambiarPagina(pagina + 1)">
+    Siguiente
+  </button>
+
+</div>
+
+<!-- 📦 MODAL -->
+<app-proyecto-modal
+  [visible]="modalVisible"
+  [isEdit]="isEdit"
+  [proyecto]="proyecto"
+  (cerrarModal)="modalVisible = false"
+  (refrescar)="cargar()">
+</app-proyecto-modal>

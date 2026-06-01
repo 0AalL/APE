@@ -1,11 +1,11 @@
-### VARIABLES
-
 @url = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyODkyNzAsImV4cCI6MTc4MDM3NTY3MH0.jClSu7iC-BCjA0R-l_amlVJem7pLLDQClDJLnHGUX-8
 
 ### =====================================================
+### AUTH
+### =====================================================
+
 ### REGISTER
-### =====================================================
-
 POST {{url}}/auth/register
 Content-Type: application/json
 
@@ -18,10 +18,7 @@ Content-Type: application/json
 
 ###
 
-### =====================================================
 ### LOGIN
-### =====================================================
-
 POST {{url}}/auth/login
 Content-Type: application/json
 
@@ -31,121 +28,112 @@ Content-Type: application/json
 }
 
 ###
+
 ### =====================================================
 ### INVESTIGADORES
 ### =====================================================
 
-### Obtener investigadores
-
+### GET ALL INVESTIGADORES
 GET {{url}}/investigadores
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcxMDEsImV4cCI6MTc4MDM2MzUwMX0.4aZATHbsIlTfInXvxRHL66CYBp8j-1FU4iWRKmPe6dk
+Authorization: Bearer {{token}}
+
 ###
 
-### Obtener investigador por ID
-
+### GET INVESTIGADOR BY ID
 GET {{url}}/investigadores/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcwNjIsImV4cCI6MTc4MDM2MzQ2Mn0.IH19rTOJtKXsctFUQotLm5acuPsNvWIq9FnJ47p0aHE"
+Authorization: Bearer {{token}}
 
 ###
 
-### Crear investigador
-
+### CREATE INVESTIGADOR
 POST {{url}}/investigadores
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcxMDEsImV4cCI6MTc4MDM2MzUwMX0.4aZATHbsIlTfInXvxRHL66CYBp8j-1FU4iWRKmPe6dk
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "nombre": "Israel Naranjo Chiriboga",
   "cargo": "Director",
-  "correo": "ie.naranjo@uta.edu.ec",
+  "correo": "ie.narnjo@uta.edu.ec",
   "orcid": "https://orcid.org/0000-0001-5774-1879",
   "facebook": "",
   "linkedin": "",
   "instagram": "",
   "telegram": "",
   "foto": "israel.jpg",
-  "biografia": "Docente universitario en la carrera de Ingeniería Industrial en la Universidad Técnica de Ambato. Magíster en Gestión de Operaciones y Director del Grupo de Investigación REASONS."
+  "biografia": "Investigador en sistemas productivos y gestión de operaciones"
 }
 
 ###
 
-### Actualizar investigador
-
+### UPDATE INVESTIGADOR
 PUT {{url}}/investigadores/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer TU_TOKEN
 
 {
-  "nombre": "Israel Naranjo Chiriboga",
-  "cargo": "Director del Grupo REASONS",
+  "nombre": "Israel Naranjo Actualizado",
+  "cargo": "Director REASONS",
   "correo": "ie.naranjo@uta.edu.ec",
-  "orcid": "https://orcid.org/0000-0001-5774-1879",
+  "orcid": "0000-0001-5774-1879",
   "facebook": "",
   "linkedin": "",
   "instagram": "",
   "telegram": "",
   "foto": "israel.jpg",
-  "biografia": "Investigador en gestión de operaciones, optimización, análisis de datos y sostenibilidad aplicada a sistemas productivos."
+  "biografia": "Investigador actualizado en optimización y datos"
 }
 
 ###
 
-### Eliminar investigador
-
+### DELETE INVESTIGADOR
 DELETE {{url}}/investigadores/1
-Authorization: Bearer TU_TOKEN
-
-### =====================================================
-### PROYECTOS
-### =====================================================
-
-### Obtener proyectos
-
-GET {{url}}/proyectos
-Authorization: Bearer TU_TOKEN
+Authorization: Bearer {{token}}
 
 ###
 
-### Crear proyecto
+### =====================================================
+### PROYECTOS DE INVESTIGACIÓN
+### =====================================================
 
+### GET PROYECTOS
+GET {{url}}/proyectos
+Authorization: Bearer {{token}}
+
+###
+
+### CREATE PROYECTO
 POST {{url}}/proyectos
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer TU_TOKEN
 
 {
   "titulo": "Sistema IA Educativo",
-  "descripcion": "Proyecto educativo con IA",
-  "presupuesto": 5000,
-  "fechaInicio": "2026-01-01",
-  "fechaFin": "2026-12-01",
-  "estado": "activo",
-  "investigadorId": 1
+  "participantes": ["Christian Sánchez", "Israel Naranjo"],
+  "descripcion": "Sistema de inteligencia artificial para educación personalizada",
+  "objetivos": "Mejorar el aprendizaje mediante IA adaptativa",
+  "resultados": "En desarrollo"
 }
 
 ###
 
-### Actualizar proyecto
-
+### UPDATE PROYECTO
 PUT {{url}}/proyectos/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer TU_TOKEN
 
 {
-  "titulo": "Sistema IA Actualizado",
-  "descripcion": "Proyecto actualizado",
-  "presupuesto": 10000,
-  "fechaInicio": "2026-01-01",
-  "fechaFin": "2026-12-31",
-  "estado": "activo",
-  "investigadorId": 1
+  "titulo": "Sistema IA Educativo Mejorado",
+  "participantes": ["Christian", "Israel"],
+  "descripcion": "Proyecto optimizado con IA avanzada",
+  "objetivos": "Optimización del aprendizaje inteligente",
+  "resultados": "Fase de pruebas"
 }
 
 ###
 
-### Eliminar proyecto (solo admin)
-
+### DELETE PROYECTO
 DELETE {{url}}/proyectos/1
-Authorization: Bearer TU_TOKEN
+Authorization: Bearer {{token}}
 
 ###
 
@@ -153,22 +141,20 @@ Authorization: Bearer TU_TOKEN
 ### PUBLICACIONES
 ### =====================================================
 
-### Obtener publicaciones
-
+### GET PUBLICACIONES
 GET {{url}}/publicaciones
-Authorization: Bearer TU_TOKEN
+Authorization: Bearer {{token}}
 
 ###
 
-### Crear publicación
-
+### CREATE PUBLICACIÓN
 POST {{url}}/publicaciones
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer TU_TOKEN
 
 {
   "titulo": "Uso de IA en Educación",
-  "resumen": "Artículo científico sobre IA educativa",
+  "resumen": "Artículo científico sobre IA aplicada a educación",
   "revista": "IEEE",
   "doi": "10.1000/182",
   "fechaPublicacion": "2026-05-20",
@@ -178,15 +164,14 @@ Authorization: Bearer TU_TOKEN
 
 ###
 
-### Actualizar publicación
-
+### UPDATE PUBLICACIÓN
 PUT {{url}}/publicaciones/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer TU_TOKEN
 
 {
-  "titulo": "IA Moderna",
-  "resumen": "Artículo actualizado",
+  "titulo": "IA Moderna en Educación",
+  "resumen": "Artículo actualizado sobre IA",
   "revista": "Springer",
   "doi": "10.1000/999",
   "fechaPublicacion": "2026-06-01",
@@ -196,7 +181,6 @@ Authorization: Bearer TU_TOKEN
 
 ###
 
-### Eliminar publicación (solo admin)
-
+### DELETE PUBLICACIÓN
 DELETE {{url}}/publicaciones/1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3Nzk2NTEyMjgsImV4cCI6MTc3OTczNzYyOH0.xpyW6c9ODA_EzP9KhQ6u_Ugtu5ZHuRDc9o886xivpEg
+Authorization: Bearer {{token}}

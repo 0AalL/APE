@@ -8,7 +8,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
 .modal-box {
@@ -16,5 +15,4 @@
   padding: 20px;
   width: 500px;
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }

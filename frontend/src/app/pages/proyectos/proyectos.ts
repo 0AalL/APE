@@ -1,85 +1,101 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { ProyectoService }
-from '../../core/services/proyecto.service';
+import { Component, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { ProyectoService } from '../../core/services/proyecto.service'
+import { ProyectoModalComponent } from '../../features/proyectos/proyecto-modal/proyecto-modal'
 
 @Component({
   selector: 'app-proyectos',
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ProyectoModalComponent],
   templateUrl: './proyectos.html',
-  styleUrl: './proyectos.css'
+  styleUrls: ['./proyectos.css']
 })
-export class ProyectosComponent
-implements OnInit {
+export class ProyectosComponent implements OnInit {
 
-  proyectos:any[] = [];
+  proyectos: any[] = []
 
-  titulo = '';
-  descripcion = '';
-  presupuesto = 0;
+  // modal
+  modalVisible = false
+  isEdit = false
+  proyecto: any = {}
 
-  constructor(
-    private proyectoService:
-    ProyectoService
-  ) {}
+  // filtros
+  filtroTitulo = ''
+  filtroEstado = ''
+
+  // paginación
+  pagina = 1
+  porPagina = 5
+
+  constructor(private service: ProyectoService) {}
 
   ngOnInit(): void {
-    this.cargar();
+    this.cargar()
   }
 
   cargar() {
-
-    this.proyectoService
-      .getAll()
-      .subscribe((data:any)=>{
-
-        this.proyectos = data;
-
-      });
-
+    this.service.getAll().subscribe((data: any) => {
+      this.proyectos = data
+    })
   }
 
-  crear() {
+  // 🔍 FILTRO
+  get filtrados() {
+    return this.proyectos.filter(p => {
 
-    const proyecto = {
+      const titulo = !this.filtroTitulo ||
+        p.titulo?.toLowerCase().includes(this.filtroTitulo.toLowerCase())
 
-      titulo: this.titulo,
-      descripcion: this.descripcion,
-      presupuesto: this.presupuesto,
+      const estado = !this.filtroEstado ||
+        (p.estado || 'activo')
+          .toLowerCase()
+          .includes(this.filtroEstado.toLowerCase())
 
-      fechaInicio:'2026-01-01',
-      fechaFin:'2026-12-31',
-
-      estado:'activo',
-      investigadorId:1
-
-    };
-
-    this.proyectoService
-      .create(proyecto)
-      .subscribe(()=>{
-
-        this.cargar();
-
-      });
-
+      return titulo && estado
+    })
   }
 
-  eliminar(id:number){
-
-    this.proyectoService
-      .delete(id)
-      .subscribe(()=>{
-
-        this.cargar();
-
-      });
-
+  // 📄 PAGINACIÓN
+  get totalPaginas() {
+    return Math.ceil(this.filtrados.length / this.porPagina)
   }
 
+  get paginados() {
+    const ini = (this.pagina - 1) * this.porPagina
+    return this.filtrados.slice(ini, ini + this.porPagina)
+  }
+
+  cambiarPagina(n: number) {
+    if (n < 1 || n > this.totalPaginas) return
+    this.pagina = n
+  }
+
+  // ➕ NUEVO
+  abrirNuevo() {
+    this.isEdit = false
+    this.proyecto = {
+      titulo: '',
+      participantes: [],
+      descripcion: '',
+      objetivos: '',
+      resultados: ''
+    }
+    this.modalVisible = true
+  }
+
+  // ✏️ EDITAR
+  abrirEditar(p: any) {
+    this.isEdit = true
+    this.proyecto = {
+      ...p,
+      participantes: p.participantes || []
+    }
+    this.modalVisible = true
+  }
+
+  // 🗑 ELIMINAR
+  eliminar(id: number) {
+    this.service.delete(id).subscribe(() => this.cargar())
+  }
 }
