@@ -2,26 +2,35 @@
 
   <div class="card login-card shadow-lg border-0">
 
-    <div class="card-body p-5">
+    <div class="card-body p-5 position-relative">
+
+      <!-- Botón HOME dentro del card -->
+      <button class="btn btn-outline-light home-btn" (click)="goHome()">
+        <i class="bi bi-house-door me-2"></i>
+        Ir al home
+      </button>
 
       <div class="text-center mb-4">
         <i class="bi bi-person-circle login-icon"></i>
+        <h2 class="fw-bold mt-3">Iniciar Sesión</h2>
+        <p class="text-muted">Portal de Investigación</p>
+      </div>
 
-        <h2 class="fw-bold mt-3">
-          Iniciar Sesión
-        </h2>
+      <!-- TOGGLE MESSAGE (sin alert, sin toast) -->
+      <div *ngIf="message" class="message-box" [ngClass]="messageType">
+        <i class="bi"
+           [ngClass]="messageType === 'success'
+             ? 'bi-check-circle-fill'
+             : 'bi-x-circle-fill'"></i>
 
-        <p class="text-muted">
-          Portal de Investigación
-        </p>
+        <span class="ms-2">{{ message }}</span>
       </div>
 
       <form (ngSubmit)="login()">
 
+        <!-- email -->
         <div class="mb-3">
-          <label class="form-label fw-semibold">
-            Correo electrónico
-          </label>
+          <label class="form-label fw-semibold">Correo electrónico</label>
 
           <input
             type="email"
@@ -31,22 +40,23 @@
             placeholder="correo@ejemplo.com">
         </div>
 
-        <div class="mb-4">
-          <label class="form-label fw-semibold">
-            Contraseña
-          </label>
+        <!-- password -->
+        <div class="mb-4 position-relative">
+          <label class="form-label fw-semibold">Contraseña</label>
 
           <input
-            type="password"
-            class="form-control form-control-lg"
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-control form-control-lg pe-5"
             [(ngModel)]="password"
             name="password"
             placeholder="••••••••">
+
+          <button type="button" class="eye-btn" (click)="togglePassword()">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
         </div>
 
-        <button
-          class="btn btn-primary btn-lg w-100"
-          type="submit">
+        <button class="btn btn-primary btn-lg w-100" type="submit">
           <i class="bi bi-box-arrow-in-right me-2"></i>
           Ingresar
         </button>
@@ -54,7 +64,6 @@
       </form>
 
     </div>
-
   </div>
 
 </div>

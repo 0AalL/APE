@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
+import { CommonModule } from '@angular/common'
 
 import { AuthService } from '../../core/services/auth.service'
 import { LoginRequest, AuthResponse } from '../../core/models/auth.model'
@@ -8,7 +9,7 @@ import { LoginRequest, AuthResponse } from '../../core/models/auth.model'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -17,12 +18,22 @@ export class LoginComponent {
   email = ''
   password = ''
 
+  showPassword = false
+
+  message = ''
+  messageType: 'success' | 'error' = 'success'
+
+  loading = false
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
   login() {
+
+    this.loading = true
+    this.message = ''
 
     const data: LoginRequest = {
       email: this.email,
@@ -33,18 +44,33 @@ export class LoginComponent {
       .subscribe({
         next: (resp: AuthResponse) => {
 
+          this.loading = false
+
           if (resp.token) {
             this.authService.setToken(resp.token)
           }
 
-          alert('Login correcto')
+          this.messageType = 'success'
+          this.message = 'Autenticación exitosa'
 
-          this.router.navigate(['admin/proyectos'])
+          setTimeout(() => {
+            this.router.navigate(['admin/proyectos'])
+          }, 900)
         },
 
         error: () => {
-          alert('Credenciales incorrectas')
+          this.loading = false
+          this.messageType = 'error'
+          this.message = 'Credenciales inválidas'
         }
       })
+  }
+
+  goHome() {
+    this.router.navigate(['/'])
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword
   }
 }

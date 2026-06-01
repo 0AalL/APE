@@ -22,7 +22,7 @@ import { MenuAdmin } from './pages/admin/menu/menu';
   styleUrls: ['./app.css']
 })
 export class App {
-
+  isLoginRoute = false
   mostrarLayout = true;
   mostrarAdmin = false;
 
@@ -32,7 +32,13 @@ export class App {
     private router: Router,
     private authService: AuthService
   ) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
 
+        this.isLoginRoute = event.urlAfterRedirects.includes('/login')
+
+      })
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {

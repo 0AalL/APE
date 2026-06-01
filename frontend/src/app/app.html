@@ -1,32 +1,42 @@
 <div class="app-container">
 
-  <!-- 🔵 NAVBAR PÚBLICO -->
-  <app-navbar
-    *ngIf="mostrarLayout && !mostrarAdmin">
-  </app-navbar>
+  <!-- 🔵 TODO EL LAYOUT SOLO SI NO ES LOGIN -->
+  <ng-container *ngIf="mostrarLayout; else loginOnly">
 
-  <!-- 🟣 SIDEBAR ADMIN -->
-  <app-menu-admin
-    *ngIf="mostrarAdmin"
-    [collapsed]="adminCollapsed"
-    (collapsedChange)="adminCollapsed = $event">
-  </app-menu-admin>
+    <!-- 🔵 NAVBAR PÚBLICO -->
+    <app-navbar
+      *ngIf="!mostrarAdmin">
+    </app-navbar>
 
-  <!-- 🟢 CONTENIDO -->
-  <main
-    class="content"
-    [class.admin-mode]="mostrarAdmin"
-    [class.admin-collapsed]="adminCollapsed">
+    <!-- 🟣 SIDEBAR ADMIN -->
+    <app-menu-admin
+      *ngIf="mostrarAdmin"
+      [collapsed]="adminCollapsed"
+      (collapsedChange)="adminCollapsed = $event">
+    </app-menu-admin>
 
-    <div class="container mt-4">
-      <router-outlet></router-outlet>
-    </div>
+    <!-- 🟢 CONTENIDO -->
+    <main
+      class="content"
+      [class.admin-mode]="mostrarAdmin"
+      [class.admin-collapsed]="adminCollapsed">
 
-  </main>
+      <div class="container mt-4">
+        <router-outlet></router-outlet>
+      </div>
 
-  <!-- 🔵 FOOTER PÚBLICO -->
-  <app-footer
-    *ngIf="mostrarLayout && !mostrarAdmin">
-  </app-footer>
+    </main>
+
+    <!-- 🔵 FOOTER PÚBLICO -->
+    <app-footer
+      *ngIf="!mostrarAdmin">
+    </app-footer>
+
+  </ng-container>
+
+  <!-- 🔴 SOLO LOGIN (SIN LAYOUT) -->
+  <ng-template #loginOnly>
+    <router-outlet></router-outlet>
+  </ng-template>
 
 </div>

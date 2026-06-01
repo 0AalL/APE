@@ -29,5 +29,7 @@ export class MenuAdmin {
 
   logout() {
     this.authService.logout();
+    //redireccionar a login
+    window.location.href = '/login';
   }
 }
