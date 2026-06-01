@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { InvestigadorService } from '../../../core/services/investigador.service'
@@ -15,7 +15,7 @@ export class InvestigadorModalComponent {
 
   @Input() visible = false
   @Input() isEdit = false
-  @Input() investigador: Investigador = this.getEmptyInvestigador()
+  @Input() investigador: Investigador = this.getEmpty()
 
   @Output() cerrarModal = new EventEmitter<boolean>()
   @Output() refrescar = new EventEmitter<void>()
@@ -23,10 +23,13 @@ export class InvestigadorModalComponent {
   file: File | null = null
   preview: string | null = null
 
-  constructor(private service: InvestigadorService) { }
+  constructor(
+    private service: InvestigadorService,
+    private cd: ChangeDetectorRef
+  ) {}
 
-  // INVESTIGADOR VACÍO TIPADO
-  private getEmptyInvestigador(): Investigador {
+  // OBJETO VACÍO
+  private getEmpty(): Investigador {
     return {
       nombre: '',
       cargo: '',
@@ -40,19 +43,62 @@ export class InvestigadorModalComponent {
     }
   }
 
-  // 📸 IMAGEN
+  // 🔥 IMAGEN ACTUAL (PREVIEW O BACKEND)
+  getCurrentImage(): string {
+
+    if (this.preview) return this.preview
+
+    if (this.investigador?.foto) {
+      return `http://localhost:3000/uploads/${this.investigador.foto}`
+    }
+
+    return 'https://via.placeholder.com/120'
+  }
+
+  // ✏️ EDITAR
+  abrirEditar(i: Investigador) {
+    this.isEdit = true
+    this.visible = true
+
+    this.investigador = JSON.parse(JSON.stringify(i))
+
+    this.file = null
+    this.preview = null
+
+    this.cd.detectChanges()
+  }
+
+  // 📸 SELECCIONAR IMAGEN (FIX DEFINITIVO)
   onFileSelected(event: any) {
 
-    const file = event.target.files[0]
+    console.log('🔥 INPUT FILE EJECUTADO')
 
-    if (!file) return
+    const file = event.target.files?.[0]
+    if (!file) {
+      console.log('❌ NO FILE')
+      return
+    }
+
+    console.log('📸 FILE:', file.name)
 
     this.file = file
 
     const reader = new FileReader()
 
     reader.onload = () => {
+
+      console.log('✅ FILE LEIDO')
+
       this.preview = reader.result as string
+
+      console.log('PREVIEW LISTO')
+
+      // 🔥 FORZAR UPDATE ANGULAR
+      this.cd.detectChanges()
+    }
+
+    reader.onerror = (e) => {
+      console.log('❌ ERROR FILE READER', e)
     }
 
     reader.readAsDataURL(file)
@@ -63,7 +109,7 @@ export class InvestigadorModalComponent {
     this.cerrarModal.emit(false)
   }
 
-  //  GUARDAR
+  // 💾 GUARDAR
   guardar() {
 
     if (!this.investigador.nombre || !this.investigador.cargo || !this.investigador.correo) {
@@ -73,7 +119,6 @@ export class InvestigadorModalComponent {
 
     const formData = new FormData()
 
-    // 📌 CAMPOS TEXTO
     formData.append('nombre', this.investigador.nombre)
     formData.append('cargo', this.investigador.cargo)
     formData.append('correo', this.investigador.correo)
@@ -85,12 +130,10 @@ export class InvestigadorModalComponent {
     formData.append('telegram', this.investigador.telegram || '')
     formData.append('biografia', this.investigador.biografia || '')
 
-    // 📸 ARCHIVO (IMPORTANTE)
     if (this.file) {
       formData.append('foto', this.file)
     }
 
-    // ✏️ EDITAR
     if (this.isEdit && this.investigador.id) {
 
       this.service.update(this.investigador.id, formData)
@@ -99,19 +142,18 @@ export class InvestigadorModalComponent {
             this.refrescar.emit()
             this.cerrar()
           },
-          error: (err) => console.error('ERROR UPDATE:', err)
+          error: (err) => console.error(err)
         })
 
     } else {
 
-      // ➕ CREAR
       this.service.create(formData)
         .subscribe({
           next: () => {
             this.refrescar.emit()
             this.cerrar()
           },
-          error: (err) => console.error('ERROR CREATE:', err)
+          error: (err) => console.error(err)
         })
     }
   }
