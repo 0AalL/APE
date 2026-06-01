@@ -1,22 +1,15 @@
-
 import z from 'zod'
 
 export const proyectoSchema = z.object({
-  titulo: z.string().min(5),
 
-  descripcion: z.string().min(10),
+  titulo: z.string().min(5, 'El título es muy corto'),
 
-  presupuesto: z.number().positive(),
+  participantes: z.array(z.string().min(2)).min(1, 'Debe haber al menos un participante'),
 
-  fechaInicio: z.string(),
+  descripcion: z.string().min(10, 'La descripción es muy corta'),
 
-  fechaFin: z.string(),
+  objetivos: z.string().min(10, 'Los objetivos son obligatorios'),
 
-  estado: z.enum([
-    'activo',
-    'finalizado',
-    'pausado'
-  ]),
+  resultados: z.string().optional()
 
-  investigadorId: z.number()
 })

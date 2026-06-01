@@ -1,27 +1,20 @@
-import { Proyecto, Investigador } from '../models/index.js'
+import { Proyecto } from '../models/index.js'
 
 export const getProyectos = async (req, res) => {
   try {
     const proyectos = await Proyecto.findAll({
-      include: Investigador
+      order: [['createdAt', 'DESC']]
     })
 
     res.json(proyectos)
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ message: error.message })
   }
 }
 
 export const getProyecto = async (req, res) => {
   try {
-    const proyecto = await Proyecto.findByPk(
-      req.params.id,
-      {
-        include: Investigador
-      }
-    )
+    const proyecto = await Proyecto.findByPk(req.params.id)
 
     if (!proyecto) {
       return res.status(404).json({
@@ -31,29 +24,40 @@ export const getProyecto = async (req, res) => {
 
     res.json(proyecto)
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ message: error.message })
   }
 }
 
 export const createProyecto = async (req, res) => {
   try {
-    const proyecto = await Proyecto.create(req.body)
+
+    const {
+      titulo,
+      participantes,
+      descripcion,
+      objetivos,
+      resultados
+    } = req.body
+
+    const proyecto = await Proyecto.create({
+      titulo,
+      participantes,
+      descripcion,
+      objetivos,
+      resultados
+    })
 
     res.status(201).json(proyecto)
+
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ message: error.message })
   }
 }
 
 export const updateProyecto = async (req, res) => {
   try {
-    const proyecto = await Proyecto.findByPk(
-      req.params.id
-    )
+
+    const proyecto = await Proyecto.findByPk(req.params.id)
 
     if (!proyecto) {
       return res.status(404).json({
@@ -61,21 +65,33 @@ export const updateProyecto = async (req, res) => {
       })
     }
 
-    await proyecto.update(req.body)
+    const {
+      titulo,
+      participantes,
+      descripcion,
+      objetivos,
+      resultados
+    } = req.body
+
+    await proyecto.update({
+      titulo,
+      participantes,
+      descripcion,
+      objetivos,
+      resultados
+    })
 
     res.json(proyecto)
+
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ message: error.message })
   }
 }
 
 export const deleteProyecto = async (req, res) => {
   try {
-    const proyecto = await Proyecto.findByPk(
-      req.params.id
-    )
+
+    const proyecto = await Proyecto.findByPk(req.params.id)
 
     if (!proyecto) {
       return res.status(404).json({
@@ -85,12 +101,9 @@ export const deleteProyecto = async (req, res) => {
 
     await proyecto.destroy()
 
-    res.json({
-      message: 'Proyecto eliminado'
-    })
+    res.json({ message: 'Proyecto eliminado' })
+
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ message: error.message })
   }
 }
