@@ -1,12 +1,12 @@
-import { Component } from '@angular/core'
-import { Router, RouterOutlet, NavigationEnd } from '@angular/router'
-import { CommonModule } from '@angular/common'
-import { filter } from 'rxjs'
+import { Component } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
 
-import { NavbarComponent } from './shared/navbar/navbar'
-import { Footer } from './shared/footer/footer'
-import { AuthService } from './core/services/auth.service'
-import { MenuAdmin } from './pages/admin/menu/menu'
+import { NavbarComponent } from './shared/navbar/navbar';
+import { Footer } from './shared/footer/footer';
+import { AuthService } from './core/services/auth.service';
+import { MenuAdmin } from './pages/admin/menu/menu';
 
 @Component({
   selector: 'app-root',
@@ -22,12 +22,11 @@ import { MenuAdmin } from './pages/admin/menu/menu'
   styleUrls: ['./app.css']
 })
 export class App {
-  mostrarLayout = true
-  
 
-  adminCollapsed = false
+  mostrarLayout = true;
+  mostrarAdmin = false;
 
-  mostrarAdmin = false
+  adminCollapsed = false;
 
   constructor(
     private router: Router,
@@ -38,14 +37,12 @@ export class App {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
 
-        const url = event.urlAfterRedirects
+        const url = event.urlAfterRedirects;
 
-        // ocultar layout en login
-        this.mostrarLayout = url !== '/login'
+        this.mostrarLayout = url !== '/login';
 
-        // mostrar admin solo si está logueado y en /admin
-        this.mostrarAdmin = url.startsWith('/admin') && this.authService.isLoggedIn()
-
-      })
+        this.mostrarAdmin =
+          url.startsWith('/admin') && this.authService.isLoggedIn();
+      });
   }
 }

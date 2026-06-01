@@ -1,29 +1,36 @@
 .app-container {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }
 
-/* contenido normal */
-.content {
-  flex: 1;
-  padding-top: 70px; /* espacio navbar */
-}
-
-/* modo admin: evita que el menú fijo tape el contenido */
-.content.admin-mode {
-  padding-top: 0;
-  margin-left: 250px; /* ancho típico del sidebar admin */
-}
-
-/* si tu menú admin es fijo lateral */
+/* SIDEBAR */
 app-menu-admin {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
   height: 100vh;
+  width: 250px;
+  background: #1e1e2f;
+  transition: width 0.3s ease;
   z-index: 1000;
-  background: #111; /* ajusta a tu diseño */
 }
 
+
+
+/* CONTENIDO */
+.content {
+  flex: 1;
+  min-height: 100vh;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+/* cuando está colapsado */
+.content.admin-collapsed {
+  margin-left: 70px;
+}
+
+/* modo público */
+.content:not(.admin-mode) {
+  margin-left: 0;
+}

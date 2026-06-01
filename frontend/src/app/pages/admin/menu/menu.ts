@@ -1,7 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { RouterModule, Router } from '@angular/router'
-import { AuthService } from '../../../core/services/auth.service'
+import { Component, EventEmitter, Output, Input, HostBinding } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-menu-admin',
@@ -12,22 +12,22 @@ import { AuthService } from '../../../core/services/auth.service'
 })
 export class MenuAdmin {
 
-  collapsed = false
+  @Input() collapsed = false;
+  @Output() collapsedChange = new EventEmitter<boolean>();
 
-  @Output() collapsedChange = new EventEmitter<boolean>()
+  constructor(private authService: AuthService) {}
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  toggleMenu(): void {
-    this.collapsed = !this.collapsed
-    this.collapsedChange.emit(this.collapsed)
+  // 🔥 CLAVE: aplica clase al HOST del componente
+  @HostBinding('class.collapsed')
+  get isCollapsed() {
+    return this.collapsed;
   }
 
-  logout(): void {
-    this.authService.logout()
-    this.router.navigate(['/login'])
+  toggleMenu() {
+    this.collapsedChange.emit(!this.collapsed);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
