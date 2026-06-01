@@ -1,5 +1,5 @@
 @url = http://localhost:3000/api
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyODkyNzAsImV4cCI6MTc4MDM3NTY3MH0.jClSu7iC-BCjA0R-l_amlVJem7pLLDQClDJLnHGUX-8
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyOTEzNTUsImV4cCI6MTc4MDM3Nzc1NX0.cR4OJL4XM0QgGJ1CgDf87DDVlS88PappQnT2l5haSCs
 
 ### =====================================================
 ### AUTH
@@ -51,9 +51,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "nombre": "Israel Naranjo Chiriboga",
+  "nombre": "Israel anjo Chiriboga",
   "cargo": "Director",
-  "correo": "ie.narnjo@uta.edu.ec",
+  "correo": "ie.aranjo@uta.edu.ec",
   "orcid": "https://orcid.org/0000-0001-5774-1879",
   "facebook": "",
   "linkedin": "",
@@ -71,9 +71,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "nombre": "Israel Naranjo Actualizado",
+  "nombre": "Isrizado",
   "cargo": "Director REASONS",
-  "correo": "ie.naranjo@uta.edu.ec",
+  "correo": "ie.naranjo@edu.ec",
   "orcid": "0000-0001-5774-1879",
   "facebook": "",
   "linkedin": "",
@@ -92,7 +92,7 @@ Authorization: Bearer {{token}}
 ###
 
 ### =====================================================
-### PROYECTOS DE INVESTIGACIÓN
+### PROYECTOS (NUEVO MODELO)
 ### =====================================================
 
 ### GET PROYECTOS
@@ -101,17 +101,17 @@ Authorization: Bearer {{token}}
 
 ###
 
-### CREATE PROYECTO
+### CREATE PROYECTO (CORREGIDO)
 POST {{url}}/proyectos
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "titulo": "Sistema IA Educativo",
-  "participantes": ["Christian Sánchez", "Israel Naranjo"],
   "descripcion": "Sistema de inteligencia artificial para educación personalizada",
   "objetivos": "Mejorar el aprendizaje mediante IA adaptativa",
-  "resultados": "En desarrollo"
+  "resultados": "En desarrollo",
+  "investigadores": [1]
 }
 
 ###
@@ -123,10 +123,13 @@ Content-Type: application/json
 
 {
   "titulo": "Sistema IA Educativo Mejorado",
-  "participantes": ["Christian", "Israel"],
   "descripcion": "Proyecto optimizado con IA avanzada",
   "objetivos": "Optimización del aprendizaje inteligente",
-  "resultados": "Fase de pruebas"
+  "resultados": "Fase de pruebas",
+
+  "investigadorId": 1,
+
+  "participantes": [1, 2]
 }
 
 ###

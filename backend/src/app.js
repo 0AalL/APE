@@ -12,7 +12,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// ✅ SERVIR IMÁGENES CORRECTO
+//  SERVIR IMÁGENES CORRECTO
 app.use(
   '/uploads',
   express.static(path.join(process.cwd(), 'src/uploads'))
