@@ -1,45 +1,54 @@
-<div class="row justify-content-center">
+<div class="login-container">
 
-  <div class="col-md-4">
+  <div class="card login-card shadow-lg border-0">
 
-    <div class="card p-4">
+    <div class="card-body p-5">
 
-      <h2 class="text-center mb-4">
-        Iniciar Sesión
-      </h2>
+      <div class="text-center mb-4">
+        <i class="bi bi-person-circle login-icon"></i>
+
+        <h2 class="fw-bold mt-3">
+          Iniciar Sesión
+        </h2>
+
+        <p class="text-muted">
+          Portal de Investigación
+        </p>
+      </div>
 
       <form (ngSubmit)="login()">
 
         <div class="mb-3">
-
-          <label>Email</label>
+          <label class="form-label fw-semibold">
+            Correo electrónico
+          </label>
 
           <input
             type="email"
-            class="form-control"
+            class="form-control form-control-lg"
             [(ngModel)]="email"
-            name="email">
-
+            name="email"
+            placeholder="correo@ejemplo.com">
         </div>
 
-        <div class="mb-3">
-
-          <label>Contraseña</label>
+        <div class="mb-4">
+          <label class="form-label fw-semibold">
+            Contraseña
+          </label>
 
           <input
             type="password"
-            class="form-control"
+            class="form-control form-control-lg"
             [(ngModel)]="password"
-            name="password">
-
+            name="password"
+            placeholder="••••••••">
         </div>
 
         <button
-          class="btn btn-primary w-100"
+          class="btn btn-primary btn-lg w-100"
           type="submit">
-
+          <i class="bi bi-box-arrow-in-right me-2"></i>
           Ingresar
-
         </button>
 
       </form>

@@ -2,57 +2,97 @@
   Investigadores
 </h2>
 
-<div class="card p-3 mb-4">
+<!-- 🔍 DEBUG (TEMPORAL) -->
 
-  <h4>Nuevo Investigador</h4>
-
-  <input
-    class="form-control mb-2"
-    placeholder="Nombre"
-    [(ngModel)]="nombre">
-
-  <input
-    class="form-control mb-2"
-    placeholder="Especialidad"
-    [(ngModel)]="especialidad">
-
-  <input
-    class="form-control mb-2"
-    placeholder="Email"
-    [(ngModel)]="email">
-
+<!-- 👉 BOTÓN CREAR -->
+<div class="mb-3">
   <button
     class="btn btn-success"
-    (click)="crear()">
-
-    Guardar
-
+    (click)="abrirNuevo()">
+    + Nuevo Investigador
   </button>
-
 </div>
 
 <table class="table table-striped">
 
   <thead>
-
     <tr>
       <th>Nombre</th>
-      <th>Especialidad</th>
-      <th>Email</th>
+      <th>Cargo</th>
+      <th>Correo</th>
+      <th>Acciones</th>
     </tr>
-
   </thead>
 
   <tbody>
 
+    <!-- ✔ EL *ngFor VA AQUÍ BIEN -->
     <tr *ngFor="let i of investigadores">
 
-      <td>{{i.nombre}}</td>
-      <td>{{i.especialidad}}</td>
-      <td>{{i.email}}</td>
+      <td>{{ i.nombre }}</td>
+      <td>{{ i.cargo }}</td>
+      <td>{{ i.correo }}</td>
+
+      <td>
+
+        <button
+          class="btn btn-primary btn-sm me-2"
+          (click)="abrirEditar(i)">
+          Editar
+        </button>
+
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="eliminar(i)">
+          Eliminar
+        </button>
+
+      </td>
 
     </tr>
 
   </tbody>
 
 </table>
+
+<!-- 🧩 MODAL -->
+<app-investigador-modal
+  [visible]="modalVisible"
+  [isEdit]="isEdit"
+  [investigador]="investigador"
+  (cerrarModal)="modalVisible = false"
+  (refrescar)="cargar()">
+</app-investigador-modal>
+
+<!-- 🔴 MODAL CONFIRMACIÓN -->
+<div class="modal d-block" *ngIf="confirmVisible" tabindex="-1" style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar eliminación</h5>
+      </div>
+
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar a <strong>{{ nombreAEliminar }}</strong>?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="cancelarEliminar()">
+          Cancelar
+        </button>
+
+        <button class="btn btn-danger" (click)="confirmarEliminar()">
+          Sí, eliminar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 🟢 MENSAJE RESULTADO -->
+<div *ngIf="mensajeVisible"
+     class="alert alert-info position-fixed bottom-0 end-0 m-3 shadow">
+  {{ mensajeTexto }}
+</div>

@@ -2,8 +2,9 @@
   "name": "ape",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon server-db-postgres.js",
     "start": "nodemon server-db-postgres.js"
   },
   "keywords": [],
@@ -20,6 +21,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
     "pg": "^8.21.0",
     "sequelize": "^6.37.8",
     "zod": "^4.4.3"

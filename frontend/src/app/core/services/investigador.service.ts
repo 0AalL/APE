@@ -1,23 +1,104 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable, tap, catchError, throwError } from 'rxjs'
+import { Investigador } from '../models/investigador.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvestigadorService {
 
-  private api =
-  'http://localhost:3000/api/investigadores';
+  private api = 'http://localhost:3000/api/investigadores'
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.api);
+  // 🔐 HEADERS
+  private getHeaders() {
+
+    const token = localStorage.getItem('token')
+
+    if (!token) {
+      console.warn('⚠️ NO HAY TOKEN EN LOCALSTORAGE')
+    }
+
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token || ''}`
+      })
+    }
   }
 
-  create(data:any): Observable<any> {
-    return this.http.post(this.api,data);
+  // 📥 GET ALL
+  getAll(): Observable<Investigador[]> {
+
+    return this.http.get<Investigador[]>(this.api, this.getHeaders()).pipe(
+
+      tap(res => console.log('✅ GET ALL:', res)),
+
+      catchError(err => {
+        console.error('❌ GET ALL ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
   }
 
+  // 📥 GET BY ID
+  getById(id: number): Observable<Investigador> {
+
+    return this.http.get<Investigador>(`${this.api}/${id}`, this.getHeaders()).pipe(
+
+      tap(res => console.log('✅ GET BY ID:', res)),
+
+      catchError(err => {
+        console.error('❌ GET BY ID ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
+  }
+
+  create(data: FormData): Observable<Investigador> {
+
+    return this.http.post<Investigador>(this.api, data).pipe(
+
+      tap(res => console.log(' CREATED:', res)),
+
+      catchError(err => {
+        console.error('❌ CREATE ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
+  }
+
+  // UPDATE
+  update(id: number, data: FormData): Observable<Investigador> {
+
+    return this.http.put<Investigador>(`${this.api}/${id}`, data).pipe(
+
+      tap(res => console.log('✅ UPDATED:', res)),
+
+      catchError(err => {
+        console.error('❌ UPDATE ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
+  }
+  // 🗑 DELETE
+  delete(id: number): Observable<any> {
+
+    return this.http.delete(`${this.api}/${id}`, this.getHeaders()).pipe(
+
+      tap(res => console.log('✅ DELETED:', res)),
+
+      catchError(err => {
+        console.error('❌ DELETE ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
+  }
 }

@@ -31,7 +31,6 @@ Content-Type: application/json
 }
 
 ###
-
 ### =====================================================
 ### INVESTIGADORES
 ### =====================================================
@@ -39,23 +38,62 @@ Content-Type: application/json
 ### Obtener investigadores
 
 GET {{url}}/investigadores
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3Nzk2NTEyNzcsImV4cCI6MTc3OTczNzY3N30.NXnJZLL1tLyr16Q_Vd_eR6UaYK2FBxEh9KxlIBkMZag
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcxMDEsImV4cCI6MTc4MDM2MzUwMX0.4aZATHbsIlTfInXvxRHL66CYBp8j-1FU4iWRKmPe6dk
+###
+
+### Obtener investigador por ID
+
+GET {{url}}/investigadores/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcwNjIsImV4cCI6MTc4MDM2MzQ2Mn0.IH19rTOJtKXsctFUQotLm5acuPsNvWIq9FnJ47p0aHE"
 
 ###
 
 ### Crear investigador
 
 POST {{url}}/investigadores
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyNzcxMDEsImV4cCI6MTc4MDM2MzUwMX0.4aZATHbsIlTfInXvxRHL66CYBp8j-1FU4iWRKmPe6dk
+Content-Type: application/json
+
+{
+  "nombre": "Israel Naranjo Chiriboga",
+  "cargo": "Director",
+  "correo": "ie.naranjo@uta.edu.ec",
+  "orcid": "https://orcid.org/0000-0001-5774-1879",
+  "facebook": "",
+  "linkedin": "",
+  "instagram": "",
+  "telegram": "",
+  "foto": "israel.jpg",
+  "biografia": "Docente universitario en la carrera de Ingeniería Industrial en la Universidad Técnica de Ambato. Magíster en Gestión de Operaciones y Director del Grupo de Investigación REASONS."
+}
+
+###
+
+### Actualizar investigador
+
+PUT {{url}}/investigadores/1
 Content-Type: application/json
 Authorization: Bearer TU_TOKEN
 
 {
-  "nombre": "Juan Pérez",
-  "especialidad": "Inteligencia Artificial",
-  "email": "juan@gmail.com"
+  "nombre": "Israel Naranjo Chiriboga",
+  "cargo": "Director del Grupo REASONS",
+  "correo": "ie.naranjo@uta.edu.ec",
+  "orcid": "https://orcid.org/0000-0001-5774-1879",
+  "facebook": "",
+  "linkedin": "",
+  "instagram": "",
+  "telegram": "",
+  "foto": "israel.jpg",
+  "biografia": "Investigador en gestión de operaciones, optimización, análisis de datos y sostenibilidad aplicada a sistemas productivos."
 }
 
 ###
+
+### Eliminar investigador
+
+DELETE {{url}}/investigadores/1
+Authorization: Bearer TU_TOKEN
 
 ### =====================================================
 ### PROYECTOS

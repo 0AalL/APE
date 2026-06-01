@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { Router } from '@angular/router'
 
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/auth.service'
+import { LoginRequest, AuthResponse } from '../../core/models/auth.model'
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
 
-  email = '';
-  password = '';
+  email = ''
+  password = ''
 
   constructor(
     private authService: AuthService,
@@ -22,29 +24,27 @@ export class LoginComponent {
 
   login() {
 
-    const data = {
+    const data: LoginRequest = {
       email: this.email,
       password: this.password
-    };
+    }
 
     this.authService.login(data)
       .subscribe({
-        next: (resp: any) => {
+        next: (resp: AuthResponse) => {
 
-          this.authService.guardarToken(
-            resp.token
-          );
+          if (resp.token) {
+            this.authService.setToken(resp.token)
+          }
 
-          alert('Login correcto');
+          alert('Login correcto')
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/'])
         },
 
         error: () => {
-          alert('Credenciales incorrectas');
+          alert('Credenciales incorrectas')
         }
-      });
-
+      })
   }
-
 }
