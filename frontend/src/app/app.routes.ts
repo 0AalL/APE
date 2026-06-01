@@ -22,7 +22,8 @@ export const routes: Routes = [
   },
   {
     path: 'proyectos',
-    component: ProyectosComponent
+    component: ProyectosComponent,
+    runGuardsAndResolvers: 'always' // 🔥 FIX CLAVE
   },
   {
     path: 'publicaciones',

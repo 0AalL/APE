@@ -28,11 +28,11 @@ export class InvestigadoresComponent implements OnInit {
   idAEliminar: number | null = null
   nombreAEliminar = ''
 
-  // 🔥 PAGINACIÓN
+  // PAGINACIÓN
   pagina: number = 1
   porPagina: number = 5
 
-  // 🔥 FILTROS
+  // FILTROS
   filtroNombre: string = ''
   filtroCargo: string = ''
   filtroCorreo: string = ''
