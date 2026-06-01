@@ -1,0 +1,60 @@
+<section class="lista">
+
+  <h1>
+    <i class="fa-solid fa-diagram-project"></i>
+    Proyectos
+  </h1>
+
+  <!-- LOADING -->
+  <div *ngIf="loading">
+    Cargando proyectos...
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" *ngIf="!loading && proyectos.length">
+
+    <div
+      class="card"
+      *ngFor="let p of proyectos"
+      [routerLink]="['/proyecto-detalle', p.id]"
+    >
+
+      <h3>
+        <i class="fa-solid fa-folder-open"></i>
+        {{ p.titulo }}
+      </h3>
+
+      <p>
+        {{ p.descripcion | slice:0:120 }}...
+      </p>
+
+      <div class="meta">
+
+        <span>
+          <i class="fa-solid fa-users"></i>
+          {{ p.investigadores?.length || 0 }} investigadores
+        </span>
+
+        <span>
+          <i class="fa-solid fa-file-lines"></i>
+          {{ p.publicaciones?.length || 0 }} publicaciones
+        </span>
+
+      </div>
+
+      <button>
+        <i class="fa-solid fa-eye"></i>
+        Ver detalle
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- VACÍO -->
+  <div *ngIf="!loading && !proyectos.length">
+    <i class="fa-solid fa-circle-info"></i>
+    No hay proyectos registrados.
+  </div>
+
+</section>

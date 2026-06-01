@@ -1,0 +1,37 @@
+<div
+  class="card"
+  *ngFor="let persona of equipo"
+  [routerLink]="['/investigadores', persona.id]"
+>
+
+  <!-- FOTO O ÍCONO -->
+  <div class="foto">
+
+    <img
+      *ngIf="persona.foto"
+      [src]="persona.foto"
+      alt="foto"
+    >
+
+    <!-- SI NO HAY FOTO -->
+    <div class="no-foto" *ngIf="!persona.foto">
+      👤
+    </div>
+
+  </div>
+
+  <div class="info">
+
+    <h3>{{ persona.cargo }}</h3>
+    <h4>{{ persona.nombre }}</h4>
+    <p>{{ persona.biografia }}</p>
+
+    <div class="social">
+      <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">LinkedIn</a>
+      <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">Facebook</a>
+      <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">Instagram</a>
+    </div>
+
+  </div>
+
+</div>

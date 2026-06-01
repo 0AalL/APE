@@ -1,0 +1,91 @@
+<section class="detalle">
+
+  <!-- LOADING -->
+  <div *ngIf="loading">
+    Cargando proyecto...
+  </div>
+
+  <!-- CONTENIDO -->
+  <div *ngIf="!loading && proyecto">
+
+    <!-- HEADER -->
+    <div class="header">
+
+      <h1>{{ proyecto.titulo }}</h1>
+
+      <p>{{ proyecto.descripcion }}</p>
+
+    </div>
+
+    <!-- OBJETIVOS -->
+    <div class="bloque">
+
+      <h2>Objetivos</h2>
+      <p>{{ proyecto.objetivos }}</p>
+
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="bloque">
+
+      <h2>Resultados</h2>
+      <p>{{ proyecto.resultados || 'Sin resultados registrados' }}</p>
+
+    </div>
+
+    <!-- INVESTIGADORES -->
+    <div class="bloque">
+
+      <h2>Investigadores</h2>
+
+      <div *ngIf="!proyecto.investigadores?.length">
+        No hay investigadores asignados.
+      </div>
+
+      <div class="grid" *ngIf="proyecto.investigadores?.length">
+
+        <div
+          class="card"
+          *ngFor="let i of proyecto.investigadores"
+          [routerLink]="['/investigadores', i.id]"
+        >
+
+          <div class="avatar">
+
+            <img *ngIf="i.foto" [src]="i.foto">
+
+            <i *ngIf="!i.foto" class="fa-solid fa-user"></i>
+
+          </div>
+
+          <h4>{{ i.nombre }}</h4>
+          <p>{{ i.cargo }}</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PUBLICACIONES -->
+    <div class="bloque">
+
+      <h2>Publicaciones</h2>
+
+      <div *ngIf="!proyecto.publicaciones?.length">
+        No hay publicaciones aún.
+      </div>
+
+      <ul *ngIf="proyecto.publicaciones?.length">
+
+        <li *ngFor="let p of proyecto.publicaciones">
+          {{ p.titulo }}
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>

@@ -101,4 +101,17 @@ export class InvestigadorService {
 
     )
   }
+  getByIdDetalle(id: number): Observable<Investigador> {
+
+    return this.http.get<Investigador>(`http://localhost:3000/api/investigadores/${id}/detalles`, this.getHeaders()).pipe(
+
+      tap(res => console.log('✅ GET DETALLE:', res)),
+
+      catchError(err => {
+        console.error('❌ GET DETALLE ERROR:', err)
+        return throwError(() => err)
+      })
+
+    )
+  }
 }

@@ -5,7 +5,8 @@ import {
   getInvestigadorById,
   createInvestigador,
   updateInvestigador,
-  deleteInvestigador
+  deleteInvestigador,
+  getInvestigadorDetalles
 } from '../controllers/investigadores.controller.js'
 
 import { validateSchema } from '../middlewares/validateSchema.js'
@@ -21,10 +22,12 @@ const router = Router()
 // 📥 GET ALL
 router.get(
   '/',
-  authRequired,
   getInvestigadores
 )
-
+router.get(
+  '/:id/detalles',
+  getInvestigadorDetalles
+)
 // 📥 GET BY ID
 router.get(
   '/:id',

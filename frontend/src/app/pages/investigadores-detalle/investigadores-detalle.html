@@ -1,0 +1,99 @@
+<section class="detalle">
+
+    <div *ngIf="loading">
+        Cargando investigador...
+    </div>
+
+    <div *ngIf="!loading && investigador">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <!-- FOTO -->
+            <div class="foto">
+
+                <img *ngIf="investigador.foto" [src]="investigador.foto" alt="foto del investigador">
+
+                <div *ngIf="!investigador.foto" class="no-foto">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info">
+
+                <h2>{{ investigador.nombre }}</h2>
+                <h3>{{ investigador.cargo }}</h3>
+
+                <p>{{ investigador.biografia }}</p>
+
+                <!-- CONTACTO -->
+                <div class="contacto">
+
+                    <p>
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ investigador.correo }}
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-link"></i>
+                        <a [href]="investigador.orcid" target="_blank">ORCID</a>
+                    </p>
+
+                </div>
+
+                <!-- REDES -->
+                <div class="redes">
+
+                    <a *ngIf="investigador.linkedin" [href]="investigador.linkedin" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    </a>
+
+                    <a *ngIf="investigador.facebook" [href]="investigador.facebook" target="_blank">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </a>
+
+                    <a *ngIf="investigador.instagram" [href]="investigador.instagram" target="_blank">
+                        <i class="fa-brands fa-instagram"></i> Instagram
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PROYECTOS -->
+        <div class="proyectos">
+
+            <h2>Proyectos</h2>
+
+            <!-- SIN PROYECTOS -->
+            <div *ngIf="!investigador?.proyectos?.length" class="empty-proyectos">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>Este investigador aún no tiene proyectos registrados.</p>
+            </div>
+
+            <!-- CON PROYECTOS -->
+            <div class="grid" *ngIf="investigador?.proyectos?.length">
+
+                <div class="card" *ngFor="let p of investigador.proyectos">
+
+                    <h4>{{ p.nombre }}</h4>
+
+                    <p>{{ p.descripcion }}</p>
+
+                    <a [routerLink]="['/proyecto-detalle', p.id]">
+                        <i class="fa-solid fa-eye"></i>
+                        Ver proyecto
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

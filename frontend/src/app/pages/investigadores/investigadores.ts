@@ -136,7 +136,7 @@ export class InvestigadoresComponent implements OnInit {
     })
   }
 
-  // 📄 PAGINACIÓN
+  // PAGINACIÓN
   get totalPaginas() {
     return Math.ceil(this.investigadoresFiltrados.length / this.porPagina)
   }

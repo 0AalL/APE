@@ -161,3 +161,32 @@ export const deleteProyecto = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+export const getProyectoDetalles = async (req, res) => {
+  try {
+    const proyecto = await Proyecto.findByPk(req.params.id, {
+      include: [
+        {
+          model: Investigador,
+          as: 'investigadores'
+        },
+        {
+          model: Publicacion,
+          as: 'publicaciones'
+        }
+      ]
+    })
+
+    if (!proyecto) {
+      return res.status(404).json({
+        message: 'Proyecto no encontrado'
+      })
+    }
+
+    res.json(proyecto)
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+  }
+}

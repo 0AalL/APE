@@ -9,7 +9,7 @@ export class ProyectoService {
 
   private api = 'http://localhost:3000/api/proyectos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll() {
     return this.http.get<any[]>(this.api).pipe(
@@ -31,5 +31,8 @@ export class ProyectoService {
 
   delete(id: number) {
     return this.http.delete(`${this.api}/${id}`);
+  }
+  getByIdDetalle(id: number) {
+    return this.http.get<any>(`http://localhost:3000/api/proyectos/${id}/detalles`)
   }
 }

@@ -26,6 +26,8 @@ Content-Type: application/json
   "email": "christian@gmail.com",
   "password": "123456"
 }
+###
+GET http://localhost:3000/api/investigadores/2/detalles
 
 ###
 
@@ -111,7 +113,7 @@ Content-Type: application/json
   "descripcion": "Sistema de inteligencia artificial para educación personalizada",
   "objetivos": "Mejorar el aprendizaje mediante IA adaptativa",
   "resultados": "En desarrollo",
-  "investigadores": [1]
+  "investigadores": [2]
 }
 
 ###

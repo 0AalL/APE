@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Investigador } from '../models/Investigador.js'
-
+import { Proyecto } from '../models/Proyecto.js'
 // 📥 GET ALL
 export const getInvestigadores = async (req, res) => {
   try {
@@ -114,5 +114,32 @@ export const deleteInvestigador = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar' })
+  }
+}
+export const getInvestigadorDetalles = async (req, res) => {
+  try {
+    const data = await Investigador.findByPk(req.params.id, {
+      include: [
+        {
+          model: Proyecto,
+          as: 'proyectos',
+          through: {
+            attributes: [] // ❌ no mostrar tabla intermedia
+          }
+        }
+      ]
+    })
+
+    if (!data) {
+      return res.status(404).json({ message: 'No encontrado' })
+    }
+
+    res.json(data)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      message: 'Error al obtener detalles del investigador'
+    })
   }
 }
