@@ -1,0 +1,71 @@
+<h2 class="mb-4">
+  Proyectos
+</h2>
+
+<div class="card p-3 mb-4">
+
+  <input
+    class="form-control mb-2"
+    placeholder="Título"
+    [(ngModel)]="titulo">
+
+  <textarea
+    class="form-control mb-2"
+    placeholder="Descripción"
+    [(ngModel)]="descripcion">
+  </textarea>
+
+  <input
+    type="number"
+    class="form-control mb-2"
+    placeholder="Presupuesto"
+    [(ngModel)]="presupuesto">
+
+  <button
+    class="btn btn-primary"
+    (click)="crear()">
+
+    Crear Proyecto
+
+  </button>
+
+</div>
+
+<table class="table">
+
+  <thead>
+
+    <tr>
+      <th>Título</th>
+      <th>Estado</th>
+      <th>Presupuesto</th>
+      <th></th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let p of proyectos">
+
+      <td>{{p.titulo}}</td>
+      <td>{{p.estado}}</td>
+      <td>{{p.presupuesto}}</td>
+
+      <td>
+
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="eliminar(p.id)">
+
+          Eliminar
+
+        </button>
+
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>

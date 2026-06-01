@@ -1,0 +1,58 @@
+<h2 class="mb-4">
+  Investigadores
+</h2>
+
+<div class="card p-3 mb-4">
+
+  <h4>Nuevo Investigador</h4>
+
+  <input
+    class="form-control mb-2"
+    placeholder="Nombre"
+    [(ngModel)]="nombre">
+
+  <input
+    class="form-control mb-2"
+    placeholder="Especialidad"
+    [(ngModel)]="especialidad">
+
+  <input
+    class="form-control mb-2"
+    placeholder="Email"
+    [(ngModel)]="email">
+
+  <button
+    class="btn btn-success"
+    (click)="crear()">
+
+    Guardar
+
+  </button>
+
+</div>
+
+<table class="table table-striped">
+
+  <thead>
+
+    <tr>
+      <th>Nombre</th>
+      <th>Especialidad</th>
+      <th>Email</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let i of investigadores">
+
+      <td>{{i.nombre}}</td>
+      <td>{{i.especialidad}}</td>
+      <td>{{i.email}}</td>
+
+    </tr>
+
+  </tbody>
+
+</table>

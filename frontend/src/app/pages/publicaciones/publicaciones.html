@@ -1,0 +1,77 @@
+<h2 class="mb-4">
+  Publicaciones Científicas
+</h2>
+
+<div class="card p-3 mb-4">
+
+  <h4>Nueva Publicación</h4>
+
+  <input
+    class="form-control mb-2"
+    placeholder="Título"
+    [(ngModel)]="titulo">
+
+  <textarea
+    class="form-control mb-2"
+    placeholder="Resumen"
+    [(ngModel)]="resumen">
+  </textarea>
+
+  <input
+    class="form-control mb-2"
+    placeholder="Revista"
+    [(ngModel)]="revista">
+
+  <input
+    class="form-control mb-2"
+    placeholder="DOI"
+    [(ngModel)]="doi">
+
+  <button
+    class="btn btn-success"
+    (click)="crear()">
+
+    Guardar
+
+  </button>
+
+</div>
+
+<table class="table table-striped">
+
+  <thead>
+
+    <tr>
+      <th>Título</th>
+      <th>Revista</th>
+      <th>DOI</th>
+      <th></th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let p of publicaciones">
+
+      <td>{{p.titulo}}</td>
+      <td>{{p.revista}}</td>
+      <td>{{p.doi}}</td>
+
+      <td>
+
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="eliminar(p.id)">
+
+          Eliminar
+
+        </button>
+
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
