@@ -1,3 +1,42 @@
+<section class="team-header">
+
+  <span class="section-tag">
+    <i class="fa-solid fa-check-circle"></i>
+    Equipo de Investigación
+  </span>
+
+  <h1>
+    Nuestros <span>Investigadores</span>
+  </h1>
+
+  <p>
+    Conoce a los docentes e investigadores que participan en los
+    proyectos científicos y académicos de nuestra institución.
+  </p>
+
+</section>
+
+<div class="team-stats">
+
+  <div class="stat-card">
+    <h2>{{ equipo.length }}</h2>
+    <span>
+      <i class="fa-solid fa-users"></i>
+      Investigadores
+    </span>
+  </div>
+
+  <div class="stat-card">
+    <h2>{{ equipo.length }}</h2>
+    <span>
+      <i class="fa-solid fa-id-badge"></i>
+      Perfiles Activos
+    </span>
+  </div>
+
+</div>
+
+
 <div
   class="card"
   *ngFor="let persona of equipo"
@@ -15,21 +54,42 @@
 
     <!-- SI NO HAY FOTO -->
     <div class="no-foto" *ngIf="!persona.foto">
-      👤
+      <i class="fa-solid fa-user"></i>
     </div>
 
   </div>
 
   <div class="info">
 
-    <h3>{{ persona.cargo }}</h3>
-    <h4>{{ persona.nombre }}</h4>
-    <p>{{ persona.biografia }}</p>
+    <h3>
+      <i class="fa-solid fa-briefcase"></i>
+      {{ persona.cargo }}
+    </h3>
+
+    <h4>
+      <i class="fa-solid fa-user-graduate"></i>
+      {{ persona.nombre }}
+    </h4>
+
+    <p>
+      <i class="fa-solid fa-circle-info"></i>
+      {{ persona.biografia }}
+    </p>
 
     <div class="social">
-      <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">LinkedIn</a>
-      <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">Facebook</a>
-      <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">Instagram</a>
+
+      <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+
+      <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">
+        <i class="fa-brands fa-facebook"></i>
+      </a>
+
+      <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
     </div>
 
   </div>

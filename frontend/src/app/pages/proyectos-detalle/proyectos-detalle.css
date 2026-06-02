@@ -1,39 +1,112 @@
+
+/* 📄 CONTENEDOR */
 .detalle {
   padding: 40px;
+  max-width: 1100px;
 }
 
+/* ⏳ LOADING */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* 🧠 HEADER */
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 📦 BLOQUES */
 .bloque {
   margin-top: 30px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
-.grid {
+/* 🏷️ TÍTULOS */
+.bloque h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #0d6efd;
 }
 
+/* 👨‍🔬 GRID INVESTIGADORES */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 180px));
+  gap: 15px;
+}
+
+/* 🧾 CARD INVESTIGADOR */
 .card {
-  width: 180px;
   padding: 15px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   cursor: pointer;
   text-align: center;
+  transition: 0.2s;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 👤 AVATAR */
 .avatar {
-  font-size: 40px;
+  font-size: 38px;
   margin-bottom: 10px;
 }
 
-.card img {
-  width: 60px;
-  height: 60px;
+.avatar img {
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+/* 📚 PUBLICACIONES */
+.lista-publicaciones {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-publicaciones li {
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #444;
+}
+
+/* 🚫 EMPTY */
+.empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #777;
+  font-size: 14px;
 }

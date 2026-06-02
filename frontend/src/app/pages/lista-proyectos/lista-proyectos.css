@@ -1,42 +1,141 @@
-.lista {
-  padding: 40px;
+
+/* 🧠 HEADER IZQUIERDA */
+.page-header {
+  padding: 20px 10px 30px 10px;
+  text-align: left;
 }
 
-.grid {
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f3f5;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.page-header h1 {
+  font-size: 34px;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+.page-header h1 span {
+  color: #0d6efd;
+}
+
+.page-header p {
+  max-width: 700px;
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ⏳ LOADING */
+.loading {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
+  color: #555;
 }
 
+/* 📦 GRID ALINEADO IZQUIERDA */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  justify-content: start; /* 👈 CLAVE: ya no centrado */
+  gap: 22px;
+}
+
+/* 🧾 CARD */
 .card {
-  width: 280px;
-  padding: 15px;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 320px;
+  min-height: 250px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  border-color: #0d6efd;
+  box-shadow: 0 12px 26px rgba(13,110,253,0.18);
 }
 
+.card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* 📊 META */
 .meta {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 12px;
+  color: #555;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 🔘 BOTÓN */
+button {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* 🚫 EMPTY */
+.empty {
+  text-align: left;
+  padding: 35px 0;
   color: #666;
 }
 
-button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 8px;
-  border: none;
-  background: #0077ff;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
+.empty i {
+  font-size: 28px;
+  margin-right: 8px;
+  color: #999;
 }

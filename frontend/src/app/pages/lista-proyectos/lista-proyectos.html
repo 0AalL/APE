@@ -1,60 +1,72 @@
-<section class="lista">
+
+<!-- 🧠 HEADER IZQUIERDA -->
+<section class="page-header">
+
+  <span class="section-tag">
+    <i class="fa-solid fa-diagram-project"></i>
+    Proyectos de Investigación
+  </span>
 
   <h1>
-    <i class="fa-solid fa-diagram-project"></i>
-    Proyectos
+    Nuestros <span>Proyectos</span>
   </h1>
 
-  <!-- LOADING -->
-  <div *ngIf="loading">
-    Cargando proyectos...
-  </div>
+  <p>
+    Explora los proyectos científicos desarrollados por nuestra institución,
+    junto con sus investigadores, avances y publicaciones.
+  </p>
 
-  <!-- GRID -->
-  <div class="grid" *ngIf="!loading && proyectos.length">
+</section>
 
-    <div
-      class="card"
-      *ngFor="let p of proyectos"
-      [routerLink]="['/proyecto-detalle', p.id]"
-    >
+<!-- ⏳ LOADING -->
+<div *ngIf="loading" class="loading">
+  <i class="fa-solid fa-spinner fa-spin"></i>
+  Cargando proyectos...
+</div>
 
-      <h3>
-        <i class="fa-solid fa-folder-open"></i>
-        {{ p.titulo }}
-      </h3>
+<!-- 📦 GRID -->
+<div class="grid" *ngIf="!loading && proyectos.length">
 
-      <p>
-        {{ p.descripcion | slice:0:120 }}...
-      </p>
+  <div
+    class="card"
+    *ngFor="let p of proyectos"
+    [routerLink]="['/proyecto-detalle', p.id]"
+  >
 
-      <div class="meta">
+    <h3>
+      <i class="fa-solid fa-folder-open"></i>
+      {{ p.titulo }}
+    </h3>
 
-        <span>
-          <i class="fa-solid fa-users"></i>
-          {{ p.investigadores?.length || 0 }} investigadores
-        </span>
+    <p>
+      {{ p.descripcion | slice:0:120 }}...
+    </p>
 
-        <span>
-          <i class="fa-solid fa-file-lines"></i>
-          {{ p.publicaciones?.length || 0 }} publicaciones
-        </span>
+    <div class="meta">
 
-      </div>
+      <span>
+        <i class="fa-solid fa-users"></i>
+        {{ p.investigadores?.length || 0 }} investigadores
+      </span>
 
-      <button>
-        <i class="fa-solid fa-eye"></i>
-        Ver detalle
-      </button>
+      <span>
+        <i class="fa-solid fa-file-lines"></i>
+        {{ p.publicaciones?.length || 0 }} publicaciones
+      </span>
 
     </div>
 
+    <button>
+      <i class="fa-solid fa-eye"></i>
+      Ver detalle
+    </button>
+
   </div>
 
-  <!-- VACÍO -->
-  <div *ngIf="!loading && !proyectos.length">
-    <i class="fa-solid fa-circle-info"></i>
-    No hay proyectos registrados.
-  </div>
+</div>
 
-</section>
+<!-- 🚫 EMPTY -->
+<div *ngIf="!loading && !proyectos.length" class="empty">
+  <i class="fa-solid fa-circle-info"></i>
+  No hay proyectos registrados.
+</div>
