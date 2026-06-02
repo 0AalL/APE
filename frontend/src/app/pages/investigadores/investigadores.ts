@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { InvestigadorService } from '../../core/services/investigador.service'
-import { InvestigadorModalComponent } from '../../features/investigadores/investigador-modal/investigador-modal'
 import { ChangeDetectorRef } from '@angular/core'
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-investigadores',
   standalone: true,
-  imports: [CommonModule, FormsModule, InvestigadorModalComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './investigadores.html',
   styleUrls: ['./investigadores.css']
 })
@@ -39,8 +38,9 @@ export class InvestigadoresComponent implements OnInit {
 
   constructor(
     private investigadorService: InvestigadorService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.cargar()
@@ -60,29 +60,13 @@ export class InvestigadoresComponent implements OnInit {
 
   // 📌 NUEVO
   abrirNuevo() {
-    this.isEdit = false
-    this.investigador = {
-      nombre: '',
-      cargo: '',
-      correo: '',
-      orcid: '',
-      facebook: '',
-      linkedin: '',
-      instagram: '',
-      telegram: '',
-      foto: '',
-      biografia: ''
-    }
-    this.modalVisible = true
+    this.router.navigate(['admin/investigadores/nuevo']);
   }
 
   // 📌 EDITAR
   abrirEditar(i: any) {
-    this.isEdit = true
-    this.investigador = { ...i }
-    this.modalVisible = true
+    this.router.navigate(['admin/investigadores/editar', i.id]);
   }
-
   // 🗑 ELIMINAR
   eliminar(i: any) {
     this.idAEliminar = i.id

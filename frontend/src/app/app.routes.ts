@@ -10,7 +10,9 @@ import { NosotrosComponent } from './pages/nosotros/nosotros'
 import { InvestigadorDetalleComponent } from './pages/investigadores-detalle/investigadores-detalle'
 import { ListaProyectosComponent } from './pages/lista-proyectos/lista-proyectos'
 import { ProyectosDetalleComponent } from './pages/proyectos-detalle/proyectos-detalle'
-
+import { InvestigadorFormComponent } from './features/investigadores/investigador-form/investigador-form'
+import { ProyectoFormComponent } from './features/proyectos/proyecto-form/proyecto-form'
+import { ContactosAdminComponent } from './pages/contactos-admin/contactos-admin'
 export const routes: Routes = [
 
   // =========================
@@ -57,11 +59,31 @@ export const routes: Routes = [
     component: ProyectosComponent
   },
   {
+    path: 'admin/proyectos/nuevo',
+    component: ProyectoFormComponent
+  },
+  {
+    path: 'admin/proyectos/editar/:id',
+    component: ProyectoFormComponent
+  },
+  {
     path: 'admin/investigadores',
     component: InvestigadoresComponent
   },
   {
     path: 'admin/publicaciones',
     component: PublicacionesComponent
+  },
+  {
+    path: 'admin/investigadores/nuevo',
+    component: InvestigadorFormComponent
+  },
+  {
+    path: 'admin/investigadores/editar/:id',
+    component: InvestigadorFormComponent
+  },
+  {
+    path: 'admin/contactos',
+    component: ContactosAdminComponent
   }
 ]

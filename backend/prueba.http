@@ -135,7 +135,9 @@ Content-Type: application/json
 }
 
 ###
-
+### GET PROYECTO BY ID
+GET {{url}}/proyectos/7
+Authorization: Bearer {{token}}
 ### DELETE PROYECTO
 DELETE {{url}}/proyectos/1
 Authorization: Bearer {{token}}
@@ -169,6 +171,7 @@ Content-Type: application/json
 
 ###
 
+###
 ### UPDATE PUBLICACIÓN
 PUT {{url}}/publicaciones/1
 Authorization: Bearer {{token}}
@@ -189,3 +192,18 @@ Content-Type: application/json
 ### DELETE PUBLICACIÓN
 DELETE {{url}}/publicaciones/1
 Authorization: Bearer {{token}}
+
+### Crear contacto
+
+POST http://localhost:3000/api/contactos
+Content-Type: application/json
+
+{
+  "nombre": "Christian Sánchez",
+  "empresa": "Universidad Técnica",
+  "correo": "christian@test.com",
+  "areaInteres": "Proyectos I+D+I",
+  "asunto": "Consulta de investigación",
+  "mensaje": "Deseo recibir información sobre los proyectos de investigación disponibles.",
+  "aceptaPrivacidad": true
+}

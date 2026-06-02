@@ -1,0 +1,225 @@
+<div class="container mt-4">
+
+  <div class="card shadow">
+
+    <div class="card-header">
+      <h3 class="mb-0">
+        {{ isEdit ? 'Editar Investigador' : 'Nuevo Investigador' }}
+      </h3>
+    </div>
+
+    <div class="card-body">
+
+      <!-- FOTO -->
+
+      <div class="text-center mb-4">
+
+        <input
+          type="file"
+          class="form-control mb-3"
+          accept="image/*"
+          (change)="onFileSelected($event)">
+
+        <div class="d-flex justify-content-center">
+
+          <!-- FOTO EXISTENTE -->
+          <img
+            *ngIf="preview || investigador?.foto"
+            [src]="getCurrentImage()"
+            class="img-thumbnail"
+            style="
+              width:150px;
+              height:150px;
+              object-fit:cover;
+              border-radius:10px;
+            ">
+
+          <!-- ICONO SI NO HAY FOTO -->
+          <div
+            *ngIf="!preview && !investigador?.foto"
+            class="border rounded d-flex align-items-center justify-content-center"
+            style="
+              width:150px;
+              height:150px;
+              background:#f8f9fa;
+              color:#6c757d;
+            ">
+
+            <i
+              class="bi bi-person-fill"
+              style="font-size:70px;">
+            </i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- NOMBRE Y CARGO -->
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+
+          <label class="form-label">
+            Nombre *
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="investigador.nombre">
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <label class="form-label">
+            Cargo *
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="investigador.cargo">
+
+        </div>
+
+      </div>
+
+      <!-- CORREO -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Correo *
+        </label>
+
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="investigador.correo">
+
+      </div>
+
+      <!-- ORCID -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          ORCID
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="investigador.orcid">
+
+      </div>
+
+      <!-- FACEBOOK -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Facebook
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="investigador.facebook">
+
+      </div>
+
+      <!-- LINKEDIN -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          LinkedIn
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="investigador.linkedin">
+
+      </div>
+
+      <!-- INSTAGRAM -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Instagram
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="investigador.instagram">
+
+      </div>
+
+      <!-- TELEGRAM -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Telegram
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="investigador.telegram">
+
+      </div>
+
+      <!-- BIOGRAFÍA -->
+
+      <div class="mb-4">
+
+        <label class="form-label">
+          Biografía
+        </label>
+
+        <textarea
+          rows="6"
+          class="form-control"
+          [(ngModel)]="investigador.biografia">
+        </textarea>
+
+      </div>
+
+      <!-- BOTONES -->
+
+      <div class="d-flex justify-content-end gap-2">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="cancelar()">
+
+          Cancelar
+
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="guardar()">
+
+          {{ isEdit ? 'Actualizar' : 'Guardar' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

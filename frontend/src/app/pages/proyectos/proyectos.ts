@@ -5,12 +5,11 @@ import { Router, NavigationEnd } from '@angular/router'
 import { filter } from 'rxjs'
 
 import { ProyectoService } from '../../core/services/proyecto.service'
-import { ProyectoModalComponent } from '../../features/proyectos/proyecto-modal/proyecto-modal'
 
 @Component({
   selector: 'app-proyectos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProyectoModalComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './proyectos.html',
   styleUrls: ['./proyectos.css']
 })
@@ -30,6 +29,10 @@ export class ProyectosComponent implements OnInit {
   porPagina = 5
 
   toast: { message: string, type: string } | null = null
+
+  // NUEVO
+  modalEliminarVisible = false
+  proyectoIdEliminar: number | null = null
 
   constructor(
     private service: ProyectoService,
@@ -55,15 +58,12 @@ export class ProyectosComponent implements OnInit {
     this.service.getAll().subscribe({
       next: (data: any) => {
         this.proyectos = data ?? []
-
-        // FORZAR DETECCIÓN DE CAMBIOS
         this.cdr.detectChanges()
       },
       error: (err) => {
         console.error(err)
         this.proyectos = []
         this.showToast('Error al cargar proyectos', 'error')
-
         this.cdr.detectChanges()
       }
     })
@@ -72,17 +72,24 @@ export class ProyectosComponent implements OnInit {
   get filtrados() {
     return this.proyectos.filter(p => {
 
-      const titulo = !this.filtroTitulo ||
-        p.titulo?.toLowerCase().includes(this.filtroTitulo.toLowerCase())
+      const titulo =
+        !this.filtroTitulo ||
+        p.titulo?.toLowerCase().includes(
+          this.filtroTitulo.toLowerCase()
+        )
 
-      const estado = !this.filtroEstado ||
+      const estado =
+        !this.filtroEstado ||
         (p.estado || 'activo')
           .toLowerCase()
           .includes(this.filtroEstado.toLowerCase())
 
-      const investigador = !this.filtroInvestigador ||
+      const investigador =
+        !this.filtroInvestigador ||
         p.investigadores?.some((i: any) =>
-          i.nombre?.toLowerCase().includes(this.filtroInvestigador.toLowerCase())
+          i.nombre?.toLowerCase().includes(
+            this.filtroInvestigador.toLowerCase()
+          )
         )
 
       return titulo && estado && investigador
@@ -104,44 +111,61 @@ export class ProyectosComponent implements OnInit {
   }
 
   abrirNuevo() {
-    this.isEdit = false
-    this.proyecto = {
-      titulo: '',
-      descripcion: '',
-      objetivos: '',
-      resultados: '',
-      investigadores: []
-    }
-    this.modalVisible = true
+    this.router.navigate(['admin/proyectos/nuevo'])
   }
 
   abrirEditar(p: any) {
-    this.isEdit = true
-    this.proyecto = {
-      ...p,
-      investigadores: p.investigadores?.map((i: any) => i.id) || []
-    }
-    this.modalVisible = true
+    this.router.navigate(['admin/proyectos/editar', p.id])
   }
 
-  eliminar(id: number) {
+  // ==========================
+  // MODAL ELIMINAR
+  // ==========================
 
-    const ok = confirm('¿Seguro que deseas eliminar este proyecto?')
-    if (!ok) return
+  abrirModalEliminar(id: number) {
+    this.proyectoIdEliminar = id
+    this.modalEliminarVisible = true
+  }
 
-    this.service.delete(id).subscribe({
+  cerrarModalEliminar() {
+    this.modalEliminarVisible = false
+    this.proyectoIdEliminar = null
+  }
+
+  confirmarEliminar() {
+
+    if (!this.proyectoIdEliminar) return
+
+    this.service.delete(this.proyectoIdEliminar).subscribe({
       next: () => {
+
+        this.cerrarModalEliminar()
+
         this.cargar()
-        this.showToast('Proyecto eliminado correctamente', 'success')
+
+        this.showToast(
+          'Proyecto eliminado correctamente',
+          'success'
+        )
       },
       error: () => {
-        this.showToast('Error al eliminar proyecto', 'error')
+
+        this.cerrarModalEliminar()
+
+        this.showToast(
+          'Error al eliminar proyecto',
+          'error'
+        )
       }
     })
   }
 
   showToast(message: string, type: string) {
-    this.toast = { message, type }
+
+    this.toast = {
+      message,
+      type
+    }
 
     setTimeout(() => {
       this.toast = null

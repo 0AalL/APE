@@ -32,14 +32,14 @@
 
 </div>
 
-<!-- 👉 BOTÓN CREAR -->
+<!--  BOTÓN CREAR -->
 <div class="mb-3">
   <button class="btn btn-success" (click)="abrirNuevo()">
     + Nuevo Investigador
   </button>
 </div>
 
-<!-- 📋 TABLA -->
+<!--  TABLA -->
 <table class="table table-striped align-middle">
 
   <thead>
@@ -112,14 +112,6 @@
 
 </div>
 
-<!-- MODAL -->
-<app-investigador-modal
-  [visible]="modalVisible"
-  [isEdit]="isEdit"
-  [investigador]="investigador"
-  (cerrarModal)="modalVisible = false"
-  (refrescar)="cargar()">
-</app-investigador-modal>
 
 <!-- CONFIRMACIÓN -->
 <div class="modal d-block" *ngIf="confirmVisible"

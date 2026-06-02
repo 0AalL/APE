@@ -1,0 +1,304 @@
+<h2 class="mb-4">
+  Mensajes de Contacto
+</h2>
+
+<div class="row mb-4">
+
+  <div class="col-md-4">
+
+    <input
+      class="form-control"
+      placeholder="Buscar nombre"
+      [(ngModel)]="filtroNombre">
+
+  </div>
+
+  <div class="col-md-4">
+
+    <input
+      class="form-control"
+      placeholder="Buscar correo"
+      [(ngModel)]="filtroCorreo">
+
+  </div>
+
+  <div class="col-md-4">
+
+    <input
+      class="form-control"
+      placeholder="Buscar asunto"
+      [(ngModel)]="filtroAsunto">
+
+  </div>
+
+</div>
+
+<table
+  class="table table-striped">
+
+  <thead>
+
+    <tr>
+
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Área</th>
+      <th>Asunto</th>
+      <th>Acciones</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr
+      *ngFor="
+        let c of paginados
+      ">
+
+      <td>
+        {{ c.nombre }}
+      </td>
+
+      <td>
+        {{ c.correo }}
+      </td>
+
+      <td>
+        {{ c.areaInteres }}
+      </td>
+
+      <td>
+        {{ c.asunto }}
+      </td>
+
+      <td>
+
+        <button
+          class="btn btn-info btn-sm me-2"
+          (click)="ver(c)">
+
+          Ver
+
+        </button>
+
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="eliminar(c.id)">
+
+          Eliminar
+
+        </button>
+
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+<div
+  class="d-flex justify-content-center mt-3">
+
+  <button
+    class="btn btn-outline-primary me-2"
+    (click)="cambiarPagina(pagina - 1)">
+
+    Anterior
+
+  </button>
+
+  <span class="align-self-center">
+
+    Página
+    {{ pagina }}
+    de
+    {{ totalPaginas || 1 }}
+
+  </span>
+
+  <button
+    class="btn btn-outline-primary ms-2"
+    (click)="cambiarPagina(pagina + 1)">
+
+    Siguiente
+
+  </button>
+
+</div>
+
+<!-- MODAL -->
+
+<div
+  class="modal d-block"
+  *ngIf="seleccionado"
+  style="
+    background:
+    rgba(0,0,0,.5);
+  ">
+
+  <div
+    class="modal-dialog
+           modal-lg">
+
+    <div
+      class="modal-content">
+
+      <div
+        class="modal-header">
+
+        <h5>
+
+          Mensaje de Contacto
+
+        </h5>
+
+      </div>
+
+      <div
+        class="modal-body">
+
+        <p>
+          <strong>
+            Nombre:
+          </strong>
+
+          {{ seleccionado.nombre }}
+        </p>
+
+        <p>
+          <strong>
+            Empresa:
+          </strong>
+
+          {{ seleccionado.empresa }}
+        </p>
+
+        <p>
+          <strong>
+            Correo:
+          </strong>
+
+          {{ seleccionado.correo }}
+        </p>
+
+        <p>
+          <strong>
+            Área:
+          </strong>
+
+          {{ seleccionado.areaInteres }}
+        </p>
+
+        <p>
+          <strong>
+            Asunto:
+          </strong>
+
+          {{ seleccionado.asunto }}
+        </p>
+
+        <hr>
+
+        <p>
+          {{ seleccionado.mensaje }}
+        </p>
+
+      </div>
+
+      <div
+        class="modal-footer">
+
+        <button
+          class="btn btn-secondary"
+          (click)="cerrar()">
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CONFIRMAR ELIMINACIÓN -->
+<!-- MODAL CONFIRMAR ELIMINACIÓN -->
+
+<div
+  *ngIf="confirmVisible"
+  class="delete-overlay">
+
+  <div class="delete-modal">
+
+    <button
+      class="delete-close"
+      (click)="cancelarEliminar()">
+
+      ×
+
+    </button>
+
+    <div class="delete-icon">
+
+      <svg
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none">
+
+        <path
+          d="M3 6H21"
+          stroke="currentColor"
+          stroke-width="2"/>
+
+        <path
+          d="M8 6V4H16V6"
+          stroke="currentColor"
+          stroke-width="2"/>
+
+        <path
+          d="M19 6L18 20H6L5 6"
+          stroke="currentColor"
+          stroke-width="2"/>
+
+      </svg>
+
+    </div>
+
+    <h3>
+      Eliminar mensaje
+    </h3>
+
+    <p>
+      El mensaje será eliminado permanentemente.
+    </p>
+
+    <div class="delete-actions">
+
+      <button
+        class="btn-cancel"
+        (click)="cancelarEliminar()">
+
+        Cancelar
+
+      </button>
+
+      <button
+        class="btn-delete"
+        (click)="confirmarEliminar()">
+
+        Eliminar
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

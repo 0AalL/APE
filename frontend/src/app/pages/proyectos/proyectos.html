@@ -1,7 +1,7 @@
 <!-- 🍞 TOAST -->
 <div *ngIf="toast"
-  class="toast-custom"
-  [ngClass]="toast.type">
+     class="toast-custom"
+     [ngClass]="toast.type">
 
   {{ toast.message }}
 </div>
@@ -13,23 +13,23 @@
 
   <div class="col-md-4">
     <input class="form-control"
-      placeholder="Buscar por título"
-      [(ngModel)]="filtroTitulo"
-      (input)="pagina = 1">
+           placeholder="Buscar por título"
+           [(ngModel)]="filtroTitulo"
+           (input)="pagina = 1">
   </div>
 
   <div class="col-md-4">
     <input class="form-control"
-      placeholder="Buscar por estado (resultado)"
-      [(ngModel)]="filtroEstado"
-      (input)="pagina = 1">
+           placeholder="Buscar por estado (resultado)"
+           [(ngModel)]="filtroEstado"
+           (input)="pagina = 1">
   </div>
 
   <div class="col-md-4">
     <input class="form-control"
-      placeholder="Buscar por investigador"
-      [(ngModel)]="filtroInvestigador"
-      (input)="pagina = 1">
+           placeholder="Buscar por investigador"
+           [(ngModel)]="filtroInvestigador"
+           (input)="pagina = 1">
   </div>
 
 </div>
@@ -58,10 +58,8 @@
 
     <tr *ngFor="let p of paginados">
 
-      <!-- TÍTULO -->
       <td>{{ p.titulo }}</td>
 
-      <!-- ESTADO REAL (resultados) -->
       <td>
         <span [ngClass]="{
           'text-warning': p.resultados === 'En desarrollo',
@@ -72,12 +70,10 @@
         </span>
       </td>
 
-      <!-- DESCRIPCIÓN -->
       <td>
         {{ p.descripcion }}
       </td>
 
-      <!-- INVESTIGADORES -->
       <td>
         <span *ngIf="p.investigadores?.length">
 
@@ -92,16 +88,15 @@
         </span>
       </td>
 
-      <!-- ACCIONES -->
       <td>
 
         <button class="btn btn-primary btn-sm me-2"
-          (click)="abrirEditar(p)">
+                (click)="abrirEditar(p)">
           Editar
         </button>
 
         <button class="btn btn-danger btn-sm"
-          (click)="eliminar(p.id)">
+                (click)="abrirModalEliminar(p.id)">
           Eliminar
         </button>
 
@@ -117,7 +112,7 @@
 <div class="d-flex justify-content-center mt-3">
 
   <button class="btn btn-outline-primary btn-sm me-2"
-    (click)="cambiarPagina(pagina - 1)">
+          (click)="cambiarPagina(pagina - 1)">
     Anterior
   </button>
 
@@ -126,17 +121,55 @@
   </span>
 
   <button class="btn btn-outline-primary btn-sm ms-2"
-    (click)="cambiarPagina(pagina + 1)">
+          (click)="cambiarPagina(pagina + 1)">
     Siguiente
   </button>
 
 </div>
 
-<!-- 📦 MODAL -->
-<app-proyecto-modal
-  [visible]="modalVisible"
-  [isEdit]="isEdit"
-  [proyecto]="proyecto"
-  (cerrarModal)="modalVisible = false"
-  (refrescar)="cargar()">
-</app-proyecto-modal>
+<!-- 📦 MODAL ELIMINAR -->
+<div *ngIf="modalEliminarVisible"
+     class="modal fade show d-block"
+     tabindex="-1"
+     style="background: rgba(0,0,0,0.5);">
+
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Confirmar eliminación
+        </h5>
+
+        <button type="button"
+                class="btn-close"
+                (click)="cerrarModalEliminar()">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          ¿Seguro que deseas eliminar este proyecto?
+        </p>
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary"
+                (click)="cerrarModalEliminar()">
+          Cancelar
+        </button>
+
+        <button class="btn btn-danger"
+                (click)="confirmarEliminar()">
+          Eliminar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

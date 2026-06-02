@@ -50,7 +50,6 @@ router.put(
 // Eliminar proyecto (solo admin)
 router.delete(
   '/:id',
-  isAdmin,
   deleteProyecto
 )
 

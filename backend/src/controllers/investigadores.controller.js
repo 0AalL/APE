@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { Investigador } from '../models/Investigador.js'
 import { Proyecto } from '../models/Proyecto.js'
-// 📥 GET ALL
+//  GET ALL
 export const getInvestigadores = async (req, res) => {
   try {
     const data = await Investigador.findAll()

@@ -1,0 +1,204 @@
+/* ==========================
+   OVERLAY
+========================== */
+
+.delete-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(2, 6, 23, .65);
+
+  backdrop-filter:
+    blur(8px);
+
+  z-index: 999999;
+}
+
+/* ==========================
+   MODAL
+========================== */
+
+.delete-modal {
+
+  position: relative;
+
+  width: 460px;
+  max-width: 92%;
+
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  padding: 36px;
+
+  text-align: center;
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.25);
+
+  animation:
+    modalAppear .25s ease;
+}
+
+/* ==========================
+   CERRAR
+========================== */
+
+.delete-close {
+
+  position: absolute;
+
+  top: 15px;
+  right: 18px;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  color: #94a3b8;
+}
+
+.delete-close:hover {
+
+  color: #334155;
+}
+
+/* ==========================
+   ICONO
+========================== */
+
+.delete-icon {
+
+  width: 90px;
+  height: 90px;
+
+  margin: 0 auto 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #dc2626;
+
+  background:
+    rgba(220,38,38,.1);
+}
+
+/* ==========================
+   TEXTO
+========================== */
+
+.delete-modal h3 {
+
+  margin-bottom: 12px;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.delete-modal p {
+
+  color: #64748b;
+
+  margin-bottom: 28px;
+
+  font-size: 15px;
+}
+
+/* ==========================
+   BOTONES
+========================== */
+
+.delete-actions {
+
+  display: flex;
+
+  gap: 12px;
+}
+
+.delete-actions button {
+
+  flex: 1;
+
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.btn-cancel {
+
+  background: #f1f5f9;
+
+  color: #334155;
+}
+
+.btn-cancel:hover {
+
+  background: #e2e8f0;
+}
+
+.btn-delete {
+
+  background: #dc2626;
+
+  color: white;
+}
+
+.btn-delete:hover {
+
+  background: #b91c1c;
+
+  transform:
+    translateY(-2px);
+}
+
+/* ==========================
+   ANIMACIÓN
+========================== */
+
+@keyframes modalAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      scale(.95)
+      translateY(15px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+  }
+
+}

@@ -1,0 +1,239 @@
+<div class="container mt-4">
+
+  <div class="card shadow">
+
+    <div class="card-header">
+
+      <h3 class="mb-0">
+        {{ isEdit ? 'Editar Proyecto' : 'Nuevo Proyecto' }}
+      </h3>
+
+    </div>
+
+    <div class="card-body">
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Título
+        </label>
+
+        <input
+          class="form-control"
+          [(ngModel)]="proyecto.titulo">
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Investigadores
+        </label>
+
+        <div class="mb-2">
+
+          <button
+            class="btn btn-primary"
+            (click)="abrirBuscador()">
+
+            Buscar investigador
+
+          </button>
+
+        </div>
+
+        <div>
+
+          <span
+            class="badge bg-secondary me-2 mb-2"
+            *ngFor="let i of proyecto.investigadores; let idx = index">
+
+            {{ i.nombre }}
+
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              (click)="eliminarInvestigador(idx)">
+
+              ×
+
+            </button>
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Descripción
+        </label>
+
+        <textarea
+          rows="4"
+          class="form-control"
+          [(ngModel)]="proyecto.descripcion">
+        </textarea>
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Objetivos
+        </label>
+
+        <textarea
+          rows="4"
+          class="form-control"
+          [(ngModel)]="proyecto.objetivos">
+        </textarea>
+
+      </div>
+
+      <div class="mb-4">
+
+        <label class="form-label">
+          Resultados
+        </label>
+
+        <textarea
+          rows="4"
+          class="form-control"
+          [(ngModel)]="proyecto.resultados">
+        </textarea>
+
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+
+        <button
+          class="btn btn-secondary"
+          (click)="cancelar()">
+
+          Cancelar
+
+        </button>
+
+        <button
+          class="btn btn-success"
+          (click)="guardar()">
+
+          {{ isEdit ? 'Actualizar' : 'Guardar' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL BUSCADOR -->
+
+<div
+  class="modal d-block"
+  *ngIf="buscadorVisible"
+  style="background: rgba(0,0,0,.5);">
+
+  <div class="modal-dialog modal-xl">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5>
+          Buscar Investigador
+        </h5>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row mb-3">
+
+          <div class="col">
+            <input
+              class="form-control"
+              placeholder="Nombre"
+              [(ngModel)]="filtroNombre"
+              (input)="filtrar()">
+          </div>
+
+          <div class="col">
+            <input
+              class="form-control"
+              placeholder="Cédula"
+              [(ngModel)]="filtroCedula"
+              (input)="filtrar()">
+          </div>
+
+          <div class="col">
+            <input
+              class="form-control"
+              placeholder="Cargo"
+              [(ngModel)]="filtroCargo"
+              (input)="filtrar()">
+          </div>
+
+        </div>
+
+        <table class="table">
+
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cédula</th>
+              <th>Cargo</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let i of paginados">
+
+              <td>{{ i.nombre }}</td>
+              <td>{{ i.cedula }}</td>
+              <td>{{ i.cargo }}</td>
+
+              <td>
+
+                <button
+                  class="btn btn-success btn-sm"
+                  (click)="seleccionarInvestigador(i)">
+
+                  Agregar
+
+                </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-secondary"
+          (click)="buscadorVisible = false">
+
+          Cerrar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

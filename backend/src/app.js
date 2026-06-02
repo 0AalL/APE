@@ -6,7 +6,7 @@ import authRoutes from './routes/auth.routes.js'
 import investigadoresRoutes from './routes/investigadores.routes.js'
 import proyectosRoutes from './routes/proyectos.routes.js'
 import publicacionesRoutes from './routes/publicaciones.routes.js'
-
+import contactoRoutes from './routes/contacto.routes.js'
 const app = express()
 
 app.use(cors())
@@ -17,7 +17,7 @@ app.use(
   '/uploads',
   express.static(path.join(process.cwd(), 'src/uploads'))
 )
-
+app.use('/api/contactos', contactoRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/investigadores', investigadoresRoutes)
 app.use('/api/proyectos', proyectosRoutes)

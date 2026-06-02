@@ -35,4 +35,9 @@ export class ProyectoService {
   getByIdDetalle(id: number) {
     return this.http.get<any>(`http://localhost:3000/api/proyectos/${id}/detalles`)
   }
+  getById(id: number) {
+    //imprimir antes de retornar
+    console.log(`GET proyecto por ID: ${id}`);
+    return this.http.get<any>(`http://localhost:3000/api/proyectos/${id}`);
+  }
 }
