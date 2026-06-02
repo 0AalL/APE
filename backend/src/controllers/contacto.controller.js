@@ -1,29 +1,31 @@
 import { Contacto } from '../models/Contacto.js'
 
+// 🔵 GET ALL
 export const getAll = async (req, res) => {
   try {
 
-    const contactos =
-      await Contacto.findAll({
-        order: [['createdAt', 'DESC']]
-      })
+    const contactos = await Contacto.findAll({
+      order: [['createdAt', 'DESC']]
+    })
 
-    res.json(contactos)
+    return res.json(contactos)
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
+    console.error('GET ALL ERROR:', error)
+
+    return res.status(500).json({
+      message: 'Error al obtener contactos'
     })
 
   }
 }
 
+// 🔵 GET BY ID
 export const getById = async (req, res) => {
   try {
 
-    const contacto =
-      await Contacto.findByPk(req.params.id)
+    const contacto = await Contacto.findByPk(req.params.id)
 
     if (!contacto) {
       return res.status(404).json({
@@ -31,12 +33,14 @@ export const getById = async (req, res) => {
       })
     }
 
-    res.json(contacto)
+    return res.json(contacto)
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
+    console.error('GET BY ID ERROR:', error)
+
+    return res.status(500).json({
+      message: 'Error al obtener contacto'
     })
 
   }
@@ -45,52 +49,29 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
   try {
 
-    const {
-      nombre,
-      empresa,
-      correo,
-      areaInteres,
-      asunto,
-      mensaje,
-      aceptaPrivacidad
-    } = req.body
+    const contacto = await Contacto.create(req.body);
 
-    if (!aceptaPrivacidad) {
-      return res.status(400).json({
-        message: 'Debe aceptar la política de privacidad'
-      })
-    }
-
-    const contacto =
-      await Contacto.create({
-        nombre,
-        empresa,
-        correo,
-        areaInteres,
-        asunto,
-        mensaje,
-        aceptaPrivacidad
-      })
-
-    res.status(201).json({
+    return res.status(201).json({
       message: 'Solicitud enviada correctamente',
-      contacto
-    })
+      contacto: contacto.toJSON() // 👈 CLAVE
+    });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
-    })
+    console.error('CREATE ERROR:', error);
+
+    return res.status(500).json({
+      message: 'Error al crear contacto'
+    });
 
   }
-}
+};
 
+// 🔵 UPDATE
 export const update = async (req, res) => {
   try {
 
-    const contacto =
-      await Contacto.findByPk(req.params.id)
+    const contacto = await Contacto.findByPk(req.params.id)
 
     if (!contacto) {
       return res.status(404).json({
@@ -100,25 +81,27 @@ export const update = async (req, res) => {
 
     await contacto.update(req.body)
 
-    res.json({
+    return res.json({
       message: 'Contacto actualizado',
       contacto
     })
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
+    console.error('UPDATE ERROR:', error)
+
+    return res.status(500).json({
+      message: 'Error al actualizar contacto'
     })
 
   }
 }
 
+// 🔵 DELETE
 export const remove = async (req, res) => {
   try {
 
-    const contacto =
-      await Contacto.findByPk(req.params.id)
+    const contacto = await Contacto.findByPk(req.params.id)
 
     if (!contacto) {
       return res.status(404).json({
@@ -128,14 +111,16 @@ export const remove = async (req, res) => {
 
     await contacto.destroy()
 
-    res.json({
+    return res.json({
       message: 'Contacto eliminado'
     })
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
+    console.error('DELETE ERROR:', error)
+
+    return res.status(500).json({
+      message: 'Error al eliminar contacto'
     })
 
   }

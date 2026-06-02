@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
 import {
   getAll,
@@ -6,38 +6,40 @@ import {
   create,
   update,
   remove
-} from '../controllers/contacto.controller.js'
+} from '../controllers/contacto.controller.js';
 
-import { authRequired } from '../middlewares/auth.middleware.js'
+import { authRequired } from '../middlewares/auth.middleware.js';
+import { validateSchema } from '../middlewares/validateSchema.js';
+import { contactoSchema } from '../schemas/contacto.schema.js';
 
-const router = Router()
+const router = Router();
 
 // 🔒 GET ALL (PROTEGIDO)
 router.get(
   '/',
   authRequired,
   getAll
-)
+);
 
 // 🔒 GET BY ID (PROTEGIDO)
 router.get(
   '/:id',
   authRequired,
   getById
-)
+);
 
-// 🔓 CREATE (PÚBLICO)
+// 🔓 CREATE (PÚBLICO + VALIDADO)
 router.post(
   '/',
+  validateSchema(contactoSchema),
   create
-)
-
+);
 
 // 🔒 DELETE (PROTEGIDO)
 router.delete(
   '/:id',
   authRequired,
   remove
-)
+);
 
-export default router
+export default router;

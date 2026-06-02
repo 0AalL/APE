@@ -6,20 +6,22 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ContactoService {
 
-  private api =
-    'http://localhost:3000/api/contactos';
+  private api = 'http://localhost:3000/api/contactos';
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
+  // GET all
   getAll() {
     return this.http.get<any[]>(this.api);
   }
 
+  // POST create contacto
+  create(contacto: any) {
+    return this.http.post(this.api, contacto);
+  }
+
+  // DELETE
   delete(id: number) {
-    return this.http.delete(
-      `${this.api}/${id}`
-    );
+    return this.http.delete(`${this.api}/${id}`);
   }
 }

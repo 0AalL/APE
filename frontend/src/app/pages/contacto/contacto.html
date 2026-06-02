@@ -1,246 +1,140 @@
 <div class="container py-5">
 
   <div class="text-center mb-5">
-
-    <h1 class="fw-bold">
-      Contacto
-    </h1>
-
-    <p class="text-muted">
-      Instituto de Investigación REASONS
-    </p>
-
+    <h1 class="fw-bold">Contacto</h1>
+    <p class="text-muted">Instituto de Investigación REASONS</p>
   </div>
 
   <div class="row">
 
-    <!-- INFORMACIÓN -->
-
+    <!-- INFO -->
     <div class="col-lg-4 mb-4">
-
       <div class="card shadow-sm h-100">
-
         <div class="card-body">
+          <h4 class="mb-4">Información de Contacto</h4>
 
-          <h4 class="mb-4">
-            Información de Contacto
-          </h4>
-
-          <p>
-            <strong>Dirección</strong>
-          </p>
-
+          <p><strong>Dirección</strong></p>
           <p>
             Av. de Los Chasquis y Av. Río Payamino.<br>
-            Facultad de Ingeniería en Sistemas,
-            Electrónica e Industrial.<br>
+            Facultad de Ingeniería en Sistemas,<br>
             Universidad Técnica de Ambato.<br>
             Ambato – Ecuador.
           </p>
 
           <hr>
 
-          <p>
-            <strong>Correo electrónico</strong>
-          </p>
-
-          <p>
-            reasons@uta.edu.ec
-          </p>
-
-          <hr>
-
-          <p>
-            <strong>Institución</strong>
-          </p>
-
-          <p>
-            Grupo de Investigación REASONS
-            <br>
-            Universidad Técnica de Ambato
-          </p>
-
+          <p><strong>Correo</strong></p>
+          <p>reasons@uta.edu.ec</p>
         </div>
-
       </div>
-
     </div>
 
-    <!-- FORMULARIO -->
-
+    <!-- FORM -->
     <div class="col-lg-8">
 
       <div class="card shadow">
-
         <div class="card-body p-4">
 
-          <h3 class="mb-4">
-            Ponte en contacto con nosotros
-          </h3>
+          <h3 class="mb-4">Ponte en contacto con nosotros</h3>
 
-          <div
-            *ngIf="enviado"
-            class="alert alert-success">
-
-            Su mensaje ha sido enviado correctamente.
-
+          <!-- ERROR -->
+          <div *ngIf="errorMsg" class="alert alert-danger">
+            {{ errorMsg }}
           </div>
 
-          <div class="row">
+          <!-- SUCCESS -->
+          <div *ngIf="successMsg" class="alert alert-success">
+            {{ successMsg }}
+          </div>
 
-            <div class="col-md-6 mb-3">
+          <!-- LOADING -->
+          <div class="loading-overlay" *ngIf="enviando">
+            <div class="spinner-border text-primary"></div>
+            <p>Enviando mensaje...</p>
+          </div>
 
-              <label class="form-label">
-                Nombre *
-              </label>
+          <!-- FORM -->
+          <div [class.disabled-form]="enviando">
 
-              <input
-                class="form-control"
+            <div class="mb-3">
+              <label>Nombre *</label>
+              <input class="form-control"
+                name="nombre"
                 [(ngModel)]="contacto.nombre">
-
             </div>
 
-            <div class="col-md-6 mb-3">
-
-              <label class="form-label">
-                Empresa
-              </label>
-
-              <input
-                class="form-control"
+            <div class="mb-3">
+              <label>Empresa</label>
+              <input class="form-control"
+                name="empresa"
                 [(ngModel)]="contacto.empresa">
-
             </div>
 
-          </div>
+            <div class="mb-3">
+              <label>Correo *</label>
+              <input type="email"
+                class="form-control"
+                name="correo"
+                [(ngModel)]="contacto.correo">
+            </div>
 
-          <div class="mb-3">
+            <div class="mb-3">
+              <label>Área *</label>
+              <select class="form-select"
+                name="areaInteres"
+                [(ngModel)]="contacto.areaInteres">
 
-            <label class="form-label">
-              Correo electrónico *
-            </label>
+                <option value="">Seleccione</option>
 
-            <input
-              type="email"
-              class="form-control"
-              [(ngModel)]="contacto.correo">
+                <option *ngFor="let area of areas" [value]="area">
+                  {{ area }}
+                </option>
 
-          </div>
+              </select>
+            </div>
 
-          <div class="mb-3">
+            <div class="mb-3">
+              <label>Asunto *</label>
+              <input class="form-control"
+                name="asunto"
+                [(ngModel)]="contacto.asunto">
+            </div>
 
-            <label class="form-label">
-              Área de interés *
-            </label>
+            <div class="mb-3">
+              <label>Mensaje *</label>
+              <textarea class="form-control"
+                rows="6"
+                name="mensaje"
+                [(ngModel)]="contacto.mensaje">
+              </textarea>
+            </div>
 
-            <select
-              class="form-select"
-              [(ngModel)]="contacto.areaInteres">
+            <div class="form-check mb-4">
+              <input class="form-check-input"
+                type="checkbox"
+                name="aceptaPrivacidad"
+                [(ngModel)]="contacto.aceptaPrivacidad">
 
-              <option value="">
-                Seleccione...
-              </option>
+              <label class="form-check-label">
+                Acepto la política de privacidad *
+              </label>
+            </div>
 
-              <option
-                *ngFor="let area of areas"
-                [value]="area">
+            <button class="btn btn-primary w-100"
+              (click)="enviar()"
+              [disabled]="enviando">
 
-                {{ area }}
+              <span *ngIf="!enviando">Enviar Mensaje</span>
+              <span *ngIf="enviando">Enviando...</span>
 
-              </option>
-
-            </select>
-
-          </div>
-
-          <div class="mb-3">
-
-            <label class="form-label">
-              Asunto *
-            </label>
-
-            <input
-              class="form-control"
-              [(ngModel)]="contacto.asunto">
-
-          </div>
-
-          <div class="mb-3">
-
-            <label class="form-label">
-              Mensaje *
-            </label>
-
-            <textarea
-              rows="6"
-              class="form-control"
-              [(ngModel)]="contacto.mensaje">
-            </textarea>
+            </button>
 
           </div>
-
-          <div class="form-check mb-4">
-
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="privacidad"
-              [(ngModel)]="contacto.aceptaPrivacidad">
-
-            <label
-              class="form-check-label"
-              for="privacidad">
-
-              Acepto la Política de Privacidad
-
-            </label>
-
-          </div>
-
-          <button
-            class="btn btn-primary px-4"
-            [disabled]="enviando"
-            (click)="enviar()">
-
-            {{ enviando ? 'Enviando...' : 'Enviar Mensaje' }}
-
-          </button>
 
         </div>
-
       </div>
 
     </div>
 
   </div>
-
-  <div class="card mt-5 border-0 bg-light">
-
-    <div class="card-body">
-
-      <h4>
-        Política de Privacidad
-      </h4>
-
-      <p class="mb-0">
-
-        Responsable:
-        Instituto REASONS de la Universidad Técnica de Ambato.
-
-        Los datos personales proporcionados mediante este formulario
-        serán utilizados exclusivamente para gestionar y responder
-        las consultas realizadas.
-
-        Los datos no serán cedidos a terceros salvo obligación legal.
-
-        El usuario podrá ejercer sus derechos de acceso,
-        rectificación, cancelación y oposición conforme a la
-        normativa vigente de protección de datos.
-
-      </p>
-
-    </div>
-
-  </div>
-
 </div>
