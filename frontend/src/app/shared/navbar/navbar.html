@@ -41,6 +41,13 @@
         Panel de control
       </a>
 
+      <!-- Logout si logeado -->
+      <button class="btn btn-outline-light ms-2"
+              *ngIf="auth.isLoggedIn()"
+              (click)="logout()">
+        Logout
+      </button>
+
     </div>
 
   </div>

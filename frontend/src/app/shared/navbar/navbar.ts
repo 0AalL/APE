@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -12,5 +12,13 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(public auth: AuthService) {}
+  constructor(
+    public auth: AuthService,
+    private router: Router
+  ) {}
+
+  logout(): void {
+    this.auth.logout();      
+    this.router.navigate(['/login']);
+  }
 }
