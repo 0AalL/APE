@@ -12,14 +12,24 @@
 
       <!-- TITULO -->
       <div class="mb-3">
-        <label class="form-label">Título</label>
-        <input class="form-control" [(ngModel)]="proyecto.titulo">
+
+        <label class="form-label">
+          Título *
+        </label>
+
+        <input
+          class="form-control"
+          placeholder="Mínimo 5 caracteres"
+          [(ngModel)]="proyecto.titulo">
+
       </div>
 
       <!-- INVESTIGADORES -->
       <div class="mb-3">
 
-        <label class="form-label">Investigadores</label>
+        <label class="form-label">
+          Investigadores *
+        </label>
 
         <button class="btn btn-primary mb-2" (click)="abrirBuscador()">
           Buscar investigador
@@ -45,22 +55,32 @@
 
       <!-- DESCRIPCION -->
       <div class="mb-3">
-        <label class="form-label">Descripción</label>
-        <textarea rows="4" class="form-control"
+
+        <label class="form-label">
+          Descripción *
+        </label>
+
+        <textarea
+          rows="4"
+          class="form-control"
+          placeholder="Mínimo 10 caracteres"
           [(ngModel)]="proyecto.descripcion">
         </textarea>
+
       </div>
 
-      <!-- OBJETIVOS (ARRAY) -->
+      <!-- OBJETIVOS -->
       <div class="mb-3">
 
-        <label class="form-label">Objetivos</label>
+        <label class="form-label">
+          Objetivos *
+        </label>
 
         <div class="input-group mb-2">
 
           <input
             class="form-control"
-            placeholder="Nuevo objetivo"
+            placeholder="Agregar objetivo (mínimo 1 requerido)"
             [(ngModel)]="nuevoObjetivo"
             (keyup.enter)="agregarObjetivo()">
 
@@ -93,13 +113,22 @@
       <!-- RESULTADOS -->
       <div class="mb-4">
 
-        <label class="form-label">Resultados</label>
+        <label class="form-label">
+          Resultados
+        </label>
 
-        <textarea rows="4" class="form-control"
+        <textarea
+          rows="4"
+          class="form-control"
+          placeholder="Opcional"
           [(ngModel)]="proyecto.resultados">
         </textarea>
 
       </div>
+
+      <small class="text-muted">
+        (*) Campos obligatorios
+      </small>
 
       <!-- BOTONES -->
       <div class="d-flex justify-content-end gap-2">
@@ -118,8 +147,11 @@
   </div>
 </div>
 
+
 <!-- MODAL BUSCADOR -->
-<div class="modal d-block" *ngIf="buscadorVisible"
+<div
+  class="modal d-block"
+  *ngIf="buscadorVisible"
   style="background: rgba(0,0,0,.5);">
 
   <div class="modal-dialog modal-xl">
@@ -135,18 +167,24 @@
         <div class="row mb-3">
 
           <div class="col">
-            <input class="form-control" placeholder="Nombre"
-              [(ngModel)]="filtroNombre" (input)="filtrar()">
+            <input class="form-control"
+              placeholder="Nombre"
+              [(ngModel)]="filtroNombre"
+              (input)="filtrar()">
           </div>
 
           <div class="col">
-            <input class="form-control" placeholder="Cédula"
-              [(ngModel)]="filtroCedula" (input)="filtrar()">
+            <input class="form-control"
+              placeholder="Cédula"
+              [(ngModel)]="filtroCedula"
+              (input)="filtrar()">
           </div>
 
           <div class="col">
-            <input class="form-control" placeholder="Cargo"
-              [(ngModel)]="filtroCargo" (input)="filtrar()">
+            <input class="form-control"
+              placeholder="Cargo"
+              [(ngModel)]="filtroCargo"
+              (input)="filtrar()">
           </div>
 
         </div>
@@ -171,7 +209,8 @@
               <td>{{ i.cargo }}</td>
 
               <td>
-                <button class="btn btn-success btn-sm"
+                <button
+                  class="btn btn-success btn-sm"
                   (click)="seleccionarInvestigador(i)">
                   Agregar
                 </button>
@@ -187,7 +226,8 @@
 
       <div class="modal-footer">
 
-        <button class="btn btn-secondary"
+        <button
+          class="btn btn-secondary"
           (click)="buscadorVisible = false">
           Cerrar
         </button>
@@ -195,5 +235,6 @@
       </div>
 
     </div>
+
   </div>
 </div>

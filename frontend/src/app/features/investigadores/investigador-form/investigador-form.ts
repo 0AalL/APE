@@ -32,6 +32,9 @@ export class InvestigadorFormComponent implements OnInit {
   file: File | null = null;
   preview: string | null = null;
 
+  errorMsg: string = '';
+  successMsg: string = '';
+
   constructor(
     private service: InvestigadorService,
     private route: ActivatedRoute,
@@ -47,37 +50,30 @@ export class InvestigadorFormComponent implements OnInit {
 
       this.isEdit = true;
 
-      this.service.getById(+id)
-        .subscribe({
-          next: (data: any) => {
-            this.investigador = data;
-            this.cd.detectChanges();
-          },
-          error: (err) => console.error(err)
-        });
+      this.service.getById(+id).subscribe({
+        next: (data: any) => {
+          this.investigador = data;
+          this.cd.detectChanges();
+        },
+        error: (err) => console.error(err)
+      });
 
     }
   }
 
   getCurrentImage(): string {
-
-    if (this.preview) {
-      return this.preview;
-    }
-
+    if (this.preview) return this.preview;
     return `http://localhost:3000/uploads/${this.investigador.foto}`;
   }
 
   onFileSelected(event: any): void {
 
     const file = event.target.files?.[0];
-
     if (!file) return;
 
     this.file = file;
 
     const reader = new FileReader();
-
     reader.onload = () => {
       this.preview = reader.result as string;
       this.cd.detectChanges();
@@ -92,12 +88,18 @@ export class InvestigadorFormComponent implements OnInit {
 
   guardar(): void {
 
+    this.errorMsg = '';
+    this.successMsg = '';
+
+    // 🔥 VALIDACIÓN FRONT BÁSICA
     if (
       !this.investigador.nombre ||
+      this.investigador.nombre.length < 3 ||
       !this.investigador.cargo ||
+      this.investigador.cargo.length < 2 ||
       !this.investigador.correo
     ) {
-      alert('Complete los campos obligatorios');
+      this.errorMsg = 'Complete correctamente los campos obligatorios';
       return;
     }
 
@@ -118,26 +120,28 @@ export class InvestigadorFormComponent implements OnInit {
       formData.append('foto', this.file);
     }
 
-    if (this.isEdit && this.investigador.id) {
+    const request = this.isEdit && this.investigador.id
+      ? this.service.update(this.investigador.id, formData)
+      : this.service.create(formData);
 
-      this.service.update(this.investigador.id, formData)
-        .subscribe({
-          next: () => {
-            this.router.navigate(['/investigadores']);
-          },
-          error: (err) => console.error(err)
-        });
+    request.subscribe({
+      next: () => {
 
-    } else {
+        this.successMsg = 'Investigador guardado correctamente';
 
-      this.service.create(formData)
-        .subscribe({
-          next: () => {
-            this.router.navigate(['/investigadores']);
-          },
-          error: (err) => console.error(err)
-        });
+        setTimeout(() => {
+          this.router.navigate(['/admin/investigadores']);
+        }, 1200);
 
-    }
+      },
+
+      error: (err) => {
+
+        this.errorMsg =
+          err?.error?.message ||
+          'Error al guardar el investigador';
+
+      }
+    });
   }
 }

@@ -19,41 +19,35 @@ import { upload } from '../middlewares/upload.js'
 
 const router = Router()
 
-// 📥 GET ALL
-router.get(
-  '/',
-  getInvestigadores
-)
-router.get(
-  '/:id/detalles',
-  getInvestigadorDetalles
-)
-// 📥 GET BY ID
-router.get(
-  '/:id',
-  authRequired,
-  getInvestigadorById
-)
+// 🔓 GET ALL (PÚBLICO)
+router.get('/', getInvestigadores)
 
-// ➕ CREATE CON FOTO
+// 🔓 GET DETALLES (PÚBLICO)
+router.get('/:id/detalles', getInvestigadorDetalles)
+
+// 🔓 GET BY ID (PÚBLICO) ✅
+router.get('/:id', getInvestigadorById)
+
+
+// 🔒 CREATE
 router.post(
   '/',
   authRequired,
-  upload.single('foto'),   // AQUÍ SE AGREGA MULTER
+  upload.single('foto'),
   validateSchema(investigadorSchema),
   createInvestigador
 )
 
-// ✏️ UPDATE CON FOTO
+// 🔒 UPDATE
 router.put(
   '/:id',
   authRequired,
-  upload.single('foto'),   //  AQUÍ TAMBIÉN
+  upload.single('foto'),
   validateSchema(investigadorSchema),
   updateInvestigador
 )
 
-// 🗑 DELETE
+// 🔒 DELETE
 router.delete(
   '/:id',
   authRequired,

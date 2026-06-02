@@ -8,16 +8,36 @@ import {
   remove
 } from '../controllers/contacto.controller.js'
 
+import { authRequired } from '../middlewares/auth.middleware.js'
+
 const router = Router()
 
-router.get('/', getAll)
+// 🔒 GET ALL (PROTEGIDO)
+router.get(
+  '/',
+  authRequired,
+  getAll
+)
 
-router.get('/:id', getById)
+// 🔒 GET BY ID (PROTEGIDO)
+router.get(
+  '/:id',
+  authRequired,
+  getById
+)
 
-router.post('/', create)
+// 🔓 CREATE (PÚBLICO)
+router.post(
+  '/',
+  create
+)
 
-router.put('/:id', update)
 
-router.delete('/:id', remove)
+// 🔒 DELETE (PROTEGIDO)
+router.delete(
+  '/:id',
+  authRequired,
+  remove
+)
 
 export default router

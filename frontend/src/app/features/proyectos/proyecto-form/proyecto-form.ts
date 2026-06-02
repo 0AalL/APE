@@ -31,8 +31,9 @@ export class ProyectoFormComponent implements OnInit {
     investigadores: []
   };
 
-  nuevoObjetivo: string = '';
+  nuevoObjetivo = '';
 
+  // 🔥 MODAL
   buscadorVisible = false;
 
   investigadores: any[] = [];
@@ -54,9 +55,7 @@ export class ProyectoFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe(params => {
-
       const id = params.get('id');
 
       if (!id) return;
@@ -66,74 +65,72 @@ export class ProyectoFormComponent implements OnInit {
       this.service.getById(+id).subscribe({
         next: (data: any) => {
 
-          setTimeout(() => {
+          this.proyecto = {
+            id: data.id,
+            titulo: data.titulo ?? '',
+            descripcion: data.descripcion ?? '',
+            objetivos: this.normalizarObjetivos(data.objetivos),
+            resultados: data.resultados ?? '',
+            investigadores: data.investigadores ?? []
+          };
 
-            this.proyecto = {
-              id: data.id,
-              titulo: data.titulo ?? '',
-              descripcion: data.descripcion ?? '',
-              objetivos: this.normalizarObjetivos(data.objetivos),
-              resultados: data.resultados ?? '',
-              investigadores: data.investigadores ?? []
-            };
-
-            this.cdr.detectChanges();
-
-          }, 0);
+          this.cdr.detectChanges();
         },
 
         error: (err) => {
           console.error('ERROR GETBYID', err);
         }
       });
-
     });
   }
 
-  // 🔥 FIX OBJETIVOS
+  // 🔥 NORMALIZAR OBJETIVOS
   normalizarObjetivos(data: any): string[] {
-
     if (!data) return [];
-
     if (Array.isArray(data)) return data;
 
-    if (typeof data === 'string') {
-      try {
-        return JSON.parse(data);
-      } catch {
-        return [];
-      }
+    try {
+      return JSON.parse(data);
+    } catch {
+      return [];
     }
-
-    return [];
   }
 
-  // ➕ AGREGAR OBJETIVO
+  // ➕ OBJETIVOS
   agregarObjetivo() {
-
     if (!this.nuevoObjetivo.trim()) return;
 
     this.proyecto.objetivos.push(this.nuevoObjetivo.trim());
-
     this.nuevoObjetivo = '';
   }
 
-  // ❌ ELIMINAR OBJETIVO
   eliminarObjetivo(index: number) {
     this.proyecto.objetivos.splice(index, 1);
   }
 
+  // 🔥 ABRIR MODAL INVESTIGADORES (FIXED)
   abrirBuscador() {
 
     this.buscadorVisible = true;
-    this.pagina = 1;
+
+    console.log('📌 Abriendo buscador...');
 
     this.investigadorService.getAll().subscribe({
       next: (res: any) => {
+
+        console.log('📥 INVESTIGADORES RECIBIDOS:', res);
+
         this.investigadores = res || [];
         this.filtrados = [...this.investigadores];
+
+        this.pagina = 1;
+
+        this.cdr.detectChanges();
       },
-      error: console.error
+
+      error: (err) => {
+        console.error('❌ ERROR INVESTIGADORES:', err);
+      }
     });
   }
 
@@ -192,29 +189,23 @@ export class ProyectoFormComponent implements OnInit {
   guardar() {
 
     const payload = {
-
       titulo: this.proyecto.titulo,
       descripcion: this.proyecto.descripcion,
       objetivos: this.proyecto.objetivos,
       resultados: this.proyecto.resultados,
-
       investigadores: this.proyecto.investigadores.map((i: any) => i.id)
     };
 
-    if (this.isEdit && this.proyecto.id) {
+    console.log('📤 PAYLOAD:', payload);
 
-      this.service.update(this.proyecto.id, payload).subscribe({
-        next: () => this.router.navigate(['/admin/proyectos']),
-        error: console.error
-      });
+    const req = this.isEdit
+      ? this.service.update(this.proyecto.id, payload)
+      : this.service.create(payload);
 
-    } else {
-
-      this.service.create(payload).subscribe({
-        next: () => this.router.navigate(['/admin/proyectos']),
-        error: console.error
-      });
-    }
+    req.subscribe({
+      next: () => this.router.navigate(['/admin/proyectos']),
+      error: (err) => console.error('❌ ERROR GUARDAR:', err)
+    });
   }
 
   cambiarPagina(n: number) {
