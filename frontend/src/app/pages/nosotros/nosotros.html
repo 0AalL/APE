@@ -16,6 +16,7 @@
 
 </section>
 
+
 <div class="team-stats">
 
   <div class="stat-card">
@@ -37,58 +38,64 @@
 </div>
 
 
-<div
-  class="card"
-  *ngFor="let persona of equipo"
-  [routerLink]="['/investigador-detalle', persona.id]"
->
+<!-- CONTENEDOR EN GRID PARA QUE SALGAN UNO AL LADO DEL OTRO -->
+<div class="grid">
 
-  <!-- FOTO O ÍCONO -->
-  <div class="foto">
+  <div
+    class="card"
+    *ngFor="let persona of equipo"
+    [routerLink]="['/investigador-detalle', persona.id]"
+  >
 
-    <img
-      *ngIf="persona.foto"
-      [src]="persona.foto"
-      alt="foto"
-    >
+    <!-- FOTO -->
+    <div class="foto">
 
-    <!-- SI NO HAY FOTO -->
-    <div class="no-foto" *ngIf="!persona.foto">
-      <i class="fa-solid fa-user"></i>
+      <img
+        *ngIf="persona.foto"
+        [src]="persona.foto"
+        alt="foto"
+      >
+
+      <!-- SI NO HAY FOTO -->
+      <div class="no-foto" *ngIf="!persona.foto">
+        <i class="fa-solid fa-user"></i>
+      </div>
+
     </div>
 
-  </div>
+    <!-- INFO -->
+    <div class="info">
 
-  <div class="info">
+      <h3>
+        <i class="fa-solid fa-briefcase"></i>
+        {{ persona.cargo }}
+      </h3>
 
-    <h3>
-      <i class="fa-solid fa-briefcase"></i>
-      {{ persona.cargo }}
-    </h3>
+      <h4>
+        <i class="fa-solid fa-user-graduate"></i>
+        {{ persona.nombre }}
+      </h4>
 
-    <h4>
-      <i class="fa-solid fa-user-graduate"></i>
-      {{ persona.nombre }}
-    </h4>
+      <p>
+        <i class="fa-solid fa-circle-info"></i>
+        {{ persona.biografia }}
+      </p>
 
-    <p>
-      <i class="fa-solid fa-circle-info"></i>
-      {{ persona.biografia }}
-    </p>
+      <div class="social">
 
-    <div class="social">
+        <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
 
-      <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
+        <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
 
-      <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">
-        <i class="fa-brands fa-facebook"></i>
-      </a>
+        <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
 
-      <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">
-        <i class="fa-brands fa-instagram"></i>
-      </a>
+      </div>
 
     </div>
 
