@@ -1,51 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar">
   <div class="container">
 
     <a class="navbar-brand" routerLink="/">
-      Portal Investigación
+      <i class="bi bi-flask-fill me-2"></i>REASONS
     </a>
 
     <div class="navbar-nav">
 
       <a class="nav-link" routerLink="/">
-        Inicio
+        <i class="bi bi-house-door me-1"></i>Inicio
       </a>
 
       <a class="nav-link" routerLink="/nosotros">
-        Nosotros
+        <i class="bi bi-info-circle me-1"></i>Nosotros
       </a>
 
       <a class="nav-link" routerLink="/listaProyectos">
-        Proyectos
+        <i class="bi bi-diagram-3 me-1"></i>Proyectos
       </a>
 
       <a class="nav-link" routerLink="/listaPublicaciones">
-        Publicaciones
+        <i class="bi bi-file-text me-1"></i>Publicaciones
       </a>
 
       <!-- Contacto solo si NO logeado -->
       <a class="nav-link" routerLink="/contacto"
          *ngIf="!auth.isLoggedIn()">
-        Contacto
+        <i class="bi bi-chat-dots me-1"></i>Contacto
       </a>
 
       <!-- Login si NO logeado -->
-      <a class="nav-link" routerLink="/login"
+      <a class="nav-link btn btn-outline-light"
+         routerLink="/login"
          *ngIf="!auth.isLoggedIn()">
-        Login
+        <i class="bi bi-box-arrow-in-right me-1"></i>Login
       </a>
 
       <!-- Panel si logeado -->
-      <a class="nav-link" routerLink="admin/proyectos"
+      <a class="nav-link btn btn-outline-light"
+         routerLink="admin/proyectos"
          *ngIf="auth.isLoggedIn()">
-        Panel de control
+        <i class="bi bi-speedometer2 me-1"></i>Panel
       </a>
 
       <!-- Logout si logeado -->
-      <button class="btn btn-outline-light ms-2"
+      <button class="btn btn-outline-light"
               *ngIf="auth.isLoggedIn()"
               (click)="logout()">
-        Logout
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
       </button>
 
     </div>

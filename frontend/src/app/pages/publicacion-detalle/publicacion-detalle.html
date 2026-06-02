@@ -15,12 +15,30 @@
                 <h2>{{ publicacion.titulo }}</h2>
 
                 <p class="contenido">
-                    {{ publicacion.contenido }}
+                    {{ publicacion.resumen }}
+                </p>
+
+                <p class="meta">
+                    <i class="fa-solid fa-book"></i>
+                    {{ publicacion.revista }}
+                </p>
+
+                <p class="meta">
+                    <i class="fa-solid fa-barcode"></i>
+                    DOI:
+                    <a [href]="'https://doi.org/' + publicacion.doi" target="_blank">
+                        {{ publicacion.doi }}
+                    </a>
                 </p>
 
                 <p class="fecha">
                     <i class="fa-solid fa-calendar"></i>
-                    {{ publicacion.createdAt | date:'medium' }}
+                    {{ publicacion.fechaPublicacion | date:'mediumDate' }}
+                </p>
+
+                <p class="meta">
+                    <i class="fa-solid fa-users"></i>
+                    {{ publicacion.autores }}
                 </p>
 
             </div>
@@ -34,13 +52,27 @@
 
             <div *ngIf="publicacion?.proyecto; else sinProyecto" class="card-proyecto">
 
-                <h3>{{ publicacion.proyecto.nombre }}</h3>
+                <h3>{{ publicacion.proyecto.titulo }}</h3>
 
                 <p>{{ publicacion.proyecto.descripcion }}</p>
 
                 <p>
                     <i class="fa-solid fa-hashtag"></i>
                     ID: {{ publicacion.proyecto.id }}
+                </p>
+
+                <div class="objetivos">
+                    <strong>Objetivos:</strong>
+                    <ul>
+                        <li *ngFor="let obj of publicacion.proyecto.objetivos">
+                            {{ obj }}
+                        </li>
+                    </ul>
+                </div>
+
+                <p *ngIf="publicacion.proyecto.resultados">
+                    <strong>Resultados:</strong>
+                    {{ publicacion.proyecto.resultados }}
                 </p>
 
                 <a [routerLink]="['/proyecto-detalle', publicacion.proyecto.id]">

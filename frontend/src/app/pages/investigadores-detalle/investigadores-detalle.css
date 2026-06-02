@@ -1,31 +1,219 @@
-.detalle {
-  padding: 40px;
+/* ============================================
+   INVESTIGADOR DETALLE - PERFIL PROFESIONAL
+   ============================================ */
+
+:root {
+  --primary-color: #0d6efd;
+  --primary-dark: #0a58ca;
+  --secondary-color: #10b981;
+  --accent-color: #f59e0b;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
 }
 
+.detalle {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Button atrás */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transition: var(--transition);
+}
+
+.btn-back:hover {
+  transform: translateX(-5px);
+  color: var(--primary-dark);
+}
+
+/* Header section */
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   gap: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  padding: 30px;
+  background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
 }
 
 .foto {
   width: 250px;
   height: 250px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--primary-color);
 }
 
+/* Info section */
 .info {
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.info .cargo {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.info p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Social links */
+.redes {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .redes a {
-  margin-right: 10px;
-  color: #0077ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 1.2rem;
 }
 
+.redes a:hover {
+  background: var(--primary-dark);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(13, 110, 253, 0.3);
+}
+
+/* Projects section */
 .proyectos {
-  margin-top: 30px;
+  margin-top: 50px;
+}
+
+.proyectos h2 {
+  font-size: 1.8rem;
+  color: #1a1a2e;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.proyectos h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.proyectos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.proyecto-card {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.proyecto-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(13, 110, 253, 0.15);
+  border-color: var(--primary-color);
+}
+
+.proyecto-card h3 {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.proyecto-card p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detalle {
+    padding: 20px 15px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .foto {
+    width: 100%;
+    height: 250px;
+    margin: 0 auto;
+    max-width: 250px;
+  }
+
+  .info h1 {
+    font-size: 1.5rem;
+  }
+
+  .info .cargo {
+    font-size: 1rem;
+  }
+
+  .proyectos h2 {
+    font-size: 1.5rem;
+  }
+
+  .proyectos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .redes {
+    gap: 10px;
+  }
+
+  .redes a {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
 }
 
 .grid {

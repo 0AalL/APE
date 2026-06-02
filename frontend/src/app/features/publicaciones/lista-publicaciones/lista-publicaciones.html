@@ -11,8 +11,7 @@
   </h1>
 
   <p>
-    Explora los artículos científicos, investigaciones y publicaciones académicas
-    desarrolladas por nuestra institución.
+    Explora investigaciones, artículos académicos y producción científica de nuestra institución.
   </p>
 
 </section>
@@ -28,18 +27,28 @@
 
   <div class="card"
        *ngFor="let p of publicaciones"
-       [routerLink]="['/publicacion-detalle', p.id]"
-       style="cursor: pointer;">
+       [routerLink]="['/publicacion-detalle', p.id]">
 
-    <h3>
-      <i class="fa-solid fa-file-lines"></i>
-      {{ p.titulo }}
-    </h3>
+    <!-- HEADER CARD -->
+    <div class="card-header">
 
-    <p>
-      {{ p.resumen | slice:0:140 }}...
+      <h3>
+        <i class="fa-solid fa-file-lines"></i>
+        {{ p.titulo }}
+      </h3>
+
+      <span class="year">
+        {{ p.fechaPublicacion | date:'yyyy' }}
+      </span>
+
+    </div>
+
+    <!-- RESUMEN -->
+    <p class="resumen">
+      {{ p.resumen | slice:0:150 }}...
     </p>
 
+    <!-- META -->
     <div class="meta">
 
       <span>
@@ -48,26 +57,21 @@
       </span>
 
       <span>
-        <i class="fa-solid fa-calendar"></i>
-        {{ p.fechaPublicacion | date:'yyyy' }}
-      </span>
-
-    </div>
-
-    <div class="meta">
-
-      <span>
         <i class="fa-solid fa-users"></i>
         {{ p.autores }}
       </span>
 
     </div>
 
-    <!-- Botón opcional (puedes dejarlo o quitarlo) -->
-    <button>
-      <i class="fa-solid fa-eye"></i>
-      Ver detalle
-    </button>
+    <!-- FOOTER -->
+    <div class="card-footer">
+
+      <button>
+        <i class="fa-solid fa-eye"></i>
+        Ver detalle
+      </button>
+
+    </div>
 
   </div>
 

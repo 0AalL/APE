@@ -142,29 +142,46 @@ Authorization: Bearer {{token}}
 DELETE {{url}}/proyectos/1
 Authorization: Bearer {{token}}
 
-###
-
-### =====================================================
-### PUBLICACIONES
-### =====================================================
-
-### GET PUBLICACIONES
+### 🔓 GET TODAS LAS PUBLICACIONES
 GET {{url}}/publicaciones
-Authorization: Bearer {{token}}
 
-###
 
-###
+### 🔓 GET PUBLICACIÓN POR ID
+GET {{url}}/publicaciones/2
+
+
+### 🔐 CREATE PUBLICACIÓN (AUTH + ZOD VALIDATION)
 POST {{url}}/publicaciones
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "titulo": "Avances en inteligencia artificial aplicada a la educación",
-  "resumen": "Este estudio analiza el impacto de los modelos de inteligencia artificial en entornos educativos modernos, evaluando su eficiencia y resultados.",
-  "revista": "Revista Científica de Tecnología",
-  "doi": "10.1234/ai-edu-2026",
+  "titulo": "Avances en IA aplicada a la educación",
+  "resumen": "Investigación sobre modelos de inteligencia artificial aplicados en educación personalizada y análisis del rendimiento estudiantil en entornos modernos.",
+  "revista": "Revista Científica Tecnológica",
+  "doi": "10.1234/edu-ai-2026",
   "fechaPublicacion": "2026-06-02",
   "autores": "Juan Pérez, María López",
   "proyectoId": 1
 }
+
+
+### 🔐 UPDATE PUBLICACIÓN
+PUT {{url}}/publicaciones/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "titulo": "Publicación actualizada sobre IA educativa",
+  "resumen": "Resumen actualizado con nuevos resultados del estudio en inteligencia artificial aplicada a la educación personalizada.",
+  "revista": "Revista Científica Tecnológica",
+  "doi": "10.1234/edu-ai-2026-updated",
+  "fechaPublicacion": "2026-06-02",
+  "autores": "Juan Pérez, María López",
+  "proyectoId": 1
+}
+
+
+### 👑 DELETE PUBLICACIÓN (SOLO ADMIN)
+DELETE {{url}}/publicaciones/1
+Authorization: Bearer {{token}}

@@ -1,0 +1,135 @@
+
+/* ===== HEADER ===== */
+.page-header {
+  text-align: center;
+  padding: 50px 20px 30px;
+}
+
+.section-tag {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.page-header h1 {
+  font-size: 34px;
+  margin: 10px 0;
+  color: #111827;
+}
+
+.page-header h1 span {
+  color: #2563eb;
+}
+
+.page-header p {
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== LOADING ===== */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  justify-content: center; /* 👈 centra las cards */
+  gap: 20px;
+  padding: 30px;
+}
+
+/* CARD MÁS ESTRECHA */
+.card {
+  width: 100%;
+  max-width: 320px;   /* 👈 limita ancho */
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+/* HEADER CARD */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #111827;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.year {
+  font-size: 12px;
+  background: #f3f4f6;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: #6b7280;
+}
+
+/* RESUMEN */
+.resumen {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* META */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+  gap: 10px;
+}
+
+/* FOOTER */
+.card-footer {
+  margin-top: auto;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 50px;
+  color: #6b7280;
+}
