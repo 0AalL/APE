@@ -15,7 +15,7 @@ import { ProyectoFormComponent } from './features/proyectos/proyecto-form/proyec
 import { ContactosAdminComponent } from './pages/contactos-admin/contactos-admin'
 import { ListaPublicacionesComponent } from './features/publicaciones/lista-publicaciones/lista-publicaciones'
 import { FormPublicacionComponent } from './features/publicaciones/form-publicacion/form-publicacion'
-
+import { PublicacionDetalleComponent } from './pages/publicacion-detalle/publicacion-detalle'
 export const routes: Routes = [
 
   // =========================
@@ -57,7 +57,10 @@ export const routes: Routes = [
     path: 'listaPublicaciones',
     component: ListaPublicacionesComponent
   },
-
+  {
+    path: 'publicacion-detalle/:id',
+    component: PublicacionDetalleComponent
+  },
 
   // =========================
   // ADMIN PANEL

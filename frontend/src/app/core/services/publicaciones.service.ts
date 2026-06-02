@@ -111,4 +111,7 @@ export class PublicacionesService {
       })
     )
   }
+  getByIdDetalle(id: number) {
+    return this.http.get(`${this.api}/${id}`)
+  }
 }

@@ -1,7 +1,5 @@
 @url = http://localhost:3000/api
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODAyOTEzNTUsImV4cCI6MTc4MDM3Nzc1NX0.cR4OJL4XM0QgGJ1CgDf87DDVlS88PappQnT2l5haSCs
-
-### =====================================================
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW4iLCJpYXQiOjE3ODA0MTg2MDIsImV4cCI6MTc4MDUwNTAwMn0.3pspylWuYuJHbzTMp9BAkuQWmx3prk9k1PfPb8ZMEO0
 ### AUTH
 ### =====================================================
 
@@ -111,9 +109,11 @@ Content-Type: application/json
 {
   "titulo": "Sistema IA Educativo",
   "descripcion": "Sistema de inteligencia artificial para educación personalizada",
-  "objetivos": "Mejorar el aprendizaje mediante IA adaptativa",
+  "objetivos": [
+    "Mejorar el aprendizaje mediante IA adaptativa"
+  ],
   "resultados": "En desarrollo",
-  "investigadores": [2]
+  "investigadores": [1]
 }
 
 ###
@@ -154,72 +154,17 @@ Authorization: Bearer {{token}}
 
 ###
 
-### CREATE PUBLICACIÓN
+###
 POST {{url}}/publicaciones
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "titulo": "Uso de IA en Educación",
-  "resumen": "Artículo científico sobre IA aplicada a educación",
-  "revista": "IEEE",
-  "doi": "10.1000/182",
-  "fechaPublicacion": "2026-05-20",
-  "autores": "Juan Pérez",
+  "titulo": "Avances en inteligencia artificial aplicada a la educación",
+  "resumen": "Este estudio analiza el impacto de los modelos de inteligencia artificial en entornos educativos modernos, evaluando su eficiencia y resultados.",
+  "revista": "Revista Científica de Tecnología",
+  "doi": "10.1234/ai-edu-2026",
+  "fechaPublicacion": "2026-06-02",
+  "autores": "Juan Pérez, María López",
   "proyectoId": 1
-}
-
-###
-
-###
-### UPDATE PUBLICACIÓN
-PUT {{url}}/publicaciones/1
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-  "titulo": "IA Moderna en Educación",
-  "resumen": "Artículo actualizado sobre IA",
-  "revista": "Springer",
-  "doi": "10.1000/999",
-  "fechaPublicacion": "2026-06-01",
-  "autores": "Juan Pérez y Ana Torres",
-  "proyectoId": 1
-}
-
-###
-
-### DELETE PUBLICACIÓN
-DELETE {{url}}/publicaciones/1
-Authorization: Bearer {{token}}
-
-### Crear contacto
-
-POST http://localhost:3000/api/contactos
-Content-Type: application/json
-
-{
-  "nombre": "Christian Sánchez",
-  "empresa": "Universidad Técnica",
-  "correo": "christian@test.com",
-  "areaInteres": "Proyectos I+D+I",
-  "asunto": "Consulta de investigación",
-  "mensaje": "Deseo recibir información sobre los proyectos de investigación disponibles.",
-  "aceptaPrivacidad": true
-}
-
-###
-POST http://localhost:3000/api/proyectos
-Content-Type: application/json
-
-{
-  "titulo": "Sistema de gestión de investigación",
-  "descripcion": "Proyecto para gestionar investigadores y publicaciones",
-  "objetivos": [
-    "Diseñar la base del sistema",
-    "Implementar API REST",
-    "Validar relaciones entre modelos"
-  ],
-  "resultados": "En desarrollo",
-  "investigadores": [ 2]
 }

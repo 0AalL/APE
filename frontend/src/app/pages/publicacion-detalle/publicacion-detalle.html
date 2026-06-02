@@ -1,0 +1,64 @@
+<section class="detalle">
+
+    <div *ngIf="loading">
+        Cargando publicación...
+    </div>
+
+    <div *ngIf="!loading && publicacion">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <!-- INFO PUBLICACIÓN -->
+            <div class="info">
+
+                <h2>{{ publicacion.titulo }}</h2>
+
+                <p class="contenido">
+                    {{ publicacion.contenido }}
+                </p>
+
+                <p class="fecha">
+                    <i class="fa-solid fa-calendar"></i>
+                    {{ publicacion.createdAt | date:'medium' }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- PROYECTO RELACIONADO -->
+        <div class="proyecto">
+
+            <h2>Proyecto relacionado</h2>
+
+            <div *ngIf="publicacion?.proyecto; else sinProyecto" class="card-proyecto">
+
+                <h3>{{ publicacion.proyecto.nombre }}</h3>
+
+                <p>{{ publicacion.proyecto.descripcion }}</p>
+
+                <p>
+                    <i class="fa-solid fa-hashtag"></i>
+                    ID: {{ publicacion.proyecto.id }}
+                </p>
+
+                <a [routerLink]="['/proyecto-detalle', publicacion.proyecto.id]">
+                    <i class="fa-solid fa-eye"></i>
+                    Ver proyecto
+                </a>
+
+            </div>
+
+            <ng-template #sinProyecto>
+                <div class="empty">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <p>No hay proyecto asociado a esta publicación.</p>
+                </div>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</section>
