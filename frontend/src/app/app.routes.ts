@@ -13,6 +13,9 @@ import { ProyectosDetalleComponent } from './pages/proyectos-detalle/proyectos-d
 import { InvestigadorFormComponent } from './features/investigadores/investigador-form/investigador-form'
 import { ProyectoFormComponent } from './features/proyectos/proyecto-form/proyecto-form'
 import { ContactosAdminComponent } from './pages/contactos-admin/contactos-admin'
+import { ListaPublicacionesComponent } from './features/publicaciones/lista-publicaciones/lista-publicaciones'
+import { FormPublicacionComponent } from './features/publicaciones/form-publicacion/form-publicacion'
+
 export const routes: Routes = [
 
   // =========================
@@ -50,6 +53,11 @@ export const routes: Routes = [
     path: 'contacto',
     component: ContactoComponent
   },
+  {
+    path: 'listaPublicaciones',
+    component: ListaPublicacionesComponent
+  },
+
 
   // =========================
   // ADMIN PANEL
@@ -85,5 +93,13 @@ export const routes: Routes = [
   {
     path: 'admin/contactos',
     component: ContactosAdminComponent
+  },
+  {
+    path: 'admin/publicaciones/nueva',
+    component: FormPublicacionComponent
+  },
+  {
+    path: 'admin/publicaciones/editar/:id',
+    component: FormPublicacionComponent
   }
 ]

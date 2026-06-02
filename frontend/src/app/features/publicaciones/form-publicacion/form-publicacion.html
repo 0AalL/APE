@@ -1,0 +1,30 @@
+<div class="container">
+
+  <h2>{{ editMode ? 'Editar Publicación' : 'Crear Publicación' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+
+    <input placeholder="Título" formControlName="titulo">
+    <div *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
+      Mínimo 5 caracteres
+    </div>
+
+    <textarea placeholder="Resumen" formControlName="resumen"></textarea>
+
+    <input placeholder="Revista" formControlName="revista">
+
+    <input placeholder="DOI" formControlName="doi">
+
+    <input type="date" formControlName="fechaPublicacion">
+
+    <input placeholder="Autores" formControlName="autores">
+
+    <input type="number" placeholder="Proyecto ID" formControlName="proyectoId">
+
+    <button type="submit" [disabled]="form.invalid || loading">
+      {{ loading ? 'Guardando...' : 'Guardar' }}
+    </button>
+
+  </form>
+
+</div>

@@ -1,0 +1,76 @@
+<!-- 🧠 HEADER -->
+<section class="page-header">
+
+  <span class="section-tag">
+    <i class="fa-solid fa-book"></i>
+    Artículos Científicos
+  </span>
+
+  <h1>
+    Nuestras <span>Publicaciones</span>
+  </h1>
+
+  <p>
+    Explora los artículos científicos, investigaciones y publicaciones académicas
+    desarrolladas por nuestra institución.
+  </p>
+
+</section>
+
+<!-- ⏳ LOADING -->
+<div *ngIf="loading" class="loading">
+  <i class="fa-solid fa-spinner fa-spin"></i>
+  Cargando publicaciones...
+</div>
+
+<!-- 📦 GRID -->
+<div class="grid" *ngIf="!loading && publicaciones.length">
+
+  <div class="card" *ngFor="let p of publicaciones">
+
+    <h3>
+      <i class="fa-solid fa-file-lines"></i>
+      {{ p.titulo }}
+    </h3>
+
+    <p>
+      {{ p.resumen | slice:0:140 }}...
+    </p>
+
+    <div class="meta">
+
+      <span>
+        <i class="fa-solid fa-book"></i>
+        {{ p.revista }}
+      </span>
+
+      <span>
+        <i class="fa-solid fa-calendar"></i>
+        {{ p.fechaPublicacion | date:'yyyy' }}
+      </span>
+
+    </div>
+
+    <div class="meta">
+
+      <span>
+        <i class="fa-solid fa-users"></i>
+        {{ p.autores }}
+      </span>
+
+    </div>
+
+    <button>
+      <i class="fa-solid fa-eye"></i>
+      Ver detalle
+    </button>
+
+  </div>
+
+</div>
+
+<!-- 🚫 EMPTY -->
+<div *ngIf="!loading && !publicaciones.length" class="empty">
+  <i class="fa-solid fa-circle-info"></i>
+  No hay publicaciones registradas.
+</div>

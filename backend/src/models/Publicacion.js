@@ -1,3 +1,4 @@
+
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../config/db.js'
 
@@ -7,11 +8,26 @@ export const Publicacion = sequelize.define('Publicacion', {
     allowNull: false
   },
 
+  resumen: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+
   revista: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+
+  doi: {
     type: DataTypes.STRING
   },
 
-  anio: {
-    type: DataTypes.INTEGER
+  fechaPublicacion: {
+    type: DataTypes.DATE
+  },
+
+  autores: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 })

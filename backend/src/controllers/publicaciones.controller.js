@@ -1,38 +1,41 @@
-import {
-  Publicacion,
-  Proyecto
-} from '../models/index.js'
+import { Publicacion, Proyecto } from '../models/index.js'
 
-export const getPublicaciones = async (
-  req,
-  res
-) => {
+/**
+ * ======================================
+ * 📚 GET TODAS LAS PUBLICACIONES
+ * ======================================
+ */
+export const getPublicaciones = async (req, res) => {
   try {
-    const publicaciones =
-      await Publicacion.findAll({
-        include: Proyecto
-      })
+    const publicaciones = await Publicacion.findAll({
+      include: {
+        model: Proyecto,
+        as: 'proyecto'
+      }
+    })
 
     res.json(publicaciones)
   } catch (error) {
+    console.error('Error getPublicaciones:', error)
     res.status(500).json({
       message: error.message
     })
   }
 }
 
-export const getPublicacion = async (
-  req,
-  res
-) => {
+/**
+ * ======================================
+ * 📄 GET PUBLICACIÓN POR ID
+ * ======================================
+ */
+export const getPublicacion = async (req, res) => {
   try {
-    const publicacion =
-      await Publicacion.findByPk(
-        req.params.id,
-        {
-          include: Proyecto
-        }
-      )
+    const publicacion = await Publicacion.findByPk(req.params.id, {
+      include: {
+        model: Proyecto,
+        as: 'proyecto'
+      }
+    })
 
     if (!publicacion) {
       return res.status(404).json({
@@ -42,37 +45,39 @@ export const getPublicacion = async (
 
     res.json(publicacion)
   } catch (error) {
+    console.error('Error getPublicacion:', error)
     res.status(500).json({
       message: error.message
     })
   }
 }
 
-export const createPublicacion = async (
-  req,
-  res
-) => {
+/**
+ * ======================================
+ * ➕ CREAR PUBLICACIÓN
+ * ======================================
+ */
+export const createPublicacion = async (req, res) => {
   try {
-    const publicacion =
-      await Publicacion.create(req.body)
+    const publicacion = await Publicacion.create(req.body)
 
     res.status(201).json(publicacion)
   } catch (error) {
+    console.error('Error createPublicacion:', error)
     res.status(500).json({
       message: error.message
     })
   }
 }
 
-export const updatePublicacion = async (
-  req,
-  res
-) => {
+/**
+ * ======================================
+ * ✏️ ACTUALIZAR PUBLICACIÓN
+ * ======================================
+ */
+export const updatePublicacion = async (req, res) => {
   try {
-    const publicacion =
-      await Publicacion.findByPk(
-        req.params.id
-      )
+    const publicacion = await Publicacion.findByPk(req.params.id)
 
     if (!publicacion) {
       return res.status(404).json({
@@ -84,21 +89,21 @@ export const updatePublicacion = async (
 
     res.json(publicacion)
   } catch (error) {
+    console.error('Error updatePublicacion:', error)
     res.status(500).json({
       message: error.message
     })
   }
 }
 
-export const deletePublicacion = async (
-  req,
-  res
-) => {
+/**
+ * ======================================
+ * 🗑️ ELIMINAR PUBLICACIÓN
+ * ======================================
+ */
+export const deletePublicacion = async (req, res) => {
   try {
-    const publicacion =
-      await Publicacion.findByPk(
-        req.params.id
-      )
+    const publicacion = await Publicacion.findByPk(req.params.id)
 
     if (!publicacion) {
       return res.status(404).json({
@@ -109,9 +114,10 @@ export const deletePublicacion = async (
     await publicacion.destroy()
 
     res.json({
-      message: 'Publicación eliminada'
+      message: 'Publicación eliminada correctamente'
     })
   } catch (error) {
+    console.error('Error deletePublicacion:', error)
     res.status(500).json({
       message: error.message
     })

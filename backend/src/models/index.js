@@ -25,19 +25,27 @@ Proyecto.belongsToMany(Investigador, {
 
 /**
  * ======================================
- * PROYECTO → PUBLICACIÓN (ONE TO MANY)
+ * PROYECTO → PUBLICACION (ONE TO MANY)
  * ======================================
  */
 
+// Un proyecto tiene muchas publicaciones
 Proyecto.hasMany(Publicacion, {
   foreignKey: 'proyectoId',
   as: 'publicaciones'
 })
 
+// Una publicación pertenece a un proyecto
 Publicacion.belongsTo(Proyecto, {
   foreignKey: 'proyectoId',
   as: 'proyecto'
 })
+
+/**
+ * ======================================
+ * EXPORTS
+ * ======================================
+ */
 
 export {
   Investigador,

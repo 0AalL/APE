@@ -1,90 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 
-import { PublicacionService }
-from '../../core/services/publicacion.service';
+import { PublicacionesService } from '../../core/services/publicaciones.service'
 
 @Component({
   selector: 'app-publicaciones',
+  standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    RouterModule
   ],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css'
 })
-export class PublicacionesComponent
-implements OnInit {
+export class PublicacionesComponent implements OnInit {
 
-  publicaciones:any[] = [];
-
-  titulo = '';
-  resumen = '';
-  revista = '';
-  doi = '';
+  publicaciones: any[] = []
+  loading = true
 
   constructor(
-    private publicacionService:
-    PublicacionService
+    private publicacionService: PublicacionesService
   ) {}
 
   ngOnInit(): void {
-    this.cargar();
+    this.cargar()
   }
 
   cargar() {
+    this.loading = true
 
-    this.publicacionService
-      .getAll()
-      .subscribe((data:any)=>{
-
-        this.publicaciones = data;
-
-      });
-
+    this.publicacionService.getPublicaciones()
+      .subscribe({
+        next: (data) => {
+          this.publicaciones = data
+          this.loading = false
+        },
+        error: () => {
+          this.loading = false
+        }
+      })
   }
 
-  crear() {
-
-    const publicacion = {
-
-      titulo: this.titulo,
-      resumen: this.resumen,
-      revista: this.revista,
-      doi: this.doi,
-
-      fechaPublicacion: '2026-05-20',
-      autores: 'Autor Principal',
-      proyectoId: 1
-
-    };
-
-    this.publicacionService
-      .create(publicacion)
-      .subscribe(()=>{
-
-        this.titulo = '';
-        this.resumen = '';
-        this.revista = '';
-        this.doi = '';
-
-        this.cargar();
-
-      });
-
+  eliminar(id: number) {
+    this.publicacionService.deletePublicacion(id)
+      .subscribe({
+        next: () => this.cargar()
+      })
   }
-
-  eliminar(id:number){
-
-    this.publicacionService
-      .delete(id)
-      .subscribe(()=>{
-
-        this.cargar();
-
-      });
-
-  }
-
 }

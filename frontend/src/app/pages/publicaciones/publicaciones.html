@@ -1,64 +1,51 @@
 <h2 class="mb-4">
-  Publicaciones Científicas
+  Publicaciones Científicas (Admin)
 </h2>
 
-<div class="card p-3 mb-4">
+<div class="mb-3">
 
-  <h4>Nueva Publicación</h4>
+  <a
+    class="btn btn-primary"
+    routerLink="/admin/publicaciones/nueva">
 
-  <input
-    class="form-control mb-2"
-    placeholder="Título"
-    [(ngModel)]="titulo">
+    + Nueva Publicación
 
-  <textarea
-    class="form-control mb-2"
-    placeholder="Resumen"
-    [(ngModel)]="resumen">
-  </textarea>
-
-  <input
-    class="form-control mb-2"
-    placeholder="Revista"
-    [(ngModel)]="revista">
-
-  <input
-    class="form-control mb-2"
-    placeholder="DOI"
-    [(ngModel)]="doi">
-
-  <button
-    class="btn btn-success"
-    (click)="crear()">
-
-    Guardar
-
-  </button>
+  </a>
 
 </div>
 
-<table class="table table-striped">
+<div *ngIf="loading">
+  Cargando...
+</div>
+
+<table class="table table-striped" *ngIf="!loading">
 
   <thead>
-
     <tr>
       <th>Título</th>
       <th>Revista</th>
       <th>DOI</th>
-      <th></th>
+      <th>Acciones</th>
     </tr>
-
   </thead>
 
   <tbody>
 
     <tr *ngFor="let p of publicaciones">
 
-      <td>{{p.titulo}}</td>
-      <td>{{p.revista}}</td>
-      <td>{{p.doi}}</td>
+      <td>{{ p.titulo }}</td>
+      <td>{{ p.revista }}</td>
+      <td>{{ p.doi }}</td>
 
       <td>
+
+        <a
+          class="btn btn-warning btn-sm me-2"
+          [routerLink]="['/admin/publicaciones/editar', p.id]">
+
+          Editar
+
+        </a>
 
         <button
           class="btn btn-danger btn-sm"
