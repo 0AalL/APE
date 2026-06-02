@@ -111,7 +111,7 @@ export const updateProyecto = async (req, res) => {
       descripcion,
       objetivos,
       resultados,
-      investigadores // 👈 array de IDs
+      investigadores 
     } = req.body
 
     await proyecto.update({

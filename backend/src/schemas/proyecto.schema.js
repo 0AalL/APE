@@ -9,8 +9,8 @@ export const proyectoSchema = z.object({
 
   descripcion: z.string().min(10, 'La descripción es muy corta'),
 
-  objetivos: z.string().min(10, 'Los objetivos son obligatorios'),
-
+  objetivos: z.array(z.string().min(1, 'Objetivo vacío'))
+    .min(1, 'Debe haber al menos un objetivo'),
   resultados: z.string().optional()
 
 })

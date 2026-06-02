@@ -207,3 +207,19 @@ Content-Type: application/json
   "mensaje": "Deseo recibir información sobre los proyectos de investigación disponibles.",
   "aceptaPrivacidad": true
 }
+
+###
+POST http://localhost:3000/api/proyectos
+Content-Type: application/json
+
+{
+  "titulo": "Sistema de gestión de investigación",
+  "descripcion": "Proyecto para gestionar investigadores y publicaciones",
+  "objetivos": [
+    "Diseñar la base del sistema",
+    "Implementar API REST",
+    "Validar relaciones entre modelos"
+  ],
+  "resultados": "En desarrollo",
+  "investigadores": [ 2]
+}

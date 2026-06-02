@@ -1,4 +1,3 @@
-
 <section class="detalle">
 
   <!-- ⏳ LOADING -->
@@ -32,7 +31,23 @@
         Objetivos
       </h2>
 
-      <p>{{ proyecto.objetivos }}</p>
+      <div *ngIf="proyecto.objetivos?.length; else sinObjetivos">
+
+        <ul class="objetivos-lista">
+          <li *ngFor="let obj of proyecto.objetivos">
+            <i class="fa-solid fa-check"></i>
+            {{ obj }}
+          </li>
+        </ul>
+
+      </div>
+
+      <ng-template #sinObjetivos>
+        <div class="empty">
+          <i class="fa-solid fa-circle-info"></i>
+          No hay objetivos registrados.
+        </div>
+      </ng-template>
 
     </div>
 

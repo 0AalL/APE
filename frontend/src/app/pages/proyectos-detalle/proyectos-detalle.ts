@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'
 import { ChangeDetectorRef } from '@angular/core'
 import { ProyectoService } from '../../core/services/proyecto.service'
 import { RouterModule } from '@angular/router'
+
 @Component({
   selector: 'app-proyectos-detalle',
   standalone: true,
@@ -33,15 +34,38 @@ export class ProyectosDetalleComponent implements OnInit {
     this.cargar(Number(id))
   }
 
+  // 🔥 NORMALIZADOR SEGURO
+  private normalizarObjetivos(data: any): string[] {
+    if (!data) return []
+
+    if (Array.isArray(data)) return data
+
+    if (typeof data === 'string') {
+      try {
+        return JSON.parse(data)
+      } catch {
+        return []
+      }
+    }
+
+    return []
+  }
+
   cargar(id: number) {
     this.loading = true
 
     this.proyectoService.getByIdDetalle(id).subscribe({
       next: (res) => {
+
         this.proyecto = res
+
+        // 🔥 FIX OBJETIVOS SIEMPRE ARRAY
+        this.proyecto.objetivos = this.normalizarObjetivos(this.proyecto.objetivos)
+
         this.loading = false
         this.cdr.detectChanges()
       },
+
       error: (err) => {
         console.error('❌ ERROR:', err)
         this.proyecto = null

@@ -13,8 +13,9 @@ export const Proyecto = sequelize.define('Proyecto', {
   },
 
   objetivos: {
-    type: DataTypes.TEXT,
-    allowNull: false
+    type: DataTypes.JSON,
+    allowNull: false,
+    defaultValue: []
   },
 
   resultados: {

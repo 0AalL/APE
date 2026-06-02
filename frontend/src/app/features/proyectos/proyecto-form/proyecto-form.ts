@@ -26,10 +26,12 @@ export class ProyectoFormComponent implements OnInit {
     id: null,
     titulo: '',
     descripcion: '',
-    objetivos: '',
+    objetivos: [] as string[],
     resultados: '',
     investigadores: []
   };
+
+  nuevoObjetivo: string = '';
 
   buscadorVisible = false;
 
@@ -57,43 +59,68 @@ export class ProyectoFormComponent implements OnInit {
 
       const id = params.get('id');
 
-      console.log('ID RECIBIDO:', id);
-
-      if (!id) {
-        return;
-      }
+      if (!id) return;
 
       this.isEdit = true;
 
-      this.service.getById(+id)
-        .subscribe({
-          next: (data: any) => {
+      this.service.getById(+id).subscribe({
+        next: (data: any) => {
 
-            console.log('PROYECTO RECIBIDO:', data);
+          setTimeout(() => {
 
-            setTimeout(() => {
+            this.proyecto = {
+              id: data.id,
+              titulo: data.titulo ?? '',
+              descripcion: data.descripcion ?? '',
+              objetivos: this.normalizarObjetivos(data.objetivos),
+              resultados: data.resultados ?? '',
+              investigadores: data.investigadores ?? []
+            };
 
-              this.proyecto = {
-                id: data.id,
-                titulo: data.titulo ?? '',
-                descripcion: data.descripcion ?? '',
-                objetivos: data.objetivos ?? '',
-                resultados: data.resultados ?? '',
-                investigadores: data.investigadores ?? []
-              };
+            this.cdr.detectChanges();
 
-              console.log('PROYECTO ASIGNADO:', this.proyecto);
+          }, 0);
+        },
 
-              this.cdr.detectChanges();
+        error: (err) => {
+          console.error('ERROR GETBYID', err);
+        }
+      });
 
-            }, 0);
-          },
-
-          error: (err) => {
-            console.error('ERROR GETBYID', err);
-          }
-        });
     });
+  }
+
+  // 🔥 FIX OBJETIVOS
+  normalizarObjetivos(data: any): string[] {
+
+    if (!data) return [];
+
+    if (Array.isArray(data)) return data;
+
+    if (typeof data === 'string') {
+      try {
+        return JSON.parse(data);
+      } catch {
+        return [];
+      }
+    }
+
+    return [];
+  }
+
+  // ➕ AGREGAR OBJETIVO
+  agregarObjetivo() {
+
+    if (!this.nuevoObjetivo.trim()) return;
+
+    this.proyecto.objetivos.push(this.nuevoObjetivo.trim());
+
+    this.nuevoObjetivo = '';
+  }
+
+  // ❌ ELIMINAR OBJETIVO
+  eliminarObjetivo(index: number) {
+    this.proyecto.objetivos.splice(index, 1);
   }
 
   abrirBuscador() {
@@ -101,16 +128,13 @@ export class ProyectoFormComponent implements OnInit {
     this.buscadorVisible = true;
     this.pagina = 1;
 
-    this.investigadorService.getAll()
-      .subscribe({
-        next: (res: any) => {
-
-          this.investigadores = res || [];
-          this.filtrados = [...this.investigadores];
-
-        },
-        error: console.error
-      });
+    this.investigadorService.getAll().subscribe({
+      next: (res: any) => {
+        this.investigadores = res || [];
+        this.filtrados = [...this.investigadores];
+      },
+      error: console.error
+    });
   }
 
   filtrar() {
@@ -119,18 +143,15 @@ export class ProyectoFormComponent implements OnInit {
 
       const nombre =
         !this.filtroNombre ||
-        i.nombre?.toLowerCase()
-          .includes(this.filtroNombre.toLowerCase());
+        i.nombre?.toLowerCase().includes(this.filtroNombre.toLowerCase());
 
       const cedula =
         !this.filtroCedula ||
-        i.cedula?.toLowerCase()
-          .includes(this.filtroCedula.toLowerCase());
+        i.cedula?.toLowerCase().includes(this.filtroCedula.toLowerCase());
 
       const cargo =
         !this.filtroCargo ||
-        i.cargo?.toLowerCase()
-          .includes(this.filtroCargo.toLowerCase());
+        i.cargo?.toLowerCase().includes(this.filtroCargo.toLowerCase());
 
       return nombre && cedula && cargo;
     });
@@ -143,22 +164,15 @@ export class ProyectoFormComponent implements OnInit {
   }
 
   get paginados() {
-
-    const inicio =
-      (this.pagina - 1) * this.porPagina;
-
-    return this.filtrados.slice(
-      inicio,
-      inicio + this.porPagina
-    );
+    const inicio = (this.pagina - 1) * this.porPagina;
+    return this.filtrados.slice(inicio, inicio + this.porPagina);
   }
 
   seleccionarInvestigador(i: any) {
 
-    const existe =
-      this.proyecto.investigadores.find(
-        (x: any) => x.id === i.id
-      );
+    const existe = this.proyecto.investigadores.find(
+      (x: any) => x.id === i.id
+    );
 
     if (!existe) {
       this.proyecto.investigadores.push(i);
@@ -184,52 +198,27 @@ export class ProyectoFormComponent implements OnInit {
       objetivos: this.proyecto.objetivos,
       resultados: this.proyecto.resultados,
 
-      investigadores:
-        this.proyecto.investigadores.map(
-          (i: any) => i.id
-        )
+      investigadores: this.proyecto.investigadores.map((i: any) => i.id)
     };
-
-    console.log('PAYLOAD:', payload);
 
     if (this.isEdit && this.proyecto.id) {
 
-      this.service.update(
-        this.proyecto.id,
-        payload
-      )
-      .subscribe({
-        next: () => {
-          this.router.navigate([
-            '/admin/proyectos'
-          ]);
-        },
+      this.service.update(this.proyecto.id, payload).subscribe({
+        next: () => this.router.navigate(['/admin/proyectos']),
         error: console.error
       });
 
     } else {
 
-      this.service.create(payload)
-      .subscribe({
-        next: () => {
-          this.router.navigate([
-            '/admin/proyectos'
-          ]);
-        },
+      this.service.create(payload).subscribe({
+        next: () => this.router.navigate(['/admin/proyectos']),
         error: console.error
       });
     }
   }
 
   cambiarPagina(n: number) {
-
-    if (
-      n < 1 ||
-      n > this.totalPaginas
-    ) {
-      return;
-    }
-
+    if (n < 1 || n > this.totalPaginas) return;
     this.pagina = n;
   }
 }
