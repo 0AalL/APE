@@ -1,104 +1,114 @@
-<section class="team-header">
+<section class="hero-nosotros">
+  <div class="overlay"></div>
 
-  <span class="section-tag">
-    <i class="fa-solid fa-check-circle"></i>
-    Equipo de Investigación
-  </span>
+  <div class="container content">
+    <div class="hero-glass">
+      <span class="tag">CONÓCENOS</span>
 
-  <h1>
-    Nuestros <span>Investigadores</span>
-  </h1>
+      <h1 class="main-title">
+        Sobre REASONS
+      </h1>
 
-  <p>
-    Conoce a los docentes e investigadores que participan en los
-    proyectos científicos y académicos de nuestra institución.
-  </p>
+      <p class="sub-lead mx-auto">
+        Un equipo multidisciplinario de la Universidad Técnica de Ambato
+        dedicado a expandir las fronteras del conocimiento en ingeniería
+        aplicada y sostenibilidad.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- ... resto del contenido igual ... -->
 
+<section class="about-preview-panel">
+  <div class="container">
+    <div class="about-preview-grid">
+      <div class="about-preview-image">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Equipo de investigación" />
+      </div>
+      <div class="about-preview-text">
+        <span class="section-tag-premium">Resumen Visual</span>
+        <h2>Equipo, impacto y compromiso</h2>
+        <p>Descubre cómo REASONS une ingeniería, ciencia y sostenibilidad a través de proyectos con significado académico y social.</p>
+        <a class="btn btn-about-preview" href="#valores">Ver más ahora</a>
+      </div>
+    </div>
+  </div>
 </section>
 
+<div class="container" id="valores">
+  
+  <section class="my-5">
+    <div class="row g-4">
+      
+      <div class="col-md-6">
+        <div class="card glass-mv-card h-100">
+          <div class="card-body p-5">
+            <div class="mv-icon-box mb-4">
+              <i class="bi bi-bullseye"></i>
+            </div>
+            <h2 class="mv-title">Nuestra Misión</h2>
+            <p class="mv-text">
+              Impulsar soluciones innovadoras en ingeniería mediante investigación aplicada e interdisciplinaria, promoviendo operaciones avanzadas que integren la preservación de la naturaleza, el desarrollo de tecnologías limpias y el bienestar integral de la sociedad.
+            </p>
+          </div>
+        </div>
+      </div>
 
-<div class="team-stats">
-
-  <div class="stat-card">
-    <h2>{{ equipo.length }}</h2>
-    <span>
-      <i class="fa-solid fa-users"></i>
-      Investigadores
-    </span>
-  </div>
-
-  <div class="stat-card">
-    <h2>{{ equipo.length }}</h2>
-    <span>
-      <i class="fa-solid fa-id-badge"></i>
-      Perfiles Activos
-    </span>
-  </div>
-
-</div>
-
-
-<!-- CONTENEDOR EN GRID PARA QUE SALGAN UNO AL LADO DEL OTRO -->
-<div class="grid">
-
-  <div
-    class="card"
-    *ngFor="let persona of equipo"
-    [routerLink]="['/investigador-detalle', persona.id]"
-  >
-
-    <!-- FOTO -->
-    <div class="foto">
-
-      <img
-        *ngIf="persona.foto"
-        [src]="persona.foto"
-        alt="foto"
-      >
-
-      <!-- SI NO HAY FOTO -->
-      <div class="no-foto" *ngIf="!persona.foto">
-        <i class="fa-solid fa-user"></i>
+      <div class="col-md-6">
+        <div class="card glass-mv-card h-100">
+          <div class="card-body p-5">
+            <div class="mv-icon-box mb-4">
+              <i class="bi bi-eye-fill"></i>
+            </div>
+            <h2 class="mv-title">Nuestra Visión</h2>
+            <p class="mv-text">
+              Consolidarse como un grupo de investigación de referencia regional e internacional, reconocido por su excelencia científica, la formación de talento humano con una sólida visión ética y ambiental, y por su capacidad de transferir tecnología que responda con éxito a los desafíos del cambio climático.
+            </p>
+          </div>
+        </div>
       </div>
 
     </div>
+  </section>
 
-    <!-- INFO -->
-    <div class="info">
+  <section class="my-5 pt-4">
+    <h2 class="values-heading-center">Principios Fundacionales</h2>
+    
+    <div class="row g-4">
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="value-card-minimal">
+          <div class="value-number">01</div>
+          <h5>Sostenibilidad</h5>
+          <p>Toda solución tecnológica planteada debe coexistir en armonía con el entorno natural y mitigar el impacto ambiental.</p>
+        </div>
+      </div>
 
-      <h3>
-        <i class="fa-solid fa-briefcase"></i>
-        {{ persona.cargo }}
-      </h3>
+      <div class="col-lg-3 col-md-6">
+        <div class="value-card-minimal">
+          <div class="value-number">02</div>
+          <h5>Innovación Ética</h5>
+          <p>Desarrollamos ciencia con responsabilidad social, priorizando el bienestar humano y la transparencia académica.</p>
+        </div>
+      </div>
 
-      <h4>
-        <i class="fa-solid fa-user-graduate"></i>
-        {{ persona.nombre }}
-      </h4>
+      <div class="col-lg-3 col-md-6">
+        <div class="value-card-minimal">
+          <div class="value-number">03</div>
+          <h5>Excelencia</h5>
+          <p>Buscamos el más alto estándar de rigor científico en el modelado de sistemas y publicaciones indexadas.</p>
+        </div>
+      </div>
 
-      <p>
-        <i class="fa-solid fa-circle-info"></i>
-        {{ persona.biografia }}
-      </p>
-
-      <div class="social">
-
-        <a *ngIf="persona.linkedin" [href]="persona.linkedin" target="_blank">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-
-        <a *ngIf="persona.facebook" [href]="persona.facebook" target="_blank">
-          <i class="fa-brands fa-facebook"></i>
-        </a>
-
-        <a *ngIf="persona.instagram" [href]="persona.instagram" target="_blank">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-
+      <div class="col-lg-3 col-md-6">
+        <div class="value-card-minimal">
+          <div class="value-number">04</div>
+          <h5>Colaboración</h5>
+          <p>Vinculamos activamente la academia con la industria y las comunidades locales para asegurar soluciones reales.</p>
+        </div>
       </div>
 
     </div>
-
-  </div>
+  </section>
 
 </div>

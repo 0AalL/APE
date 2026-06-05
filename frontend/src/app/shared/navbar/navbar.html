@@ -1,56 +1,45 @@
-<nav class="navbar">
-  <div class="container">
-
-    <a class="navbar-brand" routerLink="/">
-      <i class="bi bi-flask-fill me-2"></i>REASONS
-    </a>
-
-    <div class="navbar-nav">
-
-      <a class="nav-link" routerLink="/">
-        <i class="bi bi-house-door me-1"></i>Inicio
+<div class="header-wrapper">
+  <!-- Se añade la directiva [ngClass] para alternar estados visuales -->
+  <nav class="navbar navbar-expand-lg" [ngClass]="{ 'navbar-scrolled': isScrolled }">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      
+      <a class="navbar-brand-custom" routerLink="/">
+        <div class="logo-dot"></div>
+        REASONS
       </a>
 
-      <a class="nav-link" routerLink="/nosotros">
-        <i class="bi bi-info-circle me-1"></i>Nosotros
-      </a>
+      <div class="navbar-nav-center">
+        <a class="nav-link-custom" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="bi bi-house-door me-1"></i>Inicio
+        </a>
+        <a class="nav-link-custom" routerLink="/nosotros" routerLinkActive="active">
+          <i class="bi bi-info-circle me-1"></i>Nosotros
+        </a>
+        <a class="nav-link-custom" routerLink="/listaProyectos" routerLinkActive="active">
+          <i class="bi bi-diagram-3 me-1"></i>Proyectos
+        </a>
+        <a class="nav-link-custom" routerLink="/listaPublicaciones" routerLinkActive="active">
+          <i class="bi bi-file-text me-1"></i>Publicaciones
+        </a>
+        <a class="nav-link-custom" routerLink="/contacto" routerLinkActive="active" *ngIf="!auth.isLoggedIn()">
+          <i class="bi bi-chat-dots me-1"></i>Contacto
+        </a>
+      </div>
 
-      <a class="nav-link" routerLink="/listaProyectos">
-        <i class="bi bi-diagram-3 me-1"></i>Proyectos
-      </a>
+      <div class="navbar-actions">
+        <a class="btn-auth-outline" routerLink="/login" *ngIf="!auth.isLoggedIn()">
+          <i class="bi bi-box-arrow-in-right me-1"></i>Login
+        </a>
 
-      <a class="nav-link" routerLink="/listaPublicaciones">
-        <i class="bi bi-file-text me-1"></i>Publicaciones
-      </a>
+        <a class="btn-auth-outline highlight" routerLink="admin/proyectos" *ngIf="auth.isLoggedIn()">
+          <i class="bi bi-speedometer2 me-1"></i>Panel
+        </a>
 
-      <!-- Contacto solo si NO logeado -->
-      <a class="nav-link" routerLink="/contacto"
-         *ngIf="!auth.isLoggedIn()">
-        <i class="bi bi-chat-dots me-1"></i>Contacto
-      </a>
-
-      <!-- Login si NO logeado -->
-      <a class="nav-link btn btn-outline-light"
-         routerLink="/login"
-         *ngIf="!auth.isLoggedIn()">
-        <i class="bi bi-box-arrow-in-right me-1"></i>Login
-      </a>
-
-      <!-- Panel si logeado -->
-      <a class="nav-link btn btn-outline-light"
-         routerLink="admin/proyectos"
-         *ngIf="auth.isLoggedIn()">
-        <i class="bi bi-speedometer2 me-1"></i>Panel
-      </a>
-
-      <!-- Logout si logeado -->
-      <button class="btn btn-outline-light"
-              *ngIf="auth.isLoggedIn()"
-              (click)="logout()">
-        <i class="bi bi-box-arrow-right me-1"></i>Logout
-      </button>
+        <button class="btn-auth-outline logout" *ngIf="auth.isLoggedIn()" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        </button>
+      </div>
 
     </div>
-
-  </div>
-</nav>
+  </nav>
+</div>

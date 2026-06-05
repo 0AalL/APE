@@ -1,78 +1,282 @@
-/* 🔥 el componente completo */
-:host {
-  display: block;
-  width: 250px;
-  height: 100vh;
-  background: #1e1e2f;
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: width 0.3s ease;
-  overflow-x: hidden;
-}
+/* =========================================================
+   SIDEBAR — REASONS DASHBOARD SYSTEM
+   (SYNC HOME + NAVBAR COLORS)
+   ========================================================= */
 
-/* 🔥 colapsado */
-:host(.collapsed) {
-  width: 70px;
-}
-
-/* contenido interno */
 .admin-panel {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
+  position: fixed;
+  top: 65px; /* 🔥 EMPIEZA DEBAJO DEL TOPBAR */
+  left: 0;
 
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
+  width: 280px;
+  height: calc(100vh - 65px);
 
-.toggle-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
+  background: rgb(1, 16, 46);
 
-.admin-panel h2 {
-  font-size: 18px;
-  margin: 0;
-}
+  border-right: 1px solid rgba(212, 175, 55, 0.15);
 
-.menu {
   display: flex;
   flex-direction: column;
+
+  z-index: 999;
+
+  transition: width 0.3s ease;
+}
+
+/* estado colapsado */
+.admin-panel.collapsed {
+  width: 85px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.sidebar-top {
+  padding: 18px 14px 10px;
+}
+
+/* header container */
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 10px;
 }
 
-.menu a,
+/* brand */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* logo icon */
+.sidebar-logo-icon {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  background: rgba(212, 175, 55, 0.12);
+
+  border: 1px solid rgba(212, 175, 55, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #d4af37;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* text brand */
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.sidebar-brand-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.sidebar-brand-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.55);
+}
+
+/* =========================================================
+   TOGGLE “GALLETA” (hamburguesa pro)
+   ========================================================= */
+
+.sidebar-toggle-btn {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  background: rgba(255,255,255,0.06);
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   LÍNEA DORADA (GALLETA VISUAL DEL SISTEMA)
+   ========================================================= */
+
+.sidebar-gold-rule {
+  height: 1px;
+  width: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212,175,55,0.5),
+    transparent
+  );
+
+  margin: 8px 0 12px;
+}
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.menu {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 10px;
+
+  gap: 6px;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: rgba(255,255,255,0.85);
+
+  border: 1px solid transparent;
+
+  transition: all 0.25s ease;
+}
+
+/* hover estilo navbar */
+.menu a:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(212,175,55,0.25);
+  transform: translateX(4px);
+  color: #fff;
+}
+
+/* active (AZUL MARINO + ORO SYSTEM) */
+.menu a.active {
+  background: rgba(212,175,55,0.12);
+  border: 1px solid rgba(212,175,55,0.35);
+  color: #d4af37;
+  font-weight: 600;
+}
+
+/* iconos */
+.menu i {
+  width: 22px;
+  text-align: center;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.sidebar-bottom {
+  padding: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* link inferior */
+.sidebar-bottom a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: #fff;
+
+  background: transparent;
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  transition: 0.25s ease;
+}
+
+.sidebar-bottom a:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(212,175,55,0.25);
+}
+
+/* =========================================================
+   LOGOUT (ROJO SISTEMA)
+   ========================================================= */
+
 .logout-btn {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: white;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 8px;
-  background: transparent;
-  border: none;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(192,57,43,0.35);
+
+  background: rgba(192,57,43,0.08);
+
+  color: #fff;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition: 0.25s ease;
 }
 
-.menu a:hover,
+.logout-btn i {
+  color: #c0392b;
+}
+
 .logout-btn:hover {
-  background: #2c2c44;
+  background: #c0392b;
+  border-color: #c0392b;
 }
 
-/* centrar iconos cuando está colapsado */
-:host(.collapsed) .menu a,
-:host(.collapsed) .logout-btn {
+/* =========================================================
+   COLLAPSED MODE
+   ========================================================= */
+
+.admin-panel.collapsed .sidebar-brand-text,
+.admin-panel.collapsed span {
+  display: none;
+}
+
+.admin-panel.collapsed .menu a {
   justify-content: center;
 }

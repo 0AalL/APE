@@ -16,7 +16,7 @@ import { ProyectoService } from '../../core/services/proyecto.service'
 export class ProyectosComponent implements OnInit {
 
   proyectos: any[] = []
-
+  loading: boolean = false
   modalVisible = false
   isEdit = false
   proyecto: any = {}
@@ -54,21 +54,24 @@ export class ProyectosComponent implements OnInit {
       })
   }
 
-  cargar() {
-    this.service.getAll().subscribe({
-      next: (data: any) => {
-        this.proyectos = data ?? []
-        this.cdr.detectChanges()
-      },
-      error: (err) => {
-        console.error(err)
-        this.proyectos = []
-        this.showToast('Error al cargar proyectos', 'error')
-        this.cdr.detectChanges()
-      }
-    })
-  }
+cargar() {
+  this.loading = true
 
+  this.service.getAll().subscribe({
+    next: (data: any) => {
+      this.proyectos = data ?? []
+      this.loading = false   // 🔥 IMPORTANTE
+      this.cdr.detectChanges()
+    },
+    error: (err) => {
+      console.error(err)
+      this.proyectos = []
+      this.loading = false   // 🔥 IMPORTANTE
+      this.showToast('Error al cargar proyectos', 'error')
+      this.cdr.detectChanges()
+    }
+  })
+}
   get filtrados() {
     return this.proyectos.filter(p => {
 

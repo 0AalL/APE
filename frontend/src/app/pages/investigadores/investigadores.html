@@ -1,100 +1,77 @@
-<h2 class="mb-4">Investigadores</h2>
-
-<!-- 🔍 FILTROS -->
-<div class="row mb-3">
-
-  <div class="col-md-4">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar por nombre"
-      [(ngModel)]="filtroNombre"
-      (input)="pagina = 1">
+<div class="admin-page">
+  <div class="admin-page-header">
+    <div>
+      <p class="admin-eyebrow">Administración</p>
+      <h2>Investigadores</h2>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-action" (click)="abrirNuevo()">
+        <i class="fa-solid fa-plus"></i>
+        Nuevo Investigador
+      </button>
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar por cargo"
-      [(ngModel)]="filtroCargo"
-      (input)="pagina = 1">
+  <div class="row admin-filters">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="🔍 Buscar por nombre" [(ngModel)]="filtroNombre" (input)="pagina = 1">
+    </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="🔍 Buscar por cargo" [(ngModel)]="filtroCargo" (input)="pagina = 1">
+    </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="🔍 Buscar por correo" [(ngModel)]="filtroCorreo" (input)="pagina = 1">
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar por correo"
-      [(ngModel)]="filtroCorreo"
-      (input)="pagina = 1">
+  <div class="admin-table-wrapper">
+    <table class="admin-table" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of investigadoresPaginados">
+          <td>
+            <img
+              *ngIf="i.foto; else noImg"
+              [src]="'/uploads/' + i.foto"
+              width="60"
+              height="60"
+              style="object-fit: cover; border-radius: 50%;">
+          </td>
+          <ng-template #noImg>
+            <div style="width:60px;height:60px;border-radius:50%;background:#ddd;
+                        display:flex;align-items:center;justify-content:center;
+                        font-size:12px;color:#666;">
+              Sin foto
+            </div>
+          </ng-template>
+          <td>{{ i.nombre }}</td>
+          <td>{{ i.cargo }}</td>
+          <td>{{ i.correo }}</td>
+          <td>
+            <button class="btn btn-table btn-edit" (click)="abrirEditar(i)">
+              <i class="fa-solid fa-pen-to-square"></i>
+              Editar
+            </button>
+            <button class="btn btn-table btn-delete" (click)="eliminar(i)">
+              <i class="fa-solid fa-trash"></i>
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-</div>
-
-<!--  BOTÓN CREAR -->
-<div class="mb-3">
-  <button class="btn btn-success" (click)="abrirNuevo()">
-    + Nuevo Investigador
-  </button>
-</div>
-
-<!--  TABLA -->
-<table class="table table-striped align-middle">
-
-  <thead>
-    <tr>
-      <th>Foto</th>
-      <th>Nombre</th>
-      <th>Cargo</th>
-      <th>Correo</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    <tr *ngFor="let i of investigadoresPaginados">
-
-      <td>
-        <img
-          *ngIf="i.foto; else noImg"
-          [src]="'http://localhost:3000/uploads/' + i.foto"
-          width="60"
-          height="60"
-          style="object-fit: cover; border-radius: 50%;">
-      </td>
-
-      <ng-template #noImg>
-        <div style="width:60px;height:60px;border-radius:50%;background:#ddd;
-                    display:flex;align-items:center;justify-content:center;
-                    font-size:12px;color:#666;">
-          Sin foto
-        </div>
-      </ng-template>
-
-      <td>{{ i.nombre }}</td>
-      <td>{{ i.cargo }}</td>
-      <td>{{ i.correo }}</td>
-
-      <td>
-        <button class="btn btn-primary btn-sm me-2" (click)="abrirEditar(i)">
-          Editar
-        </button>
-
-        <button class="btn btn-danger btn-sm" (click)="eliminar(i)">
-          Eliminar
-        </button>
-      </td>
-
-    </tr>
-
-  </tbody>
-
-</table>
-
-<!-- 📄 PAGINACIÓN -->
-<div class="d-flex justify-content-center mt-3">
+  <!-- 📄 PAGINACIÓN -->
+  <div class="d-flex justify-content-center mt-3 gap-3 flex-wrap">
 
   <button class="btn btn-outline-primary btn-sm me-2"
     (click)="cambiarPagina(pagina - 1)">

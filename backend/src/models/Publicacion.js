@@ -29,5 +29,14 @@ export const Publicacion = sequelize.define('Publicacion', {
   autores: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+
+  proyectoId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Proyectos',
+      key: 'id'
+    }
   }
 })

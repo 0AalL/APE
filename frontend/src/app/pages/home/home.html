@@ -1,272 +1,241 @@
-<section class="hero-section">
-
-  <div class="container text-center">
-
-    <h1 class="display-3 fw-bold">
-      REASONS
-    </h1>
-
-    <h4 class="subtitle">
-      Research in Engineering and Advanced Sustainable Operations,
-      Nature, and Society
-    </h4>
-
-    <p class="lead mt-4">
-      Grupo de investigación de la Universidad Técnica de Ambato enfocado
-      en el desarrollo de soluciones innovadoras en ingeniería,
-      sostenibilidad, tecnología y gestión eficiente de recursos para
-      contribuir al bienestar de la sociedad y la preservación de la naturaleza.
-    </p>
-
+<section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
+  
+  <div class="theme-picker-container">
+    <button class="btn-theme-trigger" id="btnColorPicker" title="Cambiar color de acento" (click)="toggleColorPanel($event)">
+      <i class="bi bi-palette-fill"></i>
+    </button>
+    
+    <div class="theme-panel-floating" id="colorPanel" [style.display]="isColorPanelOpen ? 'flex' : 'none'">
+      <div class="theme-opt opt-verde" (click)="applyDynamicTheme('verde')" title="Verde Sostenible"></div>
+      <div class="theme-opt opt-azul" (click)="applyDynamicTheme('azul')" title="Azul Ingeniería"></div>
+      <div class="theme-opt opt-oro" (click)="applyDynamicTheme('oro')" title="Oro Academia"></div>
+    </div>
   </div>
 
-</section>
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+  </div>
 
-<section class="my-5">
-
-  <div class="row g-4">
-
-    <div class="col-md-4">
-
-      <div class="card feature-card h-100">
-
-        <div class="card-body text-center">
-
-          <i class="bi bi-person-badge-fill feature-icon"></i>
-
-          <h3>Investigadores</h3>
-
-          <p>
-            Conozca a los miembros del grupo REASONS, sus perfiles académicos,
-            experiencia profesional y líneas de investigación.
-          </p>
-
+  <div class="carousel-inner">
+    
+    <div class="carousel-item active slide-layout-left" style="background-image: url('/assets/images/carrusel-sistemas.jpg');">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content-wrapper">
+        <div class="glass-card-hero">
+          <span class="hero-tag"><i class="bi bi-cpu-fill me-2 color-acento-dinamico"></i>Portal Científico Avanzado</span>
+          <h1 class="hero-title">REASONS</h1>
+          <h4 class="hero-subtitle">Research in Engineering and Advanced Sustainable Operations, Nature, and Society</h4>
+          <p class="hero-lead">Grupo de investigación de la Universidad Técnica de Ambato que impulsa soluciones innovadoras en ingeniería con un enfoque estricto de sostenibilidad y optimización industrial.</p>
+          <button class="btn-hero-cta" (click)="scroll('features')">
+            Explorar Líneas <i class="bi bi-arrow-down-short ms-1"></i>
+          </button>
         </div>
-
       </div>
-
     </div>
 
-    <div class="col-md-4">
-
-      <div class="card feature-card h-100">
-
-        <div class="card-body text-center">
-
-          <i class="bi bi-diagram-3-fill feature-icon"></i>
-
-          <h3>Proyectos</h3>
-
-          <p>
-            Investigación aplicada orientada a la innovación tecnológica,
-            sostenibilidad y optimización de sistemas productivos.
-          </p>
-
+    <div class="carousel-item slide-layout-right" style="background-image: url('/assets/images/carrusel-industrial.jpg');">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content-wrapper">
+        <div class="glass-card-hero">
+          <span class="hero-tag"><i class="bi bi-diagram-3-fill me-2 color-acento-dinamico"></i>Innovación Tecnológica</span>
+          <h1 class="hero-title">CIENCIA APLICADA</h1>
+          <h4 class="hero-subtitle">Optimizando Sistemas Complejos y Procesos Industriales</h4>
+          <p class="hero-lead">Desarrollamos e implementamos software modular, algoritmos predictivos e inteligencia de datos para potenciar el rendimiento de los entornos productivos de la región.</p>
+          <button class="btn-hero-cta" (click)="scroll('features')">
+            Ver Proyectos <i class="bi bi-arrow-right-short ms-1"></i>
+          </button>
         </div>
-
       </div>
-
     </div>
 
-    <div class="col-md-4">
-
-      <div class="card feature-card h-100">
-
-        <div class="card-body text-center">
-
-          <i class="bi bi-file-earmark-text-fill feature-icon"></i>
-
-          <h3>Publicaciones</h3>
-
-          <p>
-            Artículos científicos, ponencias y producción académica
-            desarrollada por los investigadores del grupo.
-          </p>
-
+    <div class="carousel-item slide-layout-center" style="background-image: url('/assets/images/cardadrusel-sostenibili.jpg');">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content-wrapper">
+        <div class="glass-card-hero">
+          <span class="hero-tag"><i class="bi bi-globe-americas me-2 color-acento-dinamico"></i>Naturaleza y Sociedad</span>
+          <h1 class="hero-title">SOSTENIBILIDAD</h1>
+          <h4 class="hero-subtitle">Sistemas Resilientes frente al Cambio Climático</h4>
+          <p class="hero-lead">Mitigamos los impactos ecológicos de la manufactura tradicional mediante auditorías térmicas, tecnologías de diseño limpio y una robusta visión ética ambiental.</p>
+          <button class="btn-hero-cta" (click)="scroll('features')">
+            Conocer Nuestro Impacto <i class="bi bi-arrow-right-short ms-1"></i>
+          </button>
         </div>
-
       </div>
-
     </div>
 
   </div>
 
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button>
 </section>
 
-<section class="about-section my-5">
-
-  <div class="card shadow-sm border-0">
-
-    <div class="card-body p-5">
-
-      <h2 class="section-title">
-        Objetivo General
-      </h2>
-
-      <p class="mb-0">
-        Desarrollar investigación aplicada e interdisciplinaria en el campo
-        de la ingeniería para promover operaciones que integren la preservación
-        de la naturaleza, la innovación tecnológica y el bienestar de la sociedad.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="my-5">
-
-  <div class="row">
-
-    <div class="col-lg-6">
-
-      <div class="card info-card h-100">
-
-        <div class="card-body">
-
-          <h3>
-            Dominio
-          </h3>
-
-          <p class="mb-0">
-            Optimización de los Sistemas Productivos y Diseño y Desarrollo
-            Urbanístico de la Facultad de Ingeniería en Sistemas,
-            Electrónica e Industrial.
-          </p>
-
+<div class="container my-5" id="features">
+  
+  <section class="mb-5 py-4 dynamic-info-section">
+    <div class="row g-5 align-items-center">
+      
+      <div class="col-lg-6">
+        <div class="image-composition">
+          <div class="img-wrapper main-img-box">
+            <img src="/assets/images/mision-principal.jpg" alt="Ingeniería Avanzada">
+          </div>
+          <div class="img-wrapper sub-img-box">
+            <img src="/assets/images/mision-secundaria.jpg" alt="Naturaleza y Sostenibilidad"> 
+          </div>
         </div>
+      </div>
 
+      <div class="col-lg-6">
+        <div class="glass-info-card border-acento-dinamico-left">
+          <span class="info-badge">Nuestra Misión</span>
+          <h2 class="section-title-left">Vinculación Academia e Industria</h2>
+          <p class="info-text">
+            Buscamos generar conocimiento científico aplicado que fortalezca de manera directa la relación entre la academia, el sector industrial y las comunidades locales, mitigando los impactos ambientales mediante sistemas productivos resilientes.
+          </p>
+          
+          <div class="mini-feature-list mt-4">
+            <div class="mini-item">
+              <div class="mini-icon"><i class="bi bi-shield-check"></i></div>
+              <div>
+                <h6 class="title-dark">Visión Ética y Ambiental</h6>
+                <p class="desc-dark">Formamos talento humano capacitado para responder de manera proactiva a los desafíos del cambio climático global.</p>
+              </div>
+            </div>
+            <div class="mini-item mt-4">
+              <div class="mini-icon"><i class="bi bi-bezier2"></i></div>
+              <div>
+                <h6 class="title-dark">Interdisciplinariedad</h6>
+                <p class="desc-dark">Conectamos la ciencia computacional, la automatización y el diseño de materiales en un solo ecosistema de desarrollo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
+  </section>
 
-    <div class="col-lg-6">
-
-      <div class="card info-card h-100">
-
-        <div class="card-body">
-
-          <h3>
-            Enfoque
-          </h3>
-
-          <p class="mb-0">
-            Integración de ingeniería, sostenibilidad, tecnología,
-            gestión eficiente de recursos e innovación social para
-            responder a desafíos locales y globales.
-          </p>
-
+  <section class="my-5">
+    <h2 class="section-heading-center">Objetivos Estratégicos</h2>
+    <div class="row g-4">
+      
+      <div class="col-md-4">
+        <div class="card feature-card-custom acento-dinamico-hover">
+          <div class="card-body">
+            <div class="icon-box"><i class="bi bi-lightning-charge-fill"></i></div>
+            <h3 class="title-dark">Eficiencia Operativa</h3>
+            <p class="desc-dark">Diseñar y optimizar procesos orientados al uso responsable de recursos, optimizando los ciclos industriales y reduciendo significativamente la huella de carbono.</p>
+          </div>
         </div>
+      </div>
 
+      <div class="col-md-4">
+        <div class="card feature-card-custom acento-dinamico-hover">
+          <div class="card-body">
+            <div class="icon-box"><i class="bi bi-people-fill"></i></div>
+            <h3 class="title-dark">Impacto en la Comunidad</h3>
+            <p class="desc-dark">Desarrollar proyectos tecnológicos de vinculación directa para resolver problemáticas complejas de infraestructura y gestión eficiente en la región.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card feature-card-custom acento-dinamico-hover">
+          <div class="card-body">
+            <div class="icon-box"><i class="bi bi-graph-up-arrow"></i></div>
+            <h3 class="title-dark">Producción Científica</h3>
+            <p class="desc-dark">Consolidar al grupo REASONS como un referente regional e internacional mediante la publicación sostenida de artículos de alto impacto en revistas indexadas.</p>
+          </div>
+        </div>
       </div>
 
     </div>
+  </section>
 
-  </div>
-
-</section>
-
-<section class="my-5">
-
-  <h2 class="text-center mb-5">
-    Líneas de Investigación
-  </h2>
-
-  <div class="row g-4">
-
-    <div class="col-md-4">
-
-      <div class="card line-card h-100">
-
-        <div class="card-body">
-
-          <i class="bi bi-gear-wide-connected line-icon"></i>
-
-          <h5>
-            Diseño, Materiales, Producción e Identidad
-          </h5>
-
-          <p>
-            Desarrollo sostenible de procesos productivos mediante
-            tecnologías aplicadas, optimización de recursos e innovación
-            en entornos industriales.
-          </p>
-
-        </div>
-
+  <section class="about-section my-5">
+    <div class="card objective-card-custom premium-border">
+      <div class="card-body text-center">
+        <h2 class="section-title text-acento-dinamico-center">Objetivo General</h2>
+        <p class="desc-dark-large max-w-text">
+          Desarrollar investigación aplicada e interdisciplinaria en el campo de la ingeniería para promover operaciones avanzadas que integren armónicamente la preservación de la naturaleza, la innovación tecnológica y el bienestar integral de la sociedad.
+        </p>
       </div>
-
     </div>
+  </section>
 
-    <div class="col-md-4">
-
-      <div class="card line-card h-100">
-
-        <div class="card-body">
-
-          <i class="bi bi-cpu-fill line-icon"></i>
-
-          <h5>
-            Software, TI y Ciencia de Datos
-          </h5>
-
-          <p>
-            Aplicación de software, analítica de datos, modelado y
-            tecnologías digitales para apoyar la toma de decisiones.
-          </p>
-
+  <section class="my-5">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card info-card-custom">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="small-badge-icon"><i class="bi bi-building-check"></i></div>
+              <h3 class="title-dark mb-0">Dominio UTA</h3>
+            </div>
+            <p class="desc-dark">Optimización de los Sistemas Productivos y Diseño y Desarrollo Urbanístico de la Facultad de Ingeniería en Sistemas, Electrónica e Industrial (FISEI).</p>
+          </div>
         </div>
-
       </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-      <div class="card line-card h-100">
-
-        <div class="card-body">
-
-          <i class="bi bi-globe-americas line-icon"></i>
-
-          <h5>
-            Energía y Desarrollo Sostenible
-          </h5>
-
-          <p>
-            Gestión eficiente de recursos naturales y desarrollo de
-            soluciones tecnológicas orientadas a la sostenibilidad ambiental.
-          </p>
-
+      <div class="col-lg-6">
+        <div class="card info-card-custom">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="small-badge-icon"><i class="bi bi-diagram-3"></i></div>
+              <h3 class="title-dark mb-0">Enfoque del Grupo</h3>
+            </div>
+            <p class="desc-dark">Integración holística de ingeniería, manufactura esbelta, sustentabilidad, tecnologías limpias e innovación social para dar respuesta robusta a desafíos globales.</p>
+          </div>
         </div>
-
       </div>
-
     </div>
+  </section>
 
-  </div>
-
-</section>
-
-<section class="my-5">
-
-  <div class="card border-0 shadow-sm">
-
-    <div class="card-body text-center p-5">
-
-      <h2 class="mb-3">
-        Compromiso REASONS
-      </h2>
-
-      <p class="lead mb-0">
-        Conectar ciencia, ingeniería, sociedad y naturaleza para generar
-        conocimiento que impulse un futuro sostenible mediante investigación,
-        innovación y transferencia tecnológica.
-      </p>
-
+  <section class="my-5">
+    <h2 class="section-heading-center">Líneas de Investigación Activas</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card line-card-custom text-center">
+          <div class="card-body">
+            <div class="circle-icon-wrapper"><i class="bi bi-gear-wide-connected"></i></div>
+            <h5 class="title-dark">Diseño, Materiales, Production e Identidad</h5>
+            <p class="desc-dark-sm">Modelado sostenible de procesos mediante manufactura esbelta, analítica avanzada de materiales y optimización física en entornos industriales.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card line-card-custom text-center">
+          <div class="card-body">
+            <div class="circle-icon-wrapper"><i class="bi bi-cpu-fill"></i></div>
+            <h5 class="title-dark">Software, TI y Ciencia de Datos</h5>
+            <p class="desc-dark-sm">Implementación de algoritmos predictivos, desarrollo web/móvil modular, analítica inteligente y bases de datos robustas para soporte estratégico.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card line-card-custom text-center">
+          <div class="card-body">
+            <div class="circle-icon-wrapper"><i class="bi bi-globe-americas"></i></div>
+            <h5 class="title-dark">Energía y Desarrollo Sostenible</h5>
+            <p class="desc-dark-sm">Transición energética, auditorías térmicas, mitigación del impacto ambiental y desarrollo de sistemas automatizados eco-eficientes.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-  </div>
+  <section class="my-5">
+    <div class="card commitment-card-custom">
+      <div class="card-body">
+        <h2 class="text-acento-dinamico-center">Compromiso REASONS</h2>
+        <p class="desc-dark-large">Conectar de manera indisoluble la ciencia, la ingeniería, la sociedad y la naturaleza para transferir conocimiento tecnológico de vanguardia que construya un futuro verdaderamente sostenible.</p>
+      </div>
+    </div>
+  </section>
 
-</section>
+</div>

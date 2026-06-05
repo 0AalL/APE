@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators'
 })
 export class PublicacionesService {
 
-  private api = 'http://localhost:3000/api/publicaciones'
+  private api = '/api/publicaciones'
 
   constructor(private http: HttpClient) { }
 

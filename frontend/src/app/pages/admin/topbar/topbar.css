@@ -1,0 +1,240 @@
+/* =========================================================
+   ADMIN TOPBAR — FINAL POLISHED SYSTEM
+   (HOME + NAVBAR DESIGN SYNC)
+   ========================================================= */
+
+.admin-topbar {
+  position: fixed;
+  top: 0;
+
+  /* 👇 RESPETA SIDEBAR */
+  right: 0;
+width: 100%;
+  height: 72px;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  background: rgb(1, 16, 46) !important;
+
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+
+  backdrop-filter: blur(18px);
+
+  transition: left 0.3s ease;
+}
+
+/* sidebar collapsed */
+.admin-collapsed .admin-topbar {
+  left: 85px;
+}
+
+/* =========================================================
+   LEFT SIDE (ALINEACIÓN PERFECTA)
+   ========================================================= */
+
+.admin-topbar-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 2px;
+}
+
+/* breadcrumb */
+.topbar-breadcrumb {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.topbar-breadcrumb i {
+  color: #d4af37;
+}
+
+.crumb-sep {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* title block */
+.admin-welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-welcome span {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.admin-welcome h2 {
+  margin: 2px 0 0;
+
+  font-size: 1.35rem;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  line-height: 1.1;
+
+  position: relative;
+  padding-bottom: 5px;
+}
+
+/* línea dorada estilo home */
+.admin-welcome h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 32px;
+  height: 2px;
+
+  background: #d4af37;
+  border-radius: 2px;
+}
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* icon buttons */
+.icon-btn {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: rgba(255, 255, 255, 0.85);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  position: relative;
+}
+
+.icon-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  transform: translateY(-2px);
+}
+
+/* notification dot */
+.notif-badge {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #c0392b;
+  border: 1px solid rgb(1, 16, 46);
+}
+
+/* separator */
+.topbar-sep {
+  width: 1px;
+  height: 26px;
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   LOGOUT BUTTON (ROJO SISTEMA)
+   ========================================================= */
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 16px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(192, 57, 43, 0.35);
+
+  background: rgba(192, 57, 43, 0.08);
+
+  color: #ffffff;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  white-space: nowrap;
+}
+
+.btn-logout i {
+  color: #c0392b;
+}
+
+.btn-logout:hover {
+  background: #c0392b;
+  border-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 980px) {
+  .admin-topbar {
+    left: 85px;
+    padding: 0 16px;
+  }
+
+  .admin-welcome span {
+    display: none;
+  }
+
+  .admin-welcome h2 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-topbar {
+    left: 0;
+  }
+}

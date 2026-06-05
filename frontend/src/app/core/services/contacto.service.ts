@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ContactoService {
 
-  private api = 'http://localhost:3000/api/contactos';
+  private api = '/api/contactos';
 
   constructor(private http: HttpClient) {}
 

@@ -6,110 +6,81 @@
   {{ toast.message }}
 </div>
 
-<h2 class="mb-4">Proyectos de Investigación</h2>
-
-<!-- 🔍 FILTROS -->
-<div class="row mb-3">
-
-  <div class="col-md-4">
-    <input class="form-control"
-           placeholder="Buscar por título"
-           [(ngModel)]="filtroTitulo"
-           (input)="pagina = 1">
+<div class="admin-page">
+  <div class="admin-page-header">
+    <div>
+      <p class="admin-eyebrow">Administración</p>
+      <h2>Proyectos</h2>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-action" (click)="abrirNuevo()">
+        <i class="fa-solid fa-plus"></i>
+        Nuevo Proyecto
+      </button>
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <input class="form-control"
-           placeholder="Buscar por estado (resultado)"
-           [(ngModel)]="filtroEstado"
-           (input)="pagina = 1">
+  <div class="row admin-filters">
+    <div class="col-md-4">
+      <input class="form-control" placeholder="🔍 Buscar por título" [(ngModel)]="filtroTitulo" (input)="pagina = 1">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" placeholder="🔍 Buscar por estado" [(ngModel)]="filtroEstado" (input)="pagina = 1">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" placeholder="🔍 Buscar por investigador" [(ngModel)]="filtroInvestigador" (input)="pagina = 1">
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <input class="form-control"
-           placeholder="Buscar por investigador"
-           [(ngModel)]="filtroInvestigador"
-           (input)="pagina = 1">
+  <div class="admin-table-wrapper">
+    <table class="admin-table" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Estado</th>
+          <th>Descripción</th>
+          <th>Investigadores</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of paginados">
+          <td>{{ p.titulo }}</td>
+          <td>
+            <span [ngClass]="{
+              'text-warning': p.resultados === 'En desarrollo',
+              'text-success': p.resultados === 'Finalizado',
+              'text-danger': p.resultados === 'Cancelado'
+            }">
+              {{ p.resultados }}
+            </span>
+          </td>
+          <td>{{ p.descripcion }}</td>
+          <td>
+            <span *ngIf="p.investigadores?.length">
+              <span *ngFor="let i of p.investigadores.slice(0,2); let last = last">
+                {{ i.nombre }}<span *ngIf="!last">, </span>
+              </span>
+              <span *ngIf="p.investigadores.length > 2">...</span>
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-table btn-edit" (click)="abrirEditar(p)">
+              <i class="fa-solid fa-pen-to-square"></i>
+              Editar
+            </button>
+            <button class="btn btn-table btn-delete" (click)="abrirModalEliminar(p.id)">
+              <i class="fa-solid fa-trash"></i>
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-</div>
-
-<!-- ➕ BOTÓN -->
-<div class="mb-3">
-  <button class="btn btn-success" (click)="abrirNuevo()">
-    + Nuevo Proyecto
-  </button>
-</div>
-
-<!-- 📋 TABLA -->
-<table class="table table-striped align-middle">
-
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Estado</th>
-      <th>Descripción</th>
-      <th>Investigadores</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    <tr *ngFor="let p of paginados">
-
-      <td>{{ p.titulo }}</td>
-
-      <td>
-        <span [ngClass]="{
-          'text-warning': p.resultados === 'En desarrollo',
-          'text-success': p.resultados === 'Finalizado',
-          'text-danger': p.resultados === 'Cancelado'
-        }">
-          {{ p.resultados }}
-        </span>
-      </td>
-
-      <td>
-        {{ p.descripcion }}
-      </td>
-
-      <td>
-        <span *ngIf="p.investigadores?.length">
-
-          <span *ngFor="let i of p.investigadores.slice(0,2); let last = last">
-            {{ i.nombre }}<span *ngIf="!last">, </span>
-          </span>
-
-          <span *ngIf="p.investigadores.length > 2">
-            ...
-          </span>
-
-        </span>
-      </td>
-
-      <td>
-
-        <button class="btn btn-primary btn-sm me-2"
-                (click)="abrirEditar(p)">
-          Editar
-        </button>
-
-        <button class="btn btn-danger btn-sm"
-                (click)="abrirModalEliminar(p.id)">
-          Eliminar
-        </button>
-
-      </td>
-
-    </tr>
-
-  </tbody>
-
-</table>
-
-<!-- 📄 PAGINACIÓN -->
-<div class="d-flex justify-content-center mt-3">
+  <!-- 📄 PAGINACIÓN -->
+  <div class="d-flex justify-content-center mt-3 gap-3 flex-wrap">
 
   <button class="btn btn-outline-primary btn-sm me-2"
           (click)="cambiarPagina(pagina - 1)">

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
-
+import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './shared/navbar/navbar';
 import { Footer } from './shared/footer/footer';
 import { AuthService } from './core/services/auth.service';
 import { MenuAdmin } from './pages/admin/menu/menu';
+import { AdminTopbar } from './pages/admin/topbar/topbar';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { MenuAdmin } from './pages/admin/menu/menu';
     RouterOutlet,
     NavbarComponent,
     Footer,
-    MenuAdmin
+    MenuAdmin,FormsModule,
+    AdminTopbar
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']

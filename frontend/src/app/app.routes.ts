@@ -16,6 +16,8 @@ import { ContactosAdminComponent } from './pages/contactos-admin/contactos-admin
 import { ListaPublicacionesComponent } from './features/publicaciones/lista-publicaciones/lista-publicaciones'
 import { FormPublicacionComponent } from './features/publicaciones/form-publicacion/form-publicacion'
 import { PublicacionDetalleComponent } from './pages/publicacion-detalle/publicacion-detalle'
+import { DashboardComponent } from './pages/admin/dashboard/dashboard'
+import { authGuard } from './core/guards/auth-guard'
 export const routes: Routes = [
 
   // =========================
@@ -66,43 +68,58 @@ export const routes: Routes = [
   // ADMIN PANEL
   // =========================
   {
+    path: 'admin/dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard]
+  },
+  {
     path: 'admin/proyectos',
-    component: ProyectosComponent
+    component: ProyectosComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/proyectos/nuevo',
-    component: ProyectoFormComponent
+    component: ProyectoFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/proyectos/editar/:id',
-    component: ProyectoFormComponent
+    component: ProyectoFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/investigadores',
-    component: InvestigadoresComponent
+    component: InvestigadoresComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/publicaciones',
-    component: PublicacionesComponent
+    component: PublicacionesComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/investigadores/nuevo',
-    component: InvestigadorFormComponent
+    component: InvestigadorFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/investigadores/editar/:id',
-    component: InvestigadorFormComponent
+    component: InvestigadorFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/contactos',
-    component: ContactosAdminComponent
+    component: ContactosAdminComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/publicaciones/nueva',
-    component: FormPublicacionComponent
+    component: FormPublicacionComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'admin/publicaciones/editar/:id',
-    component: FormPublicacionComponent
+    component: FormPublicacionComponent,
+    canActivate: [authGuard]
   }
 ]

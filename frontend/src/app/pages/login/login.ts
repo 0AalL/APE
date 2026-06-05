@@ -54,7 +54,7 @@ export class LoginComponent {
           this.message = 'Autenticación exitosa'
 
           setTimeout(() => {
-            this.router.navigate(['admin/proyectos'])
+            this.router.navigate(['admin/dashboard'])
           }, 900)
         },
 

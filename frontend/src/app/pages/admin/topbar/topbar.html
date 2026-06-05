@@ -1,0 +1,41 @@
+<!-- ============================================================
+     TOPBAR HTML — corregido
+     SIN toggle hamburguesa (vive en el sidebar)
+     ============================================================ -->
+<div class="admin-topbar">
+
+  <!-- IZQUIERDA: breadcrumb + título -->
+  <div class="admin-topbar-left">
+    <div class="topbar-breadcrumb">
+      <i class="fa-solid fa-house"></i>
+      <span>Administración</span>
+      <span class="crumb-sep">/</span>
+      <span>{{ pageTitle }}</span>
+    </div>
+    <div class="admin-welcome">
+      <span>Bienvenido Admin</span>
+    </div>
+  </div>
+
+  <!-- DERECHA: acciones — sin toggle -->
+  <div class="admin-topbar-right">
+
+    <button class="icon-btn" title="Notificaciones" aria-label="Notificaciones">
+      <i class="fa-regular fa-bell"></i>
+      <span class="notif-badge"></span>
+    </button>
+
+    <a class="icon-btn" routerLink="/" title="Ver sitio" aria-label="Ver sitio">
+      <i class="fa-solid fa-globe"></i>
+    </a>
+
+    <div class="topbar-sep"></div>
+
+    <button class="btn-logout" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Cerrar sesión</span>
+    </button>
+
+  </div>
+
+</div>

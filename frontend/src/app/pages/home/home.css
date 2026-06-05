@@ -1,265 +1,383 @@
-/* ============================================
-   HOME PAGE - DISEÑO MODERNO Y ATRACTIVO
-   ============================================ */
-
+/* ==========================================================================
+   1. VARIABLES DE CONFIGURACIÓN DINÁMICA
+   ========================================================================== */
 :root {
-  --primary-color: #0d6efd;
-  --primary-dark: #0a58ca;
-  --secondary-color: #10b981;
-  --accent-color: #f59e0b;
-  --danger-color: #ef4444;
-  --bg-light: #f8fafc;
-  --border-radius: 12px;
+  --fondo-principal-obscuro: #0b0f17;
+  --texto-alta-claridad: #ffffff;
+  --texto-atenuado: #ffffff; /* Forzado a blanco puro para máxima lectura */
+  
+  /* Configuración del contenedor del carrusel */
+  --glass-card-bg: #000000; /* NEGRO PURO SOLIDO para contrastar las letras blancas */
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-heavy: rgb(255, 255, 255);
+  
+  /* Configuración de Acentos */
+  --acento-verde: #10b981;   /* Verde corporativo e interactivo */
+  --acento-azul: #3b82f6;
+  --acento-oro: #d4af37;     /* Oro corporativo premium */
+  --acento-oro-glow: rgba(233, 183, 20, 0.4);
+
+  --acento-actual: var(--acento-oro);
+  --acento-glow-actual: var(--acento-oro-glow);
 }
 
-/* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #0f3460 0%, #533483 50%, #1a1a2e 100%);
-  background-attachment: fixed;
-  color: white;
-  padding: 80px 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+/* ==========================================================================
+   2. SECCIÓN HERO CAROUSEL: ELIMINACIÓN DE ESPACIOS Y BOTONES VERDES SÓLIDOS
+   ========================================================================== */
+/* 1. FORZAR ELIMINACIÓN DEL ESPACIO SUPERIOR EN EL CARRUSEL */
+#heroCarousel {
+  position: absolute !important; /* Lo saca del flujo normal, permitiendo que suba al tope 0 */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 85vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 1; /* Asegura que esté detrás del navbar si este es fijo */
 }
 
-.hero-section::before {
-  content: '';
+/* 2. CORRECCIÓN DEL ICONO DE LA PALETA */
+.theme-picker-container {
+  position: absolute !important; /* Lo quita del flujo para que no empuje el carrusel */
+  top: 20px; /* Ajusta este valor para bajarlo/subirlo respecto al borde */
+  left: 20px; /* Ajusta la distancia izquierda */
+  z-index: 1000; /* Asegura que esté por encima de todo */
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+
+
+.carousel-inner {
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-item {
+  height: 100vh;
+  min-height: 100vh;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.8s;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+/* Capa de contraste equilibrada sobre la imagen del carrusel */
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(13, 110, 253, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.hero-section .container {
-  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(11, 15, 23, 0.55) 0%, rgba(11, 15, 23, 0.9) 100%);
   z-index: 1;
 }
 
-.hero-section h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 15px;
-  letter-spacing: -1px;
-  animation: slideDown 0.8s ease-out;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.hero-section .subtitle {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 20px;
-  font-weight: 500;
-  animation: slideUp 0.8s ease-out 0.2s both;
-}
-
-.hero-section .lead {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 700px;
-  margin: 0 auto;
-  animation: fadeIn 0.8s ease-out 0.4s both;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Feature Cards */
-.feature-card {
-  border: none;
-  border-radius: var(--border-radius);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  background: white;
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-}
-
-.feature-card::before {
-  content: '';
+.hero-content-wrapper {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
+  z-index: 5;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
+  display: flex;
+  align-items: center;
+  padding-top: 0px; /* Centrado vertical simétrico */
 }
 
-.feature-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+.slide-layout-left .hero-content-wrapper { justify-content: flex-start; text-align: left; }
+.slide-layout-right .hero-content-wrapper { justify-content: flex-end; text-align: right; }
+.slide-layout-center .hero-content-wrapper { justify-content: center; text-align: center; }
+
+/* Cuadro contenedor de texto en Negro Puro Solido */
+.glass-card-hero {
+  width: 100%;
+  max-width: 600px;
+  background: var(--glass-card-bg) !important; 
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 24px;
+  padding: 44px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.feature-card:hover::before {
-  left: 100%;
+.slide-layout-left .glass-card-hero { transform: translate(-30px, 20px); }
+.slide-layout-right .glass-card-hero { transform: translate(30px, 20px); }
+.slide-layout-center .glass-card-hero { transform: translateY(20px); }
+
+.carousel-item.active .glass-card-hero {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
-.feature-icon {
-  font-size: 3.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Animaciones reactivas de texto */
+.hero-tag, .hero-title, .hero-subtitle, .hero-lead, .btn-hero-cta {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.carousel-item.active .hero-tag { animation: slideUpDelay 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+.carousel-item.active .hero-title { animation: slideUpDelay 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+.carousel-item.active .hero-subtitle { animation: slideUpDelay 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+.carousel-item.active .hero-lead { animation: slideUpDelay 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+.carousel-item.active .btn-hero-cta { animation: slideUpDelay 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+
+@keyframes slideUpDelay {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tipografías del Carrusel - FORZADAS A BLANCO PURO ABSOLUTO */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   margin-bottom: 20px;
+  color: #ffffff !important;
+}
+
+.color-acento-dinamico {
+  color: var(--acento-oro) !important; /* Destaca la palabra clave en Oro Premium */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff !important;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero-lead {
+  font-size: 0.98rem;
+  color: #ffffff !important; /* Texto de descripción 100% blanco */
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* BOTÓN TOTALMENTE SÓLIDO (HOVER VERDE SIN TRANSPARENCIAS) */
+.btn-hero-cta {
+  background: #ffffff !important;
+  color: var(--fondo-principal-obscuro) !important;
+  border: 2px solid #ffffff !important;
+  padding: 14px 32px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 1 !important; /* Fuerza visibilidad total inicial */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hero-cta:hover {
+  background: var(--acento-verde) !important; /* Cambia a verde esmeralda sólido */
+  color: #ffffff !important;                  /* Texto blanco brillante */
+  border-color: var(--acento-verde) !important;
+  opacity: 1 !important;                      /* Elimina cualquier transparencia */
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.45); /* Brillo verde nítido */
+}
+
+/* ==========================================================================
+   3. CUERPO HOME: CONTENEDORES BLANCOS, GEOMÉTRICOS Y CON BORDE SUPERIOR DORADO
+   ========================================================================== */
+
+/* Regla maestra unificada: Fuerza el fondo blanco y el borde superior dorado brillante */
+.glass-info-card, 
+.feature-card-custom, 
+.info-card-custom, 
+.line-card-custom, 
+.objective-card-custom, 
+.commitment-card-custom {
+  background-color: #ffffff !important; /* Fondo nítido para leer letras oscuras */
+  border: none !important; 
+  border-top: 5px solid var(--acento-oro) !important; /* Únicamente borde superior dorado */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important; 
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+/* Agrega esta regla al final de tu CSS */
+#features {
+  margin-top: 70vh !important; /* Esto empuja el contenido justo debajo de la pantalla del carrusel */
+  position: relative;
+  z-index: 2; /* Asegura que el contenido esté por encima del carrusel en el eje Z */
+  background-color: white; /* Opcional: asegura que no sea transparente */
+}
+
+/* --- MODELADO DE FIGURAS GEOMÉTRICAS ASIMÉTRICAS --- */
+
+/* 1. Vinculación Academia e Industria */
+.glass-info-card {
+  border-radius: 30px 4px 30px 4px !important; 
+  padding: 40px !important;
+}
+
+/* 2. Tarjetas de Objetivos Estratégicos */
+.feature-card-custom {
+  border-radius: 16px 0px 16px 0px !important; 
+  padding: 32px 24px !important;
+}
+
+/* 3. Contenedor de Objetivo General */
+.objective-card-custom {
+  border-radius: 0px 40px 0px 40px !important; 
+  padding: 45px 30px !important;
+}
+
+/* 4. Bloques de Dominio UTA y Enfoque */
+.info-card-custom {
+  border-radius: 12px !important; 
+  padding: 28px !important;
+}
+
+/* 5. Tarjetas de Líneas de Investigación Activas */
+.line-card-custom {
+  border-radius: 24px 24px 4px 4px !important; 
+  padding: 35px 20px !important;
+}
+
+/* 6. Bloque de Compromiso REASONS */
+.commitment-card-custom {
+  border-radius: 20px !important;
+  padding: 40px !important;
+}
+
+/* --- HOVERS REACTIVOS --- */
+.glass-info-card:hover, 
+.feature-card-custom:hover, 
+.info-card-custom:hover, 
+.line-card-custom:hover, 
+.objective-card-custom:hover, 
+.commitment-card-custom:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 16px 35px rgba(214, 176, 49, 0.3) !important; /* Destello dorado inferior */
+}
+
+/* ==========================================================================
+   4. ESTILOS DE COMPOSICIÓN DE IMÁGENES Y DETALLES INTERNOS
+   ========================================================================== */
+.image-composition {
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.img-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
 }
 
-.feature-card:hover .feature-icon {
-  transform: scale(1.1) rotate(5deg);
+.main-img-box { width: 85%; }
+.sub-img-box {
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+  right: 0;
+  border: 3px solid #ffffff !important; /* Separador blanco */
 }
 
-.feature-card h3 {
-  color: #1a1a2e;
+.section-title-left {
+  color: #0b0f17; 
+  font-size: 2rem;
   font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.feature-card p {
-  color: #666;
-  line-height: 1.7;
-  font-size: 0.95rem;
-}
-
-/* Sección About */
-.about-section {
-  margin-top: 60px;
-  margin-bottom: 60px;
-}
-
-.about-section .card {
-  background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
-  border: 2px solid #e0e0e0;
-  border-radius: var(--border-radius);
-  transition: all 0.3s ease;
-}
-
-.about-section .card:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 12px 32px rgba(13, 110, 253, 0.15);
-}
-
-.about-section .card-body {
-  padding: 3rem;
-}
-
-.section-title {
-  color: #1a1a2e;
+.section-heading-center {
+  text-align: center;
+  color: #0b0f17;
+  font-size: 2.2rem;
   font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.info-badge {
+  background: rgba(11, 15, 23, 0.05);
+  color: var(--acento-oro);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.text-acento-dinamico-center {
+  text-align: center;
+  color: var(--acento-oro);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.text-acento-dinamico-center::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--acento-oro);
+  margin: 12px auto 0 auto;
+}
+
+.circle-icon-wrapper {
+  background: rgba(11, 15, 23, 0.03);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--acento-oro);
   font-size: 1.8rem;
   margin-bottom: 20px;
-  position: relative;
-  padding-bottom: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+.mini-icon {
+  color: var(--acento-oro);
+  font-size: 1.4rem;
 }
 
-.about-section p {
-  color: #555;
-  line-height: 1.8;
-  font-size: 0.95rem;
+.icon-box {
+  color: var(--acento-oro);
+  font-size: 2rem;
+  margin-bottom: 16px;
 }
 
-/* Info Cards */
-.info-card {
-  border: none;
-  border-radius: var(--border-radius);
-  border-left: 5px solid var(--primary-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.info-card:hover {
-  transform: translateX(8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.info-card h3 {
-  color: var(--primary-color);
-  font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.info-card p {
-  color: #555;
-  line-height: 1.7;
-  font-size: 0.95rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 60px 15px;
-  }
-
-  .hero-section h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero-section .subtitle {
-    font-size: 1rem;
-  }
-
-  .hero-section .lead {
-    font-size: 0.95rem;
-  }
-
-  .feature-icon {
-    font-size: 2.5rem;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .about-section .card-body {
-    padding: 1.5rem;
-  }
+/* Efectos Hover dinámicos y limpios */
+.acento-dinamico-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15) !important;
 }

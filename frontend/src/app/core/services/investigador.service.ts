@@ -8,7 +8,7 @@ import { Investigador } from '../models/investigador.model'
 })
 export class InvestigadorService {
 
-  private api = 'http://localhost:3000/api/investigadores'
+  private api = '/api/investigadores'
 
   constructor(private http: HttpClient) { }
 
@@ -18,13 +18,13 @@ export class InvestigadorService {
     const token = localStorage.getItem('token')
 
     if (!token) {
-      console.warn('⚠️ NO HAY TOKEN EN LOCALSTORAGE')
+      return {}
     }
 
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token || ''}`
+        Authorization: `Bearer ${token}`
       })
     }
   }
@@ -103,7 +103,7 @@ export class InvestigadorService {
   }
   getByIdDetalle(id: number): Observable<Investigador> {
 
-    return this.http.get<Investigador>(`http://localhost:3000/api/investigadores/${id}/detalles`, this.getHeaders()).pipe(
+    return this.http.get<Investigador>(`/api/investigadores/${id}/detalles`, this.getHeaders()).pipe(
 
       tap(res => console.log('✅ GET DETALLE:', res)),
 

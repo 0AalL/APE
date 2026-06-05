@@ -1,45 +1,67 @@
-<div class="admin-panel">
+<!-- ============================================================
+     SIDEBAR HTML — corregido
+     Toggle hamburguesa DENTRO del sidebar (.menu-header)
+     ============================================================ -->
+<div class="admin-panel" [class.collapsed]="collapsed">
 
-  <div class="panel-header">
+  <!-- HEADER: logo + toggle dentro del sidebar -->
+  <div class="sidebar-top">
+    <div class="menu-header">
 
-    <h2 *ngIf="!collapsed">
-      <i class="fa-solid fa-gears"></i>
-      Panel de Control
-    </h2>
+      <!-- TOGGLE HAMBURGUESA — único lugar correcto -->
+      <button class="sidebar-toggle-btn"
+              (click)="toggleCollapse()"
+              [attr.aria-label]="collapsed ? 'Expandir menú' : 'Colapsar menú'">
+        <i class="fa-solid" [class.fa-bars]="collapsed" [class.fa-xmark]="!collapsed"></i>
+      </button>
 
-    <button class="toggle-btn" (click)="toggleMenu()">
-      <i class="fa-solid"
-         [class.fa-bars]="collapsed"
-         [class.fa-xmark]="!collapsed"></i>
-    </button>
-
+    </div>
   </div>
 
+  <!-- Línea dorada decorativa -->
+  <div class="sidebar-gold-rule"></div>
+
+  <!-- NAVEGACIÓN PRINCIPAL -->
   <nav class="menu">
 
-    <a routerLink="/admin/proyectos">
+    <a routerLink="/admin/dashboard" routerLinkActive="active"
+       data-label="Dashboard">
+      <i class="fa-solid fa-chart-column"></i>
+      <span *ngIf="!collapsed">Dashboard</span>
+    </a>
+ <a routerLink="/admin/investigadores" routerLinkActive="active"
+       data-label="Investigadores">
+      <i class="fa-solid fa-user-graduate"></i>
+      <span *ngIf="!collapsed">Investigadores</span>
+    </a>
+    <a routerLink="/admin/proyectos" routerLinkActive="active"
+       data-label="Proyectos">
       <i class="fa-solid fa-diagram-project"></i>
       <span *ngIf="!collapsed">Proyectos</span>
     </a>
 
-    <a routerLink="/admin/investigadores">
-      <i class="fa-solid fa-user-graduate"></i>
-      <span *ngIf="!collapsed">Investigadores</span>
-    </a>
+   
 
-    <a routerLink="/admin/publicaciones">
-      <i class="fa-solid fa-book"></i>
+    <a routerLink="/admin/publicaciones" routerLinkActive="active"
+       data-label="Publicaciones">
+      <i class="fa-solid fa-book-open"></i>
       <span *ngIf="!collapsed">Publicaciones</span>
     </a>
 
-    <a routerLink="/admin/contactos">
+    <a routerLink="/admin/contactos" routerLinkActive="active"
+       data-label="Contactos">
       <i class="fa-solid fa-envelope"></i>
       <span *ngIf="!collapsed">Contactos</span>
     </a>
 
-    <a routerLink="/">
-      <i class="fa-solid fa-house"></i>
-      <span *ngIf="!collapsed">Ir al sitio</span>
+  </nav>
+
+  <!-- INFERIOR -->
+  <div class="sidebar-bottom">
+
+    <a routerLink="/" data-label="Ver sitio">
+      <i class="fa-solid fa-globe"></i>
+      <span *ngIf="!collapsed">Ver sitio</span>
     </a>
 
     <button class="logout-btn" (click)="logout()">
@@ -47,6 +69,6 @@
       <span *ngIf="!collapsed">Cerrar sesión</span>
     </button>
 
-  </nav>
+  </div>
 
 </div>
