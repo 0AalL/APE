@@ -63,7 +63,7 @@ export class InvestigadorFormComponent implements OnInit {
 
   getCurrentImage(): string {
     if (this.preview) return this.preview;
-    return `http://localhost:3000/uploads/${this.investigador.foto}`;
+    return `/uploads/${this.investigador.foto}`;
   }
 
   onFileSelected(event: any): void {

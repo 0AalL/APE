@@ -66,6 +66,20 @@ export class FormPublicacionComponent implements OnInit {
 
     const data = this.form.value
 
+    // 🔄 Convertir proyectoId a número si existe
+    if (data.proyectoId) {
+      data.proyectoId = Number(data.proyectoId)
+    }
+
+    // 📅 Validar fecha
+    if (!data.fechaPublicacion) {
+      console.error('❌ Fecha de publicación requerida')
+      this.loading = false
+      return
+    }
+
+    console.log('📤 PAYLOAD:', data)
+
     if (this.editMode && this.idPublicacion) {
       this.publicacionesService.actualizarPublicacion(this.idPublicacion, data)
         .subscribe({
@@ -73,7 +87,10 @@ export class FormPublicacionComponent implements OnInit {
             this.loading = false
             this.router.navigate(['/admin/publicaciones'])
           },
-          error: () => this.loading = false
+          error: (err) => {
+            console.error('❌ Error al actualizar:', err)
+            this.loading = false
+          }
         })
 
     } else {
@@ -83,8 +100,15 @@ export class FormPublicacionComponent implements OnInit {
             this.loading = false
             this.router.navigate(['/admin/publicaciones'])
           },
-          error: () => this.loading = false
+          error: (err) => {
+            console.error('❌ Error al crear:', err)
+            this.loading = false
+          }
         })
     }
+  }
+
+  cancelar() {
+    this.router.navigate(['/admin/publicaciones'])
   }
 }

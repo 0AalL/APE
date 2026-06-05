@@ -23,7 +23,7 @@ export class MenuAdmin {
     return this.collapsed;
   }
 
-  toggleMenu() {
+  toggleCollapse() {
     this.collapsedChange.emit(!this.collapsed);
   }
 

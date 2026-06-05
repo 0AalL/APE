@@ -9,7 +9,7 @@ import { RegisterRequest, LoginRequest, AuthResponse } from '../models/auth.mode
 })
 export class AuthService {
 
-  private readonly api = 'http://localhost:3000/api/auth'
+  private readonly api = '/api/auth'
   private readonly TOKEN_KEY = 'token'
 
   constructor(private http: HttpClient) {}

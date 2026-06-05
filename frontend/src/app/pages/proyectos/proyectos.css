@@ -1,0 +1,299 @@
+/* =========================================================
+   ADMIN PAGE BASE
+   ========================================================= */
+
+.admin-page {
+  position: relative;
+
+  /* espacio superior por topbar */
+  padding: 80px 24px 24px 24px;
+
+  /* 👇 CLAVE: NO width calc */
+  width: auto;
+
+  /* 👇 SOLO EMPUJE LATERAL REAL */
+  margin-left: 10px;
+
+  background: #f6f8fc;
+  min-height: 100vh;
+
+  transition: margin-left 0.3s ease;
+}
+
+/* sidebar colapsado */
+.admin-panel.collapsed ~ .admin-page {
+  width: calc(100% - 85px);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+
+.admin-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(1, 16, 46, 0.6);
+  margin: 0;
+}
+
+.admin-page-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgb(1, 16, 46);
+}
+
+/* =========================================================
+   BOTÓN NUEVO (PRINCIPAL)
+   ========================================================= */
+
+.admin-actions .btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  background: rgb(1, 16, 46);
+  color: #fff;
+
+  border: 1px solid rgba(212, 175, 55, 0.3);
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.admin-actions .btn-action i {
+  color: #d4af37;
+}
+
+.admin-actions .btn-action:hover {
+    background: #fcfcfb;
+  border-color: rgba(1, 16, 46);
+  color: rgb(1, 16, 46);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.admin-filters {
+  margin: 18px 0;
+  gap: 12px;
+}
+
+.admin-filters input {
+  width: 100%;
+  padding: 10px 14px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(1, 16, 46, 0.15);
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.admin-filters input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.admin-table-wrapper {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead {
+  background: rgb(1, 16, 46);
+  color: #fff;
+}
+
+.admin-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.admin-table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9rem;
+}
+
+/* hover fila */
+.admin-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* =========================================================
+   ESTADOS
+   ========================================================= */
+
+.text-warning {
+  color: #d4af37;
+  font-weight: 600;
+}
+
+.text-success {
+  color: #1e8e3e;
+  font-weight: 600;
+}
+
+.text-danger {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+/* =========================================================
+   BOTONES ACCIÓN TABLA
+   ========================================================= */
+
+.btn-table {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* editar */
+.btn-edit {
+  background: rgba(212, 175, 55, 0.12);
+  color: rgb(1, 16, 46);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.btn-edit:hover {
+  background: #d4af37;
+  color: rgb(1, 16, 46);
+}
+
+/* eliminar */
+.btn-delete {
+  background: rgba(192, 57, 43, 0.12);
+  color: #c0392b;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+  color: #fff;
+}
+
+/* =========================================================
+   PAGINACIÓN
+   ========================================================= */
+
+.pagination,
+.d-flex.justify-content-center {
+  margin-top: 18px;
+}
+
+.pagination button,
+.btn-outline-primary {
+  border: 1px solid rgba(1, 16, 46, 0.2);
+  background: transparent;
+  color: rgb(1, 16, 46);
+
+  padding: 6px 12px;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover {
+  background: rgb(1, 16, 46);
+  color: #fff;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast-custom {
+  position: fixed;
+  top: 90px;
+  right: 24px;
+
+  padding: 12px 18px;
+
+  border-radius: 10px;
+
+  color: #fff;
+
+  z-index: 9999;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.toast-custom.success {
+  background: #1e8e3e;
+}
+
+.toast-custom.error {
+  background: #c0392b;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-content {
+  border-radius: 14px;
+  border: none;
+}
+
+.modal-header {
+  background: rgb(1, 16, 46);
+  color: #fff;
+}
+
+.modal-footer .btn-danger {
+  background: #c0392b;
+  border: none;
+}
+
+.modal-footer .btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}

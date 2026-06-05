@@ -1,72 +1,104 @@
+<section class="hero-proyectos">
 
-<!-- 🧠 HEADER IZQUIERDA -->
-<section class="page-header">
+  <div class="overlay"></div>
 
-  <span class="section-tag">
-    <i class="fa-solid fa-diagram-project"></i>
-    Proyectos de Investigación
-  </span>
+  <div class="container content">
 
-  <h1>
-    Nuestros <span>Proyectos</span>
-  </h1>
+    <div class="hero-glass">
 
-  <p>
-    Explora los proyectos científicos desarrollados por nuestra institución,
-    junto con sus investigadores, avances y publicaciones.
-  </p>
-
-</section>
-
-<!-- ⏳ LOADING -->
-<div *ngIf="loading" class="loading">
-  <i class="fa-solid fa-spinner fa-spin"></i>
-  Cargando proyectos...
-</div>
-
-<!-- 📦 GRID -->
-<div class="grid" *ngIf="!loading && proyectos.length">
-
-  <div
-    class="card"
-    *ngFor="let p of proyectos"
-    [routerLink]="['/proyecto-detalle', p.id]"
-  >
-
-    <h3>
-      <i class="fa-solid fa-folder-open"></i>
-      {{ p.titulo }}
-    </h3>
-
-    <p>
-      {{ p.descripcion | slice:0:120 }}...
-    </p>
-
-    <div class="meta">
-
-      <span>
-        <i class="fa-solid fa-users"></i>
-        {{ p.investigadores?.length || 0 }} investigadores
+      <span class="tag">
+        Portal Científico REASONS
       </span>
 
-      <span>
-        <i class="fa-solid fa-file-lines"></i>
-        {{ p.publicaciones?.length || 0 }} publicaciones
-      </span>
+      <h1 class="main-title">
+        Nuestros Proyectos
+      </h1>
+
+      <p class="sub-lead">
+        Explora las iniciativas de investigación y desarrollo tecnológico estratégico enfocados en optimización, sostenibilidad e impacto social.
+      </p>
 
     </div>
 
-    <button>
-      <i class="fa-solid fa-eye"></i>
-      Ver detalle
-    </button>
-
   </div>
 
+</section>
+
+<!-- ⏳ LOADING CON CRISTALERÍA -->
+<div *ngIf="loading" class="loading-premium">
+  <div class="spinner-border text-emerald" role="status"></div>
+  <span>Sincronizando con el repositorio científico...</span>
 </div>
 
-<!-- 🚫 EMPTY -->
-<div *ngIf="!loading && !proyectos.length" class="empty">
-  <i class="fa-solid fa-circle-info"></i>
-  No hay proyectos registrados.
+<section class="catalog-preview-panel">
+  <div class="container">
+    <div class="catalog-preview-grid">
+      <div class="catalog-preview-box">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop" alt="Proyectos científicos" />
+      </div>
+      <div class="catalog-preview-copy">
+        <span class="section-tag-premium">Portafolio</span>
+        <h2>Explora nuestros proyectos en detalle</h2>
+        <p>Cada proyecto cuenta con una propuesta visual clara y un enfoque de alto contraste para facilitar su lectura.</p>
+        <a class="btn btn-catalog-view" href="#catalogo">Ver proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 📦 GRID DE ALTA GAMA -->
+<div class="container px-0" *ngIf="!loading && proyectos.length" id="catalogo">
+  <div class="grid-premium">
+
+    <div
+      class="card project-card-glass"
+      *ngFor="let p of proyectos"
+      [routerLink]="['/proyecto-detalle', p.id]"
+    >
+      <div class="card-body-premium">
+        
+        <div class="project-card-header">
+          <div class="project-folder-icon">
+            <i class="bi bi-folder-symlink-fill"></i>
+          </div>
+          <h3 class="project-title-text">{{ p.titulo }}</h3>
+        </div>
+
+        <p class="project-description-text">
+          {{ p.descripcion | slice:0:120 }}...
+        </p>
+
+        <!-- META DATOS DE INVESTIGACIÓN -->
+        <div class="project-meta-wrapper">
+          <span class="meta-pill">
+            <i class="bi bi-people-fill me-1 text-emerald"></i>
+            <strong>{{ p.investigadores?.length || 0 }}</strong> investigadores
+          </span>
+          <span class="meta-pill">
+            <i class="bi bi-journal-text me-1 text-emerald"></i>
+            <strong>{{ p.publicaciones?.length || 0 }}</strong> publicaciones
+          </span>
+        </div>
+
+        <!-- ACCIÓN REFORZADA -->
+        <div class="project-card-footer-action">
+          <button class="btn-project-view">
+            <span>Ver detalles del proyecto</span>
+            <i class="bi bi-arrow-right project-arrow-icon"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🚫 EMPTY STATE LIMPIO -->
+<div *ngIf="!loading && !proyectos.length" class="empty-premium">
+  <div class="empty-icon-box">
+    <i class="bi bi-info-circle-fill"></i>
+  </div>
+  <h4>Sin proyectos registrados</h4>
+  <p>El repositorio se encuentra actualizado, pero no se hallaron registros en esta línea de investigación.</p>
 </div>

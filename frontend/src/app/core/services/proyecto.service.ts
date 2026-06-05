@@ -7,7 +7,7 @@ import { catchError, of, tap } from 'rxjs';
 })
 export class ProyectoService {
 
-  private api = 'http://localhost:3000/api/proyectos';
+  private api = '/api/proyectos';
 
   constructor(private http: HttpClient) { }
 
@@ -33,11 +33,11 @@ export class ProyectoService {
     return this.http.delete(`${this.api}/${id}`);
   }
   getByIdDetalle(id: number) {
-    return this.http.get<any>(`http://localhost:3000/api/proyectos/${id}/detalles`)
+    return this.http.get<any>(`/api/proyectos/${id}/detalles`)
   }
   getById(id: number) {
     //imprimir antes de retornar
     console.log(`GET proyecto por ID: ${id}`);
-    return this.http.get<any>(`http://localhost:3000/api/proyectos/${id}`);
+    return this.http.get<any>(`/api/proyectos/${id}`);
   }
 }

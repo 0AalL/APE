@@ -1,267 +1,247 @@
-<div class="container py-5">
+<section class="page-header-custom animate__animated animate__fadeIn">
+  <div class="header-container text-center">
+    <span class="section-tag-premium">
+      <i class="bi bi-envelope-at-fill me-2"></i>
+      Canal de Comunicación Oficial
+    </span>
 
-  <div class="text-center mb-5">
-    <h1 class="fw-bold display-5">📧 Contáctanos</h1>
-    <p class="text-muted lead">Instituto de Investigación REASONS</p>
+    <h1>
+      Ponte en <span class="text-gradient">Contacto</span>
+    </h1>
+
+    <p class="header-lead-text mx-auto">
+      ¿Tienes dudas sobre nuestras líneas de investigación, proyectos o deseas realizar una vinculación científica? Escríbenos directamente.
+    </p>
   </div>
+</section>
 
-  <div class="row g-4">
+<section class="contact-hero-panel">
+  <div class="container">
+    <div class="contact-hero-grid">
+      <div class="contact-hero-visual">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Comunicación con el equipo" />
+        <div class="contact-hero-badge">
+          <i class="bi bi-chat-square-text-fill"></i>
+          <span>Hablemos de investigación</span>
+        </div>
+      </div>
+      <div class="contact-hero-copy">
+        <span class="section-tag-premium">Contacto Premium</span>
+        <h2>Envía tu consulta directamente al equipo REASONS</h2>
+        <p>Utiliza este formulario para solicitar información académica, propuestas de vinculación o colaboración en proyectos científicos.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- INFO -->
-    <div class="col-lg-4 mb-4">
-      <div class="card shadow-sm h-100 border-0">
-        <div class="card-body">
-          <h4 class="mb-4 fw-bold">📍 Información de Contacto</h4>
+<div class="container px-0">
+  <div class="row g-4 justify-content-center">
 
-          <div class="mb-4">
-            <p class="text-muted small mb-1"><strong>📌 Dirección</strong></p>
-            <p class="lh-sm">
+    <div class="col-lg-4 mb-3">
+      <div class="card contact-info-card-glass h-100">
+        <div class="card-body-premium">
+          <h4 class="info-card-title">
+            <i class="bi bi-info-circle-fill me-2 text-emerald"></i>
+            Información
+          </h4>
+
+          <div class="info-block-item">
+            <span class="info-block-label">📌 Dirección</span>
+            <p class="info-block-value">
               Av. de Los Chasquis y Av. Río Payamino.<br>
-              Facultad de Ingeniería en Sistemas,<br>
+              Facultad de Ingeniería en Sistemas, Electrónica e Industrial.<br>
               Universidad Técnica de Ambato.<br>
               Ambato – Ecuador.
             </p>
           </div>
 
-          <hr>
+          <div class="divider-glass"></div>
 
-          <div class="mb-4">
-            <p class="text-muted small mb-1"><strong>📧 Correo</strong></p>
-            <p class="text-primary fw-bold">reasons@uta.edu.ec</p>
+          <div class="info-block-item">
+            <span class="info-block-label">📧 Correo Institucional</span>
+            <p class="info-block-value text-emerald fw-semibold">reasons@uta.edu.ec</p>
           </div>
 
-          <hr>
+          <div class="divider-glass"></div>
 
-          <div>
-            <p class="text-muted small mb-2"><strong>⏰ Horario</strong></p>
-            <p class="small">Lunes - Viernes<br>8:00 AM - 5:00 PM</p>
+          <div class="info-block-item">
+            <span class="info-block-label">⏰ Horario de Atención</span>
+            <p class="info-block-value">
+              Lunes a Viernes<br>
+              08:00 AM - 17:00 PM
+            </p>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- FORM -->
-    <div class="col-lg-8">
+    <div class="col-lg-8 mb-3">
+      <div class="card contact-form-card-glass" id="formulario">
+        <div class="card-body-premium p-4 position-relative">
 
-      <div class="card shadow border-0">
-        <div class="card-body p-4">
-
-          <h3 class="mb-4 fw-bold">✉️ Ponte en contacto</h3>
-
-          <!-- ERROR MESSAGES -->
-          <div *ngIf="errorMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>⚠️ Error:</strong> {{ errorMsg }}
-            <button type="button" class="btn-close" (click)="errorMsg = ''" aria-label="Close"></button>
+          <div class="loading-overlay-glass" *ngIf="enviando">
+            <div class="spinner-border text-emerald" role="status"></div>
+            <p class="mt-3 text-muted small">Sincronizando y enviando tu consulta de forma segura...</p>
           </div>
 
-          <div *ngIf="errorMessages.length > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>⚠️ Errores de validación:</strong>
-            <ul class="mb-0 mt-2">
+          <h3 class="form-card-title mb-4">Enviar un Mensaje</h3>
+
+          <div *ngIf="errorMsg" class="alert alert-danger-glass alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Error:</strong> {{ errorMsg }}
+            <button type="button" class="btn-close btn-close-white" (click)="errorMsg = ''" aria-label="Close"></button>
+          </div>
+
+          <div *ngIf="errorMessages.length > 0" class="alert alert-danger-glass alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-octagon-fill me-2"></i>
+            <strong>Errores de validación:</strong>
+            <ul class="mb-0 mt-2 ps-3">
               <li *ngFor="let msg of errorMessages">{{ msg }}</li>
             </ul>
-            <button type="button" class="btn-close" (click)="errorMessages = []" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" (click)="errorMessages = []" aria-label="Close"></button>
           </div>
 
-          <!-- SUCCESS MESSAGE -->
-          <div *ngIf="successMsg" class="alert alert-success alert-dismissible fade show" role="alert">
+          <div *ngIf="successMsg" class="alert alert-success-glass alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
             {{ successMsg }}
-            <button type="button" class="btn-close" (click)="successMsg = ''" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" (click)="successMsg = ''" aria-label="Close"></button>
           </div>
 
-          <!-- LOADING OVERLAY -->
-          <div class="loading-overlay" *ngIf="enviando">
-            <div class="spinner-border text-primary"></div>
-            <p class="mt-3">Enviando mensaje...</p>
-          </div>
-
-          <!-- FORM -->
           <form [class.disabled-form]="enviando">
 
-            <!-- NOMBRE -->
-            <div class="mb-3">
-              <label class="form-label fw-bold">Nombre <span class="text-danger">*</span></label>
-              <input type="text"
-                class="form-control"
-                [class.is-invalid]="hasError('nombre')"
-                name="nombre"
-                placeholder="Tu nombre completo"
-                [(ngModel)]="contacto.nombre"
-                (blur)="markAsTouched('nombre')"
-                [disabled]="enviando">
-              <div class="form-text" *ngIf="hasError('nombre')">
-                <small class="text-danger">⚠️ Mínimo 3 caracteres</small>
+            <div class="row g-3">
+              <div class="col-md-6 mb-2">
+                <label class="form-label-custom">Nombre Completo <span class="text-danger">*</span></label>
+                <input type="text"
+                  class="form-control form-control-glass"
+                  [class.is-invalid]="hasError('nombre')"
+                  name="nombre"
+                  placeholder="Ej. Karen Vásquez"
+                  [(ngModel)]="contacto.nombre"
+                  (blur)="markAsTouched('nombre')"
+                  [disabled]="enviando">
+                <div class="invalid-feedback-custom" *ngIf="hasError('nombre')">
+                  ⚠️ El nombre debe contener al menos 3 caracteres.
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-2">
+                <label class="form-label-custom">Empresa / Institución</label>
+                <input type="text"
+                  class="form-control form-control-glass"
+                  name="empresa"
+                  placeholder="Universidad o Empresa (Opcional)"
+                  [(ngModel)]="contacto.empresa"
+                  [disabled]="enviando">
               </div>
             </div>
 
-            <!-- EMPRESA -->
             <div class="mb-3">
-              <label class="form-label fw-bold">Empresa / Institución</label>
-              <input type="text"
-                class="form-control"
-                name="empresa"
-                placeholder="Nombre de la empresa (opcional)"
-                [(ngModel)]="contacto.empresa"
-                [disabled]="enviando">
-            </div>
-
-            <!-- CORREO -->
-            <div class="mb-3">
-              <label class="form-label fw-bold">Correo Electrónico <span class="text-danger">*</span></label>
+              <label class="form-label-custom">Correo Electrónico <span class="text-danger">*</span></label>
               <input type="email"
-                class="form-control"
+                class="form-control form-control-glass"
                 [class.is-invalid]="hasError('correo')"
                 name="correo"
-                placeholder="tu@email.com"
+                placeholder="ejemplo@correo.com"
                 [(ngModel)]="contacto.correo"
                 (blur)="markAsTouched('correo')"
                 [disabled]="enviando">
-              <div class="form-text" *ngIf="hasError('correo')">
-                <small class="text-danger">⚠️ Ingresa un correo válido</small>
+              <div class="invalid-feedback-custom" *ngIf="hasError('correo')">
+                ⚠️ Ingresa un formato de correo electrónico válido.
               </div>
             </div>
 
-            <!-- ÁREA DE INTERÉS -->
             <div class="mb-3">
-              <label class="form-label fw-bold">Área de Interés <span class="text-danger">*</span></label>
-              <select class="form-select"
+              <label class="form-label-custom">Área de Interés <span class="text-danger">*</span></label>
+              <select class="form-select form-select-glass"
                 [class.is-invalid]="hasError('areaInteres')"
                 name="areaInteres"
                 [(ngModel)]="contacto.areaInteres"
                 (blur)="markAsTouched('areaInteres')"
                 [disabled]="enviando">
-
-                <option value="">-- Selecciona un área --</option>
-
+                <option value="">-- Selecciona una línea de investigación --</option>
                 <option *ngFor="let area of areas" [value]="area">
                   {{ area }}
                 </option>
-
               </select>
-              <div class="form-text" *ngIf="hasError('areaInteres')">
-                <small class="text-danger">⚠️ Debes seleccionar una opción</small>
+              <div class="invalid-feedback-custom" *ngIf="hasError('areaInteres')">
+                ⚠️ Debes elegir un área para poder procesar la consulta.
               </div>
             </div>
 
-            <!-- ASUNTO -->
             <div class="mb-3">
-              <label class="form-label fw-bold">Asunto <span class="text-danger">*</span></label>
+              <label class="form-label-custom">Asunto <span class="text-danger">*</span></label>
               <input type="text"
-                class="form-control"
+                class="form-control form-control-glass"
                 [class.is-invalid]="hasError('asunto')"
                 name="asunto"
-                placeholder="¿Cuál es el asunto de tu consulta?"
+                placeholder="Tema central de tu consulta"
                 [(ngModel)]="contacto.asunto"
                 (blur)="markAsTouched('asunto')"
                 [disabled]="enviando">
-              <div class="form-text" *ngIf="hasError('asunto')">
-                <small class="text-danger">⚠️ Mínimo 5 caracteres</small>
+              <div class="invalid-feedback-custom" *ngIf="hasError('asunto')">
+                ⚠️ El asunto debe poseer un mínimo de 5 caracteres.
               </div>
             </div>
 
-            <!-- MENSAJE -->
             <div class="mb-3">
-              <label class="form-label fw-bold">Mensaje <span class="text-danger">*</span></label>
-              <textarea class="form-control"
+              <label class="form-label-custom">Mensaje / Requerimiento <span class="text-danger">*</span></label>
+              <textarea class="form-control form-control-glass"
                 [class.is-invalid]="hasError('mensaje')"
-                rows="6"
+                rows="5"
                 name="mensaje"
-                placeholder="Cuéntanos más detalles sobre tu consulta..."
+                placeholder="Describe aquí detalladamente tu requerimiento científico o académico..."
                 [(ngModel)]="contacto.mensaje"
                 (blur)="markAsTouched('mensaje')"
-                [disabled]="enviando">
-              </textarea>
-              <div class="form-text text-muted">
-                {{ contacto.mensaje.length }} / 500 caracteres
-              </div>
-              <div class="form-text" *ngIf="hasError('mensaje')">
-                <small class="text-danger">⚠️ Mínimo 10 caracteres</small>
-              </div>
-            </div>
-
-            <!-- PRIVACIDAD -->
-            <div class="form-check mb-4 p-3 bg-light rounded">
-              <input class="form-check-input"
-                type="checkbox"
-                [class.is-invalid]="hasError('aceptaPrivacidad')"
-                name="aceptaPrivacidad"
-                id="privacidad"
-                [(ngModel)]="contacto.aceptaPrivacidad"
-                (blur)="markAsTouched('aceptaPrivacidad')"
-                [disabled]="enviando">
-
-              <label class="form-check-label" for="privacidad">
-                Acepto la <a href="/privacidad" target="_blank" class="text-decoration-none">política de privacidad</a> <span class="text-danger">*</span>
-              </label>
-
-              <div class="form-text" *ngIf="hasError('aceptaPrivacidad')">
-                <small class="text-danger d-block mt-2">⚠️ Debes aceptar para continuar</small>
+                [disabled]="enviando"></textarea>
+              <div class="d-flex justify-content-between align-items-center mt-1">
+                <div class="invalid-feedback-custom m-0" *ngIf="hasError('mensaje')">
+                  ⚠️ El mensaje debe ser más explícito (mínimo 10 caracteres).
+                </div>
+                <div class="char-counter-text ms-auto">
+                  {{ contacto.mensaje?.length || 0 }} / 500 caracteres
+                </div>
               </div>
             </div>
 
-            <!-- BOTÓN ENVIAR -->
+            <div class="privacy-box-glass mb-4">
+              <div class="form-check m-0 d-flex align-items-center gap-2">
+                <input class="form-check-input form-check-glass"
+                  type="checkbox"
+                  [class.is-invalid]="hasError('aceptaPrivacidad')"
+                  name="aceptaPrivacidad"
+                  id="privacidadCheck"
+                  [(ngModel)]="contacto.aceptaPrivacidad"
+                  (blur)="markAsTouched('aceptaPrivacidad')"
+                  [disabled]="enviando">
+                <label class="form-check-label text-muted small" for="privacidadCheck">
+                  Acepto los términos de la <a href="/privacidad" target="_blank" class="text-emerald text-decoration-none fw-medium">política de privacidad institucional</a>. <span class="text-danger">*</span>
+                </label>
+              </div>
+              <div class="invalid-feedback-custom mt-2 d-block" *ngIf="hasError('aceptaPrivacidad')">
+                ⚠️ Es obligatorio aceptar las políticas para enviar el formulario.
+              </div>
+            </div>
+
             <button type="button"
-              class="btn btn-primary btn-lg w-100 fw-bold"
+              class="btn-submit-glass w-100"
               (click)="enviar()"
-              [disabled]="enviando"
-              style="transition: all 0.3s ease;">
-
-              <span *ngIf="!enviando">
-                ✉️ Enviar Mensaje
+              [disabled]="enviando">
+              <span *ngIf="!enviando" class="d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-send-fill"></i>
+                Transmitir Mensaje Oficial
               </span>
-              <span *ngIf="enviando">
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Enviando...
+              <span *ngIf="enviando" class="d-flex align-items-center justify-content-center gap-2">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Despachando consulta...
               </span>
-
             </button>
 
           </form>
 
         </div>
       </div>
-
-    </div>
-
-  </div>
-
-</div>
-            </div>
-
-            <div class="mb-3">
-              <label>Mensaje *</label>
-              <textarea class="form-control"
-                rows="6"
-                name="mensaje"
-                [(ngModel)]="contacto.mensaje">
-              </textarea>
-            </div>
-
-            <div class="form-check mb-4">
-              <input class="form-check-input"
-                type="checkbox"
-                name="aceptaPrivacidad"
-                [(ngModel)]="contacto.aceptaPrivacidad">
-
-              <label class="form-check-label">
-                Acepto la política de privacidad *
-              </label>
-            </div>
-
-            <button class="btn btn-primary w-100"
-              (click)="enviar()"
-              [disabled]="enviando">
-
-              <span *ngIf="!enviando">Enviar Mensaje</span>
-              <span *ngIf="enviando">Enviando...</span>
-
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-
     </div>
 
   </div>

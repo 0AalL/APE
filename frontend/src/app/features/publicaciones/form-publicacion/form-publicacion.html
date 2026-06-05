@@ -1,30 +1,90 @@
-<div class="container">
+<div class="container mt-4">
 
-  <h2>{{ editMode ? 'Editar Publicación' : 'Crear Publicación' }}</h2>
-
-  <form [formGroup]="form" (ngSubmit)="guardar()">
-
-    <input placeholder="Título" formControlName="titulo">
-    <div *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
-      Mínimo 5 caracteres
+  <div class="card shadow">
+    <div class="card-header">
+      <h3 class="mb-0">{{ editMode ? 'Editar Publicación' : 'Crear Publicación' }}</h3>
     </div>
 
-    <textarea placeholder="Resumen" formControlName="resumen"></textarea>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="guardar()">
 
-    <input placeholder="Revista" formControlName="revista">
+        <!-- TÍTULO -->
+        <div class="mb-3">
+          <label class="form-label">Título *</label>
+          <input class="form-control" placeholder="Mínimo 5 caracteres" formControlName="titulo">
+          <div class="text-danger small" *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
+            Mínimo 5 caracteres requeridos
+          </div>
+        </div>
 
-    <input placeholder="DOI" formControlName="doi">
+        <!-- RESUMEN -->
+        <div class="mb-3">
+          <label class="form-label">Resumen *</label>
+          <textarea class="form-control" rows="4" placeholder="Mínimo 20 caracteres" formControlName="resumen"></textarea>
+          <div class="text-danger small" *ngIf="form.get('resumen')?.invalid && form.get('resumen')?.touched">
+            Mínimo 20 caracteres requeridos
+          </div>
+        </div>
 
-    <input type="date" formControlName="fechaPublicacion">
+        <!-- REVISTA -->
+        <div class="mb-3">
+          <label class="form-label">Revista *</label>
+          <input class="form-control" placeholder="Nombre de la revista" formControlName="revista">
+          <div class="text-danger small" *ngIf="form.get('revista')?.invalid && form.get('revista')?.touched">
+            Mínimo 3 caracteres requeridos
+          </div>
+        </div>
 
-    <input placeholder="Autores" formControlName="autores">
+        <!-- DOI -->
+        <div class="mb-3">
+          <label class="form-label">DOI *</label>
+          <input class="form-control" placeholder="ej: 10.1234/ejemplo" formControlName="doi">
+          <div class="text-danger small" *ngIf="form.get('doi')?.invalid && form.get('doi')?.touched">
+            Mínimo 5 caracteres requeridos
+          </div>
+        </div>
 
-    <input type="number" placeholder="Proyecto ID" formControlName="proyectoId">
+        <!-- FECHA PUBLICACIÓN -->
+        <div class="mb-3">
+          <label class="form-label">Fecha de Publicación *</label>
+          <input type="date" class="form-control" formControlName="fechaPublicacion">
+          <div class="text-danger small" *ngIf="form.get('fechaPublicacion')?.invalid && form.get('fechaPublicacion')?.touched">
+            Fecha requerida
+          </div>
+        </div>
 
-    <button type="submit" [disabled]="form.invalid || loading">
-      {{ loading ? 'Guardando...' : 'Guardar' }}
-    </button>
+        <!-- AUTORES -->
+        <div class="mb-3">
+          <label class="form-label">Autores *</label>
+          <input class="form-control" placeholder="ej: Juan Pérez, María López" formControlName="autores">
+          <div class="text-danger small" *ngIf="form.get('autores')?.invalid && form.get('autores')?.touched">
+            Mínimo 5 caracteres requeridos
+          </div>
+        </div>
 
-  </form>
+        <!-- PROYECTO -->
+        <div class="mb-3">
+          <label class="form-label">Proyecto *</label>
+          <input type="number" class="form-control" placeholder="ID del proyecto" formControlName="proyectoId">
+          <div class="text-danger small" *ngIf="form.get('proyectoId')?.invalid && form.get('proyectoId')?.touched">
+            ID del proyecto requerido
+          </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+            <i class="fa-solid fa-floppy-disk"></i>
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelar()">
+            <i class="fa-solid fa-times"></i>
+            Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 
 </div>

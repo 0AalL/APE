@@ -1,303 +1,119 @@
-<h2 class="mb-4">
-  Mensajes de Contacto
-</h2>
+<div class="admin-page">
 
-<div class="row mb-4">
+  <!-- HEADER -->
+  <div class="admin-page-header">
+    <div>
+      <p class="admin-eyebrow">Administración</p>
+      <h2>Mensajes</h2>
+    </div>
 
-  <div class="col-md-4">
-
-    <input
-      class="form-control"
-      placeholder="Buscar nombre"
-      [(ngModel)]="filtroNombre">
-
+    <div class="admin-actions">
+      <span class="badge-info">
+        {{ contactosFiltradosCache.length || 0 }} mensajes
+      </span>
+    </div>
   </div>
 
-  <div class="col-md-4">
-
-    <input
-      class="form-control"
-      placeholder="Buscar correo"
-      [(ngModel)]="filtroCorreo">
-
-  </div>
-
-  <div class="col-md-4">
-
-    <input
-      class="form-control"
-      placeholder="Buscar asunto"
-      [(ngModel)]="filtroAsunto">
-
-  </div>
-
-</div>
-
-<table
-  class="table table-striped">
-
-  <thead>
-
-    <tr>
-
-      <th>Nombre</th>
-      <th>Correo</th>
-      <th>Área</th>
-      <th>Asunto</th>
-      <th>Acciones</th>
-
-    </tr>
-
-  </thead>
-
-  <tbody>
-
-    <tr
-      *ngFor="
-        let c of paginados
-      ">
-
-      <td>
-        {{ c.nombre }}
-      </td>
-
-      <td>
-        {{ c.correo }}
-      </td>
-
-      <td>
-        {{ c.areaInteres }}
-      </td>
-
-      <td>
-        {{ c.asunto }}
-      </td>
-
-      <td>
-
-        <button
-          class="btn btn-info btn-sm me-2"
-          (click)="ver(c)">
-
-          Ver
-
-        </button>
-
-        <button
-          class="btn btn-danger btn-sm"
-          (click)="eliminar(c.id)">
-
-          Eliminar
-
-        </button>
-
-      </td>
-
-    </tr>
-
-  </tbody>
-
-</table>
-
-<div
-  class="d-flex justify-content-center mt-3">
-
-  <button
-    class="btn btn-outline-primary me-2"
-    (click)="cambiarPagina(pagina - 1)">
-
-    Anterior
-
-  </button>
-
-  <span class="align-self-center">
-
-    Página
-    {{ pagina }}
-    de
-    {{ totalPaginas || 1 }}
-
-  </span>
-
-  <button
-    class="btn btn-outline-primary ms-2"
-    (click)="cambiarPagina(pagina + 1)">
-
-    Siguiente
-
-  </button>
-
-</div>
-
-<!-- MODAL -->
-
-<div
-  class="modal d-block"
-  *ngIf="seleccionado"
-  style="
-    background:
-    rgba(0,0,0,.5);
-  ">
-
-  <div
-    class="modal-dialog
-           modal-lg">
-
-    <div
-      class="modal-content">
-
-      <div
-        class="modal-header">
-
-        <h5>
-
-          Mensaje de Contacto
-
-        </h5>
-
-      </div>
-
-      <div
-        class="modal-body">
-
-        <p>
-          <strong>
-            Nombre:
-          </strong>
-
-          {{ seleccionado.nombre }}
-        </p>
-
-        <p>
-          <strong>
-            Empresa:
-          </strong>
-
-          {{ seleccionado.empresa }}
-        </p>
-
-        <p>
-          <strong>
-            Correo:
-          </strong>
-
-          {{ seleccionado.correo }}
-        </p>
-
-        <p>
-          <strong>
-            Área:
-          </strong>
-
-          {{ seleccionado.areaInteres }}
-        </p>
-
-        <p>
-          <strong>
-            Asunto:
-          </strong>
-
-          {{ seleccionado.asunto }}
-        </p>
-
-        <hr>
-
-        <p>
-          {{ seleccionado.mensaje }}
-        </p>
-
-      </div>
-
-      <div
-        class="modal-footer">
-
-        <button
-          class="btn btn-secondary"
-          (click)="cerrar()">
-
-          Cerrar
-
-        </button>
-
-      </div>
-
+  <!-- FILTROS -->
+  <div class="row admin-filters">
+
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar nombre"
+             [(ngModel)]="filtroNombre"
+             (input)="resetPaginaYFiltrar()">
+    </div>
+
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar correo"
+             [(ngModel)]="filtroCorreo"
+             (input)="resetPaginaYFiltrar()">
+    </div>
+
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar asunto"
+             [(ngModel)]="filtroAsunto"
+             (input)="resetPaginaYFiltrar()">
     </div>
 
   </div>
 
-</div>
+  <!-- TABLE -->
+  <div class="admin-table-wrapper" *ngIf="!loading">
 
-<!-- CONFIRMAR ELIMINACIÓN -->
-<!-- MODAL CONFIRMAR ELIMINACIÓN -->
+    <table class="admin-table">
 
-<div
-  *ngIf="confirmVisible"
-  class="delete-overlay">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Área</th>
+          <th>Asunto</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
 
-  <div class="delete-modal">
+      <tbody>
 
-    <button
-      class="delete-close"
-      (click)="cancelarEliminar()">
+        <!-- EMPTY -->
+        <tr *ngIf="contactosPaginadosCache.length === 0">
+          <td colspan="5" class="text-center py-4 text-muted">
+            No hay mensajes
+          </td>
+        </tr>
 
-      ×
+        <!-- DATA -->
+        <tr *ngFor="let c of contactosPaginadosCache">
 
+          <td><strong>{{ c.nombre }}</strong></td>
+          <td>{{ c.correo }}</td>
+          <td>{{ c.areaInteres }}</td>
+          <td>{{ c.asunto }}</td>
+
+          <td>
+
+            <button class="btn btn-table btn-view"
+                    (click)="ver(c)">
+              <i class="fa-solid fa-eye"></i>
+              Ver
+            </button>
+
+            <button class="btn btn-table btn-delete"
+                    (click)="eliminar(c.id)">
+              <i class="fa-solid fa-trash"></i>
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <!-- PAGINACIÓN -->
+  <div class="d-flex justify-content-center mt-3 gap-3 flex-wrap">
+
+    <button class="btn btn-outline-primary"
+            (click)="cambiarPagina(pagina - 1)"
+            [disabled]="pagina === 1">
+      Anterior
     </button>
 
-    <div class="delete-icon">
+    <span>
+      Página {{ pagina }} de {{ totalPaginas || 1 }}
+    </span>
 
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 24 24"
-        fill="none">
-
-        <path
-          d="M3 6H21"
-          stroke="currentColor"
-          stroke-width="2"/>
-
-        <path
-          d="M8 6V4H16V6"
-          stroke="currentColor"
-          stroke-width="2"/>
-
-        <path
-          d="M19 6L18 20H6L5 6"
-          stroke="currentColor"
-          stroke-width="2"/>
-
-      </svg>
-
-    </div>
-
-    <h3>
-      Eliminar mensaje
-    </h3>
-
-    <p>
-      El mensaje será eliminado permanentemente.
-    </p>
-
-    <div class="delete-actions">
-
-      <button
-        class="btn-cancel"
-        (click)="cancelarEliminar()">
-
-        Cancelar
-
-      </button>
-
-      <button
-        class="btn-delete"
-        (click)="confirmarEliminar()">
-
-        Eliminar
-
-      </button>
-
-    </div>
+    <button class="btn btn-outline-primary"
+            (click)="cambiarPagina(pagina + 1)"
+            [disabled]="pagina === totalPaginas">
+      Siguiente
+    </button>
 
   </div>
 

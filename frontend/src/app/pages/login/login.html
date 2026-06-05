@@ -1,69 +1,137 @@
-<div class="login-container">
+<div class="login-wrapper">
 
-  <div class="card login-card shadow-lg border-0">
+  <!-- PANEL IZQUIERDO -->
+  <div class="login-side-visual">
 
-    <div class="card-body p-5 position-relative">
+    <div class="visual-overlay"></div>
 
-      <!-- Botón HOME dentro del card -->
-      <button class="btn btn-outline-light home-btn" (click)="goHome()">
-        <i class="bi bi-house-door me-2"></i>
-        Ir al home
-      </button>
+    <div class="visual-content">
 
-      <div class="text-center mb-4">
-        <i class="bi bi-person-circle login-icon"></i>
-        <h2 class="fw-bold mt-3">Iniciar Sesión</h2>
-        <p class="text-muted">Portal de Investigación</p>
+      <div class="brand-header">
+        <div class="brand-icon">
+          <i class="bi bi-hexagon"></i>
+        </div>
+
+        <div>
+          <div class="brand-logo">
+            REASONS
+          </div>
+
+          <span class="brand-subtitle">
+            Research Group · UTA
+          </span>
+        </div>
       </div>
 
-      <!-- TOGGLE MESSAGE (sin alert, sin toast) -->
-      <div *ngIf="message" class="message-box" [ngClass]="messageType">
-        <i class="bi"
-           [ngClass]="messageType === 'success'
-             ? 'bi-check-circle-fill'
-             : 'bi-x-circle-fill'"></i>
+      <span class="visual-tag">
+        PORTAL DE INVESTIGACIÓN
+      </span>
+<h1>
+  Investigación
+  <span class="highlight">aplicada e innovación</span>
+</h1>
+      <p>
+        Accede al ecosistema científico del grupo REASONS:
+        proyectos, publicaciones, investigadores y líneas de investigación desde un único portal.
+      </p>
 
-        <span class="ms-2">{{ message }}</span>
+      <div class="stats-row">
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PANEL DERECHO -->
+  <div class="login-side-form">
+
+    <button class="btn-home" (click)="goHome()">
+      <i class="bi bi-arrow-left"></i>
+      Volver al sitio
+    </button>
+
+
+
+      <h2 class="title">
+        Iniciar sesión
+      </h2>
+
+      <p class="subtitle">
+        Ingresa tus credenciales institucionales
+      </p>
+
+      <div *ngIf="message"
+           class="message-box"
+           [ngClass]="messageType">
+
+        <i class="bi"
+          [ngClass]="messageType === 'success'
+          ? 'bi-check-circle-fill'
+          : 'bi-x-circle-fill'"></i>
+
+        {{ message }}
+
       </div>
 
       <form (ngSubmit)="login()">
 
-        <!-- email -->
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Correo electrónico</label>
+        <div class="field">
+
+          <label>Correo institucional</label>
 
           <input
             type="email"
-            class="form-control form-control-lg"
             [(ngModel)]="email"
             name="email"
-            placeholder="correo@ejemplo.com">
+            placeholder="usuario@uta.edu.ec"
+            required>
+
         </div>
 
-        <!-- password -->
-        <div class="mb-4 position-relative">
-          <label class="form-label fw-semibold">Contraseña</label>
+        <div class="field">
 
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            class="form-control form-control-lg pe-5"
-            [(ngModel)]="password"
-            name="password"
-            placeholder="••••••••">
+          <label>Contraseña</label>
 
-          <button type="button" class="eye-btn" (click)="togglePassword()">
-            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-          </button>
+          <div class="password-wrapper">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="••••••••"
+              required>
+
+            <button
+              type="button"
+              class="eye-btn"
+              (click)="togglePassword()">
+
+              <i class="bi"
+                [ngClass]="showPassword
+                ? 'bi-eye-slash'
+                : 'bi-eye'"></i>
+
+            </button>
+
+          </div>
+
         </div>
 
-        <button class="btn btn-primary btn-lg w-100" type="submit">
-          <i class="bi bi-box-arrow-in-right me-2"></i>
-          Ingresar
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="loading">
+
+          {{ loading ? 'Autenticando...' : 'Ingresar al portal' }}
+
         </button>
 
       </form>
 
-    </div>
+   
+
   </div>
 
 </div>

@@ -26,10 +26,14 @@ import {
   templateUrl: './contactos-admin.html',
   styleUrls: ['./contactos-admin.css']
 })
-export class ContactosAdminComponent
-implements OnInit {
+export class ContactosAdminComponent implements OnInit {
 
   contactos: any[] = [];
+
+  contactosFiltradosCache: any[] = [];
+  contactosPaginadosCache: any[] = [];
+
+  loading = false;
 
   filtroNombre = '';
   filtroCorreo = '';
@@ -37,13 +41,9 @@ implements OnInit {
 
   pagina = 1;
   porPagina = 10;
+  totalPaginas = 0;
 
   seleccionado: any = null;
-
-  toast: {
-    message: string;
-    type: string;
-  } | null = null;
 
   confirmVisible = false;
   idAEliminar: number | null = null;
@@ -57,202 +57,124 @@ implements OnInit {
     this.cargar();
   }
 
+  // =========================
+  // CARGA
+  // =========================
   cargar() {
 
-    this.service.getAll()
-      .subscribe({
-        next: (data: any) => {
+    this.loading = true;
 
-          this.contactos = data ?? [];
+    this.service.getAll().subscribe({
+      next: (data: any) => {
 
-          this.cdr.detectChanges();
+        this.contactos = data ?? [];
 
-        },
-        error: (err) => {
+        this.aplicarFiltros();
 
-          console.error(err);
+        this.loading = false;
 
-          this.contactos = [];
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
 
-          this.showToast(
-            'Error al cargar contactos',
-            'error'
-          );
+        console.error(err);
 
-          this.cdr.detectChanges();
+        this.contactos = [];
+        this.loading = false;
 
-        }
-      });
-
-  }
-
-  // FILTROS
-
-  get filtrados() {
-
-    return this.contactos.filter(c => {
-
-      const nombre =
-        !this.filtroNombre ||
-        c.nombre?.toLowerCase()
-          .includes(
-            this.filtroNombre.toLowerCase()
-          );
-
-      const correo =
-        !this.filtroCorreo ||
-        c.correo?.toLowerCase()
-          .includes(
-            this.filtroCorreo.toLowerCase()
-          );
-
-      const asunto =
-        !this.filtroAsunto ||
-        c.asunto?.toLowerCase()
-          .includes(
-            this.filtroAsunto.toLowerCase()
-          );
-
-      return (
-        nombre &&
-        correo &&
-        asunto
-      );
-
+        this.cdr.detectChanges();
+      }
     });
-
   }
 
+  // =========================
+  // FILTROS (OPTIMIZADO)
+  // =========================
+  aplicarFiltros() {
+
+    const nombre = this.filtroNombre.toLowerCase();
+    const correo = this.filtroCorreo.toLowerCase();
+    const asunto = this.filtroAsunto.toLowerCase();
+
+    this.contactosFiltradosCache = this.contactos.filter(c =>
+      (!nombre || c.nombre?.toLowerCase().includes(nombre)) &&
+      (!correo || c.correo?.toLowerCase().includes(correo)) &&
+      (!asunto || c.asunto?.toLowerCase().includes(asunto))
+    );
+
+    this.totalPaginas = Math.ceil(
+      this.contactosFiltradosCache.length / this.porPagina
+    );
+
+    this.pagina = 1;
+
+    this.actualizarPagina();
+  }
+
+  // =========================
   // PAGINACIÓN
+  // =========================
+  actualizarPagina() {
 
-  get totalPaginas() {
+    const inicio = (this.pagina - 1) * this.porPagina;
 
-    return Math.ceil(
-      this.filtrados.length /
-      this.porPagina
-    );
-
-  }
-
-  get paginados() {
-
-    const inicio =
-      (this.pagina - 1) *
-      this.porPagina;
-
-    return this.filtrados.slice(
-      inicio,
-      inicio + this.porPagina
-    );
-
+    this.contactosPaginadosCache =
+      this.contactosFiltradosCache.slice(inicio, inicio + this.porPagina);
   }
 
   cambiarPagina(n: number) {
 
-    if (
-      n < 1 ||
-      n > this.totalPaginas
-    ) {
-      return;
-    }
+    if (n < 1 || n > this.totalPaginas) return;
 
     this.pagina = n;
 
+    this.actualizarPagina();
   }
 
-  // VER MENSAJE
+  // =========================
+  // FILTROS INPUT
+  // =========================
+  resetPaginaYFiltrar() {
+    this.aplicarFiltros();
+  }
 
-  ver(contacto: any) {
-
-    this.seleccionado = contacto;
-
+  // =========================
+  // VER
+  // =========================
+  ver(c: any) {
+    this.seleccionado = c;
   }
 
   cerrar() {
-
     this.seleccionado = null;
-
   }
 
+  // =========================
   // ELIMINAR
-
+  // =========================
   eliminar(id: number) {
-
     this.idAEliminar = id;
-
     this.confirmVisible = true;
-
   }
 
   confirmarEliminar() {
 
-    if (!this.idAEliminar) {
-      return;
-    }
+    if (!this.idAEliminar) return;
 
-    this.service.delete(this.idAEliminar)
-      .subscribe({
-
-        next: () => {
-
-          this.confirmVisible = false;
-
-          this.showToast(
-            'Mensaje eliminado correctamente',
-            'success'
-          );
-
-          this.cargar();
-
-          this.idAEliminar = null;
-
-        },
-
-        error: (err) => {
-
-          console.error(err);
-
-          this.confirmVisible = false;
-
-          this.showToast(
-            'Error al eliminar mensaje',
-            'error'
-          );
-
-        }
-
-      });
-
+    this.service.delete(this.idAEliminar).subscribe({
+      next: () => {
+        this.confirmVisible = false;
+        this.idAEliminar = null;
+        this.cargar();
+      },
+      error: () => {
+        this.confirmVisible = false;
+      }
+    });
   }
 
   cancelarEliminar() {
-
     this.confirmVisible = false;
-
     this.idAEliminar = null;
-
   }
-
-  // TOAST
-
-  showToast(
-    message: string,
-    type: string
-  ) {
-
-    this.toast = {
-      message,
-      type
-    };
-
-    setTimeout(() => {
-
-      this.toast = null;
-
-      this.cdr.detectChanges();
-
-    }, 3000);
-
-  }
-
 }

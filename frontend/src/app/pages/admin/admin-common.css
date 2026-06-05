@@ -1,0 +1,94 @@
+/* ==========================================================================
+   ESTILOS COMUNES PARA TODAS LAS PÁGINAS ADMIN
+   ========================================================================== */
+
+/* Estilos para inputs de búsqueda */
+.form-control {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  color: #fff !important;
+}
+
+/* Modal estilos */
+.modal-content {
+  background: rgba(11, 18, 32, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #fff;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.modal-header h5 {
+  color: #fff;
+}
+
+.modal-body {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-body p {
+  margin-bottom: 12px;
+}
+
+.modal-body strong {
+  color: #10b981;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Botones outline */
+.btn-outline-primary {
+  color: #10b981 !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+}
+
+.btn-outline-primary:hover {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border-color: #10b981 !important;
+}
+
+/* Alineación de botones de paginación */
+.d-flex.justify-content-center {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.d-flex .align-self-center {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+/* Toast/Alert styles */
+.alert {
+  background: rgba(255, 255, 255, 0.08) !important;\n  border: 1px solid rgba(255, 255, 255, 0.12) !important;\n  color: #fff !important;\n  border-radius: 12px !important;\n}\n\n.alert-info {\n  background: rgba(56, 189, 248, 0.12) !important;\n  border-color: rgba(56, 189, 248, 0.3) !important;\n  color: #7dd3fc !important;\n}\n\n/* Spinner/Loading */\n.spinner-border {\n  color: #10b981 !important;\n}\n\n/* Tabla de paginación */\n.page-link {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  color: #10b981;\n}\n\n.page-link:hover {\n  background: rgba(16, 185, 129, 0.15);\n  border-color: #10b981;\n}\n\n.page-item.active .page-link {\n  background: #10b981;\n  border-color: #10b981;\n}\n\n/* Overlays y modales de confirmación */\n.delete-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.7);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2000;\n}\n\n.delete-modal {\n  background: rgba(11, 18, 32, 0.95);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 18px;\n  padding: 40px 30px;\n  max-width: 400px;\n  text-align: center;\n  color: #fff;\n  position: relative;\n}\n\n.delete-close {\n  position: absolute;\n  top: 16px;\n  right: 16px;\n  background: rgba(248, 113, 113, 0.12);\n  border: 1px solid rgba(248, 113, 113, 0.3);\n  color: #fca5a5;\n  width: 40px;\n  height: 40px;\n  border-radius: 10px;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.2rem;\n  transition: all 0.2s ease;\n}\n\n.delete-close:hover {\n  background: rgba(248, 113, 113, 0.2);\n}\n\n.delete-icon {\n  margin-bottom: 20px;\n  color: #fca5a5;\n}\n\n.delete-modal h3 {\n  margin-bottom: 12px;\n  font-weight: 700;\n}\n\n.delete-modal p {\n  margin-bottom: 24px;\n  color: rgba(255, 255, 255, 0.8);\n}\n\n.delete-actions {\n  display: flex;\n  gap: 12px;\n  justify-content: center;\n}\n\n.btn-cancel,\n.btn-confirm {\n  padding: 12px 24px;\n  border-radius: 12px;\n  font-weight: 600;\n  cursor: pointer;\n  border: none;\n  transition: all 0.2s ease;\n  flex: 1;\n}\n\n.btn-cancel {\n  background: rgba(255, 255, 255, 0.1);\n  color: #fff;\n}\n\n.btn-cancel:hover {\n  background: rgba(255, 255, 255, 0.15);\n}\n\n.btn-confirm {\n  background: #ef4444;\n  color: #fff;\n}\n\n.btn-confirm:hover {\n  background: #dc2626;\n}\n\n/* Estilos para tablas específicas */\n.table {\n  color: rgba(255, 255, 255, 0.9);\n}\n\n.table thead th {\n  border-color: rgba(255, 255, 255, 0.08);\n  color: rgba(255, 255, 255, 0.7);\n  font-weight: 600;\n}\n\n.table-striped tbody tr:nth-of-type(odd) {\n  background: rgba(255, 255, 255, 0.02);\n}\n\n/* Estados de texto */\n.text-success {\n  color: #10b981 !important;\n}\n\n.text-warning {\n  color: #f59e0b !important;\n}\n\n.text-danger {\n  color: #ef4444 !important;\n}\n\n.text-info {\n  color: #38bdf8 !important;\n}\n\n.text-muted {\n  color: rgba(255, 255, 255, 0.6) !important;\n}\n\n.text-white-50 {\n  color: rgba(255, 255, 255, 0.5) !important;\n}\n\n/* Elementos de layout */\n.mb-4 {\n  margin-bottom: 24px;\n}\n\n.mb-3 {\n  margin-bottom: 16px;\n}\n\n.mt-3 {\n  margin-top: 16px;\n}\n\n.me-2 {\n  margin-right: 12px;\n}\n\n.ms-2 {\n  margin-left: 12px;\n}\n\n.gap-3 {\n  gap: 16px;\n}\n\n/* Grid/Columnas */\n.col-md-4 {\n  flex: 0 0 calc(33.3333% - 16px);\n}\n\n.row {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n/* Responsive para tablets */\n@media (max-width: 768px) {\n  .col-md-4 {\n    flex: 0 0 100%;\n    margin-bottom: 12px;\n  }\n\n  .delete-modal {\n    margin: 20px;\n  }\n\n  .admin-table-wrapper {\n    padding: 16px;\n  }\n}\n

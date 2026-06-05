@@ -1,84 +1,97 @@
-<!-- 🧠 HEADER -->
-<section class="page-header">
-
-  <span class="section-tag">
-    <i class="fa-solid fa-book"></i>
-    Artículos Científicos
-  </span>
-
-  <h1>
-    Nuestras <span>Publicaciones</span>
-  </h1>
-
-  <p>
-    Explora investigaciones, artículos académicos y producción científica de nuestra institución.
-  </p>
-
+<section class="page-header-custom animate__animated animate__fadeIn">
+  <div class="header-container">
+    <span class="section-tag-premium">
+      <i class="bi bi-journal-bookmark-fill me-2"></i>
+      Producción Científica REASONS
+    </span>
+    <h1>
+      Nuestras <span class="text-gradient">Publicaciones</span>
+    </h1>
+    <p class="header-lead-text">
+      Explora los artículos académicos, investigaciones indexadas y literatura científica generada por nuestro equipo en revistas de alto impacto.
+    </p>
+  </div>
 </section>
 
-<!-- ⏳ LOADING -->
-<div *ngIf="loading" class="loading">
-  <i class="fa-solid fa-spinner fa-spin"></i>
-  Cargando publicaciones...
+<div *ngIf="loading" class="loading-premium">
+  <div class="spinner-border text-emerald" role="status"></div>
+  <span>Consultando índices científicos y repositorios...</span>
 </div>
 
-<!-- 📦 GRID -->
-<div class="grid" *ngIf="!loading && publicaciones.length">
-
-  <div class="card"
-       *ngFor="let p of publicaciones"
-       [routerLink]="['/publicacion-detalle', p.id]">
-
-    <!-- HEADER CARD -->
-    <div class="card-header">
-
-      <h3>
-        <i class="fa-solid fa-file-lines"></i>
-        {{ p.titulo }}
-      </h3>
-
-      <span class="year">
-        {{ p.fechaPublicacion | date:'yyyy' }}
-      </span>
-
+<section class="catalog-preview-panel">
+  <div class="container">
+    <div class="catalog-preview-grid">
+      <div class="catalog-preview-box">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop" alt="Publicaciones académicas" />
+      </div>
+      <div class="catalog-preview-copy">
+        <span class="section-tag-premium">Biblioteca</span>
+        <h2>Explora nuestra producción científica</h2>
+        <p>Artículos y estudios presentados con un estilo minimalista, contrastado y fácil de navegar.</p>
+        <a class="btn btn-catalog-view" href="#catalogo">Ver publicaciones</a>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- RESUMEN -->
-    <p class="resumen">
-      {{ p.resumen | slice:0:150 }}...
-    </p>
+<div class="container px-0" *ngIf="!loading && publicaciones.length" id="catalogo">
+  <div class="grid-premium">
 
-    <!-- META -->
-    <div class="meta">
+    <div 
+      class="card pub-card-glass"
+      *ngFor="let p of publicaciones"
+      [routerLink]="['/publicacion-detalle', p.id]"
+    >
+      <div class="card-body-premium">
+        
+        <div class="pub-card-header">
+          <div class="pub-title-area">
+            <div class="pub-file-icon">
+              <i class="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <h3 class="pub-title-text">{{ p.titulo }}</h3>
+          </div>
+          <span class="pub-year-badge">
+            {{ p.fechaPublicacion | date:'yyyy' }}
+          </span>
+        </div>
 
-      <span>
-        <i class="fa-solid fa-book"></i>
-        {{ p.revista }}
-      </span>
+        <p class="pub-summary-text">
+          {{ p.resumen | slice:0:150 }}...
+        </p>
 
-      <span>
-        <i class="fa-solid fa-users"></i>
-        {{ p.autores }}
-      </span>
+        <div class="pub-meta-wrapper">
+          <div class="meta-row">
+            <i class="bi bi-book-half text-emerald"></i>
+            <span class="text-truncate" title="{{ p.revista }}">
+              <strong>Revista:</strong> {{ p.revista }}
+            </span>
+          </div>
+          <div class="meta-row mt-2">
+            <i class="bi bi-people-fill text-emerald"></i>
+            <span class="text-truncate" title="{{ p.autores }}">
+              <strong>Autores:</strong> {{ p.autores }}
+            </span>
+          </div>
+        </div>
 
-    </div>
+        <div class="pub-card-footer-action">
+          <button class="btn-pub-view">
+            <span>Leer artículo completo</span>
+            <i class="bi bi-chevron-right pub-arrow-icon"></i>
+          </button>
+        </div>
 
-    <!-- FOOTER -->
-    <div class="card-footer">
-
-      <button>
-        <i class="fa-solid fa-eye"></i>
-        Ver detalle
-      </button>
-
+      </div>
     </div>
 
   </div>
-
 </div>
 
-<!-- 🚫 EMPTY -->
-<div *ngIf="!loading && !publicaciones.length" class="empty">
-  <i class="fa-solid fa-circle-info"></i>
-  No hay publicaciones registradas.
+<div *ngIf="!loading && !publicaciones.length" class="empty-premium">
+  <div class="empty-icon-box">
+    <i class="bi bi-bookmark-x-fill"></i>
+  </div>
+  <h4>Sin literatura indexada</h4>
+  <p>No se encontraron artículos científicos o publicaciones registradas en la base de datos de este módulo.</p>
 </div>

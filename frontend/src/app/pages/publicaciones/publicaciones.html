@@ -1,64 +1,128 @@
-<h2 class="mb-4">
-  Publicaciones Científicas (Admin)
-</h2>
+<div class="admin-page">
 
-<div class="mb-3">
+  <!-- HEADER -->
+  <div class="admin-page-header">
+    <div>
+      <p class="admin-eyebrow">Administración</p>
+      <h2>Publicaciones</h2>
+    </div>
 
-  <a
-    class="btn btn-primary"
-    routerLink="/admin/publicaciones/nueva">
+    <div class="admin-actions">
+      <a class="btn-action" routerLink="/admin/publicaciones/nueva">
+        <i class="fa-solid fa-plus"></i>
+        Nueva Publicación
+      </a>
+    </div>
+  </div>
 
-    + Nueva Publicación
+  <!-- FILTROS (SIEMPRE VISIBLES) -->
+  <div class="row admin-filters mb-3">
 
-  </a>
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar por título"
+             [(ngModel)]="filtroTitulo"
+             (input)="resetPaginaYFiltrar()">
+    </div>
+
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar por revista"
+             [(ngModel)]="filtroRevista"
+             (input)="resetPaginaYFiltrar()">
+    </div>
+
+    <div class="col-md-4">
+      <input class="form-control"
+             placeholder="🔍 Buscar por DOI"
+             [(ngModel)]="filtroDOI"
+             (input)="resetPaginaYFiltrar()">
+    </div>
+
+  </div>
+
+  <!-- TABLE WRAPPER -->
+  <div class="admin-table-wrapper">
+
+    <!-- spinner pequeño (NO bloquea UI) -->
+    <div *ngIf="loading" class="table-loading-overlay">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Cargando...
+    </div>
+
+    <table class="admin-table">
+
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Revista</th>
+          <th>Autores</th>
+          <th>Fecha</th>
+          <th>DOI</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!-- EMPTY -->
+        <tr *ngIf="!loading && publicacionesPaginadasCache.length === 0">
+          <td colspan="6" class="text-center py-4 text-muted">
+            No hay publicaciones
+          </td>
+        </tr>
+
+        <!-- DATA -->
+        <tr *ngFor="let p of publicacionesPaginadasCache">
+
+          <td><strong>{{ p.titulo }}</strong></td>
+          <td>{{ p.revista }}</td>
+          <td>{{ p.autores }}</td>
+          <td>{{ p.fechaPublicacion | date:'dd/MM/yyyy' }}</td>
+          <td><code>{{ p.doi }}</code></td>
+
+          <td>
+            <a class="btn btn-table btn-edit"
+               [routerLink]="['/admin/publicaciones/editar', p.id]">
+              <i class="fa-solid fa-pen-to-square"></i>
+              Editar
+            </a>
+
+            <button class="btn btn-table btn-delete"
+                    (click)="eliminar(p.id)">
+              <i class="fa-solid fa-trash"></i>
+              Eliminar
+            </button>
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <!-- PAGINACIÓN -->
+  <div class="d-flex justify-content-center mt-3 gap-3 flex-wrap"
+       *ngIf="totalPaginas > 1">
+
+    <button class="btn btn-outline-primary"
+            (click)="cambiarPagina(pagina - 1)"
+            [disabled]="pagina === 1">
+      Anterior
+    </button>
+
+    <span>
+      Página {{ pagina }} de {{ totalPaginas }}
+    </span>
+
+    <button class="btn btn-outline-primary"
+            (click)="cambiarPagina(pagina + 1)"
+            [disabled]="pagina === totalPaginas">
+      Siguiente
+    </button>
+
+  </div>
 
 </div>
-
-<div *ngIf="loading">
-  Cargando...
-</div>
-
-<table class="table table-striped" *ngIf="!loading">
-
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Revista</th>
-      <th>DOI</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    <tr *ngFor="let p of publicaciones">
-
-      <td>{{ p.titulo }}</td>
-      <td>{{ p.revista }}</td>
-      <td>{{ p.doi }}</td>
-
-      <td>
-
-        <a
-          class="btn btn-warning btn-sm me-2"
-          [routerLink]="['/admin/publicaciones/editar', p.id]">
-
-          Editar
-
-        </a>
-
-        <button
-          class="btn btn-danger btn-sm"
-          (click)="eliminar(p.id)">
-
-          Eliminar
-
-        </button>
-
-      </td>
-
-    </tr>
-
-  </tbody>
-
-</table>

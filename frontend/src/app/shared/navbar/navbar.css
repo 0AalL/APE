@@ -1,126 +1,136 @@
-/* ============================================
-   NAVBAR - DISEÑO MODERNO Y PROFESIONAL
-   ============================================ */
-
-:root {
-  --primary-color: #0d6efd;
-  --primary-dark: #0a58ca;
-  --secondary-color: #6c757d;
-  --accent-color: #10b981;
-  --border-radius: 8px;
+/* ==========================================================================
+   ESTADO INICIAL DEL NAVBAR (SOBRE FONDO OSCURO / HERO)
+   ========================================================================== */
+.header-wrapper {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
 }
 
 .navbar {
-  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 1rem 0;
-  border-bottom: 3px solid var(--primary-color);
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white !important;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: var(--primary-color) !important;
-  transform: translateX(5px);
-}
-
-/* Navegación mejorada */
-.navbar-nav {
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
-  font-weight: 500;
-  padding: 0.5rem 1rem !important;
-  border-radius: var(--border-radius);
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-link:hover {
-  color: var(--primary-color) !important;
-  background-color: rgba(13, 110, 253, 0.1);
-  transform: translateY(-2px);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary-color);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Botones */
-.btn-outline-light {
-  border: 2px solid white;
-  color: white;
-  font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  border-radius: var(--border-radius);
-  transition: all 0.3s ease;
-}
-
-.btn-outline-light:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
-}
-
-/* Container responsive */
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 0 1rem;
-  margin: 0 auto;
+  height: 64px;
+  /* Fondo oscuro translúcido inicial */
+  background: rgb(1, 16, 46) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px;
+  padding: 0 24px !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mobile responsivo */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.75rem 0;
-  }
+/* Marca / Logo */
+.navbar-brand-custom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: #ffffff !important; /* Texto blanco siempre arriba */
+  text-decoration: none;
+}
 
-  .navbar-brand {
-    font-size: 1.25rem;
-  }
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981; /* Verde esmeralda vivo */
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
 
-  .navbar-nav {
-    gap: 0.25rem;
-  }
+/* Links de Navegación */
+.navbar-nav-center {
+  display: flex;
+  gap: 6px;
+}
 
-  .nav-link {
-    padding: 0.5rem 0.75rem !important;
-    font-size: 0.9rem;
-  }
+.nav-link-custom {
+  color: rgb(252, 248, 248) !important;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+}
 
-  .btn-outline-light {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-  }
+.nav-link-custom:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
 
-  .btn-outline-light.ms-2 {
-    margin-left: 0.5rem !important;
-  }
+.nav-link-custom.active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Botones de Autenticación */
+.btn-auth-outline {
+  background: transparent;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-auth-outline:hover {
+  background: #ffffff !important;
+  color: #0b0f17 !important;
+}
+
+
+/* ==========================================================================
+   ESTADO DINÁMICO (CUANDO BAJA EL SCROLL SOBRE EL FONDO BLANCO)
+   ========================================================================== */
+.navbar.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.8) !important; /* Cristal esmerilado blanco */
+  border: 1px solid rgba(15, 118, 110, 0.15) !important; /* Borde verde sutil */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Mutación de Tipografías en el Scroll */
+.navbar-scrolled .navbar-brand-custom {
+  color: #1e293b !important; /* Pasa a gris pizarra oscuro */
+}
+
+.navbar-scrolled .nav-link-custom {
+  color: #0c0c0c !important; /* Gris intermedio para lectura nítida */
+}
+
+.navbar-scrolled .nav-link-custom:hover {
+  color: #0f766e !important; /* Acento verde esmeralda al pasar el mouse */
+  background: rgba(15, 118, 110, 0.05) !important;
+}
+
+.navbar-scrolled .nav-link-custom.active {
+  color: #0f766e !important;
+  background: rgba(15, 118, 110, 0.08) !important;
+}
+
+/* Mutación de Botón de Login en el Scroll */
+.navbar-scrolled .btn-auth-outline {
+  color: #1e293b !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.navbar-scrolled .btn-auth-outline:hover {
+  background: #1e293b !important;
+  color: #ffffff !important;
 }

@@ -13,7 +13,7 @@ import { ChangeDetectorRef } from '@angular/core'
 export class ListaProyectosComponent implements OnInit {
 
   proyectos: any[] = []
-  loading = true
+ loading: boolean = false;
 
   constructor(
     private proyectoService: ProyectoService,

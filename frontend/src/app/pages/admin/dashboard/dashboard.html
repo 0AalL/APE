@@ -1,0 +1,95 @@
+<div class="admin-page">
+
+  <!-- HEADER -->
+  <div class="admin-page-header">
+    <div>
+      <p class="admin-eyebrow">Administración</p>
+      <h2>Dashboard</h2>
+    </div>
+
+    
+  </div>
+
+  <!-- 🔄 OVERLAY LOADING (NO BLOQUEA UI) -->
+  <div *ngIf="cargando" class="dashboard-loading-overlay">
+    <div class="spinner-border text-primary"></div>
+    <p>Cargando datos...</p>
+  </div>
+
+  <!-- CONTENIDO SIEMPRE VISIBLE -->
+  <div class="fade-in">
+
+    <!-- MÉTRICAS -->
+    <div class="dashboard-grid">
+
+      <div class="dash-card">
+        <div class="dash-icon"><i class="fa-solid fa-users"></i></div>
+        <div>
+          <h3>{{ totalInvestigadores }}</h3>
+          <p>Investigadores</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-icon"><i class="fa-solid fa-diagram-project"></i></div>
+        <div>
+          <h3>{{ totalProyectos }}</h3>
+          <p>Proyectos</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-icon"><i class="fa-solid fa-book"></i></div>
+        <div>
+          <h3>{{ totalPublicaciones }}</h3>
+          <p>Publicaciones</p>
+        </div>
+      </div>
+
+      <div class="dash-card danger">
+        <div class="dash-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div>
+          <h3>{{ totalMensajes }}</h3>
+          <p>Mensajes</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ACTIVIDAD + ACCIONES -->
+    <div class="dashboard-row">
+
+      <div class="dashboard-panel">
+        <h3><i class="fa-solid fa-chart-line"></i> Actividad</h3>
+
+        <ul class="activity-list">
+          <li *ngFor="let a of actividades">
+            <i class="fa-solid fa-circle-dot"></i>
+            {{ a }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="dashboard-panel">
+
+        <h3><i class="fa-solid fa-bolt"></i> Acciones rápidas</h3>
+
+        <button class="dash-btn" routerLink="/admin/proyectos/nuevo">
+          Nuevo Proyecto
+        </button>
+
+        <button class="dash-btn" routerLink="/admin/investigadores/nuevo">
+          Nuevo Investigador
+        </button>
+
+        <button class="dash-btn" routerLink="/admin/publicaciones/nueva">
+          Nueva Publicación
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

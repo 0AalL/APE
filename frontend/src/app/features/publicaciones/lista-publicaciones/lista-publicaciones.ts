@@ -13,7 +13,7 @@ import { PublicacionesService } from '../../../core/services/publicaciones.servi
 export class ListaPublicacionesComponent implements OnInit {
 
   publicaciones: any[] = []
-  loading = true
+ loading: boolean = false;
 
   constructor(
     private publicacionesService: PublicacionesService,

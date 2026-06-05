@@ -45,22 +45,40 @@ Authorization: Bearer {{token}}
 
 ###
 
-### CREATE INVESTIGADOR
+### CREATE INVESTIGADOR 1
 POST {{url}}/investigadores
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "nombre": "Israel anjo Chiriboga",
-  "cargo": "Director",
+  "nombre": "Dr. Israel Arañjo Chiriboga",
+  "cargo": "Director de Investigación",
   "correo": "ie.aranjo@uta.edu.ec",
   "orcid": "https://orcid.org/0000-0001-5774-1879",
-  "facebook": "",
-  "linkedin": "",
-  "instagram": "",
-  "telegram": "",
+  "facebook": "facebook.com/israel.aranjo",
+  "linkedin": "linkedin.com/in/israelaranjo",
+  "instagram": "@israelaranjo",
+  "telegram": "@israel_aranjo",
   "foto": "israel.jpg",
-  "biografia": "Investigador en sistemas productivos y gestión de operaciones"
+  "biografia": "Investigador senior en sistemas productivos, gestión de operaciones y optimización de procesos empresariales"
+}
+
+### CREATE INVESTIGADOR 2
+POST {{url}}/investigadores
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Dra. María González López",
+  "cargo": "Investigadora Principal",
+  "correo": "m.gonzalez@uta.edu.ec",
+  "orcid": "https://orcid.org/0000-0002-8765-4321",
+  "facebook": "facebook.com/maria.gonzalez",
+  "linkedin": "linkedin.com/in/mariagonzalez",
+  "instagram": "@maria_gonzalez",
+  "telegram": "@maria_gonzalez",
+  "foto": "maria.jpg",
+  "biografia": "Especialista en inteligencia artificial, machine learning y análisis de datos complejos"
 }
 
 ###
@@ -101,18 +119,37 @@ Authorization: Bearer {{token}}
 
 ###
 
-### CREATE PROYECTO (CORREGIDO)
+### CREATE PROYECTO 1
 POST {{url}}/proyectos
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "titulo": "Sistema IA Educativo",
-  "descripcion": "Sistema de inteligencia artificial para educación personalizada",
+  "titulo": "Sistema de IA para Educación Personalizada",
+  "descripcion": "Desarrollo de un sistema inteligente que adapta el contenido educativo según el perfil y ritmo de aprendizaje del estudiante",
   "objetivos": [
-    "Mejorar el aprendizaje mediante IA adaptativa"
+    "Crear modelos de IA adaptativa",
+    "Mejorar 40% la retención de conocimiento",
+    "Integrar análisis de desempeño en tiempo real"
   ],
   "resultados": "En desarrollo",
+  "investigadores": [1, 2]
+}
+
+### CREATE PROYECTO 2
+POST {{url}}/proyectos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "titulo": "Optimización de Procesos Empresariales mediante Análisis de Datos",
+  "descripcion": "Análisis y optimización de procesos operacionales en empresas utilizando técnicas avanzadas de data mining y machine learning",
+  "objetivos": [
+    "Reducir costos operacionales en 25%",
+    "Implementar dashboard de monitoreo",
+    "Capacitar equipos en análisis de datos"
+  ],
+  "resultados": "Fase 1 completada",
   "investigadores": [1]
 }
 
@@ -150,19 +187,34 @@ GET {{url}}/publicaciones
 GET {{url}}/publicaciones/2
 
 
-### 🔐 CREATE PUBLICACIÓN (AUTH + ZOD VALIDATION)
+### 🔐 CREATE PUBLICACIÓN 1
 POST {{url}}/publicaciones
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "titulo": "Avances en IA aplicada a la educación",
-  "resumen": "Investigación sobre modelos de inteligencia artificial aplicados en educación personalizada y análisis del rendimiento estudiantil en entornos modernos.",
-  "revista": "Revista Científica Tecnológica",
+  "titulo": "Avances en Inteligencia Artificial Aplicada a la Educación Personalizada",
+  "resumen": "Investigación sobre modelos de inteligencia artificial aplicados en educación personalizada y análisis del rendimiento estudiantil en entornos virtuales modernos. Se presentan resultados de un estudio con 500 estudiantes.",
+  "revista": "Revista Científica Tecnológica Internacional",
   "doi": "10.1234/edu-ai-2026",
   "fechaPublicacion": "2026-06-02",
-  "autores": "Juan Pérez, María López",
+  "autores": "Dr. Israel Arañjo, Dra. María González, Juan Pérez López",
   "proyectoId": 1
+}
+
+### 🔐 CREATE PUBLICACIÓN 2
+POST {{url}}/publicaciones
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "titulo": "Optimización de Procesos Empresariales mediante Data Mining: Caso de Estudio en PYMES Ecuatorianas",
+  "resumen": "Estudio de implementación de técnicas avanzadas de análisis de datos en pequeñas y medianas empresas. Se documentan mejoras en eficiencia operacional del 28% y reducción de costos del 22% en promedio.",
+  "revista": "Journal of Business Analytics and Operations",
+  "doi": "10.5678/business-optimization-2026",
+  "fechaPublicacion": "2026-05-15",
+  "autores": "Dr. Israel Arañjo, PhD. Carlos Morales",
+  "proyectoId": 2
 }
 
 
@@ -185,3 +237,29 @@ Content-Type: application/json
 ### 👑 DELETE PUBLICACIÓN (SOLO ADMIN)
 DELETE {{url}}/publicaciones/1
 Authorization: Bearer {{token}}
+
+### =====================================================
+### CONTACTOS
+### =====================================================
+
+### CREATE CONTACTO 1
+POST {{url}}/contacto
+Content-Type: application/json
+
+{
+  "nombre": "Carlos Eduardo Mendoza",
+  "correo": "carlos.mendoza@empresa.com",
+  "asunto": "Colaboración en Proyectos de IA",
+  "mensaje": "Saludos, me interesa colaborar en los proyectos de inteligencia artificial que están desarrollando. Tengo experiencia en machine learning y data science."
+}
+
+### CREATE CONTACTO 2
+POST {{url}}/contacto
+Content-Type: application/json
+
+{
+  "nombre": "Alejandra Rodríguez García",
+  "correo": "alejandra.rodriguez@universidad.edu",
+  "asunto": "Solicitud de Información sobre Publicaciones",
+  "mensaje": "Buenos días, requiero información sobre cómo acceder a las publicaciones del grupo REASONS y si hay oportunidades para investigadores visitantes."
+}
